@@ -26,6 +26,8 @@ Features
 * User can override tools automatic selection for property change presistense 
 * Drag Selection to position ( Decision tree driven property selection for positioning a positioned or non-positioned element )
 * Drag Resize controls to Resize
+* Precise positioning by using arrow keys to shift by 1 pixel
+* Precise Resizing by using shift+arrow keys to increase/decrease height/width by 1 pixel
 * Shift+Drag to change containment 
 * Alt+Click to do layered selection
 * Element serach by using jquery selector
@@ -38,6 +40,7 @@ Features
 * MultiSelect by Ctrl+Click
 * Multiselect by drawing control rect
 * Alignment on multiselected elements
+* Cut/Copy/Paste of elements using context menu
 
 **Information Overlay**
 ------------

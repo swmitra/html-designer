@@ -12,13 +12,19 @@ Features
 * Rendering of HTML page with Split view support for stylesheet editing and HTML page source editing
 * Illustration controls for popular CSS properties like -
 	* Layout ( BoxModel)
+		* All CSS layout support
+		* Reference anchoring change by retaining current position( when element is positioned)
+		* Layouting parameters change by retaining current position
+		* Intelligent unit persistance and incr/decr logic based on unit present in target selector 	  
 	* Background Properties
 	* Shadow Properties
 	* Transformation properties
 	* Border Properties
 	* Transition Animation(with Preview)
 	* CSS3 Keyframe animation(With Preview)
-* Drag Selection to position 
+* Automatic CSS selector selection based on specificity for property change persistence
+* User can override tools automatic selection for property change presistense 
+* Drag Selection to position ( Decision tree driven property selection for positioning a positioned or non-positioned element )
 * Drag Resize controls to Resize
 * Shift+Drag to change containment 
 * Alt+Click to do layered selection
@@ -53,10 +59,11 @@ Features
 * Clear Grid lines 
 * Options accessible from right click context menu at grid corner block
 
-**Skeleton Snapshots **
+**Skeleton Snapshots**
 ------------
 ------------
 The following snapshots will show the different controls and their access source
+
 ![Designer Launch option](https://github.com/swmitra/html-designer/blob/master/Getting%20Started/View-Options.png)
 
 ![Designer Skeleton](https://github.com/swmitra/html-designer/blob/master/Getting%20Started/Designer-skeleton.png)
@@ -76,6 +83,8 @@ Installation
 ------------
 
 Can be used as a Brackets extension only in its current form.
+Install [Brackets](http://brackets.io).
+GoTo Extension Manager --> Available tab and search for "html-designer"
 
 -------
 Licence
@@ -89,11 +98,14 @@ Contact
 
 For queries and discussions, please contact: swagatammitra@gmail.com
 
+Moreover any contribution towards stabilization or new feature addition is most welcome
+
 ----
 TODO
 ----
 
 * Stabilization of split view fetaure
-* Undo Redo from design context ( as of now have switch to code view to do the same )
+* Undo Redo from design context ( as of now switch to code view to do the same )
 * Media query support
+* Pseudo element illustration
 * Revamp of Transform control with 3D support

@@ -32,7 +32,7 @@ define(function (require, exports, module) {
     require("BoxModelMarker");
     require("LayoutDecisionManager");
     require("SelectAndDrawCreationHandler");
-    require("DragAndDropCreationHandler");
+    //require("DragAndDropCreationHandler");
     require("SelectionHandler");
     require("view/ViewManager");
     require("ElementCopyHandler");

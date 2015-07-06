@@ -107,7 +107,7 @@ Moreover any contribution towards stabilization or new feature addition is most 
 TODO
 ----
 
-* Stabilization of split view fetaure
+* Stabilization of split view feature
 * Undo Redo from design context ( as of now switch to code view to do the same )
 * Media query support
 * Pseudo element illustration

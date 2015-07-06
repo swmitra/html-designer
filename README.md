@@ -54,7 +54,9 @@ Features
 ------------
 ------------
 The following snapshots will show the different controls and their access source
+![Designer Launch option](https://github.com/swmitra/html-designer/blob/master/Getting%20Started/View-Options.png)
 
+![Designer Split view](https://github.com/swmitra/html-designer/blob/master/Getting%20Started/Split-view-skeleton.png)
 ------------
 Installation
 ------------

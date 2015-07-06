@@ -1,0 +1,463 @@
+<head>
+    <style>
+        @-webkit-keyframes active-frame-blink {
+            0% {
+                border-color: transparent;
+            }
+            50% {
+                border-color: lightgray;
+            }
+            100% {
+                border-color: transparent;
+            }
+        }
+        
+        @-webkit-keyframes timeline-movement {
+            0% {
+                left: 0%;
+            }
+            100% {
+                left:100%;
+            }
+        }
+        
+        .activeframeblink {
+            border: 1px solid transparent;
+            border-radius: 6px !important;
+            -webkit-animation: active-frame-blink 0.2s ease-in infinite;
+        }
+        
+        #animation-time-span {
+            height: 10px;
+            width: 100%;
+            background-color: rgb(211, 211, 211);
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            margin-top: 3px;
+        }
+        
+        #current-time-marker {
+            position: absolute;
+            width: 1px;
+            background-color: red;
+            left: 0%;
+            bottom: 0px;
+            height: 167px;
+        }
+        
+        .timedragger {
+            position: absolute;
+            left: -5px;
+            bottom: 0px;
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+        
+        #timeline-container {
+            position: absolute;
+            top: 0px;
+            height: 100%;
+            left: 206px;
+            width: calc(100% - 512px);
+        }
+        
+        #timeline-footer {
+            position: absolute;
+            width: 100%;
+            bottom: 0px;
+            left: 0px;
+            height: 30px;
+            border-top-width: 1px;
+            border-top-color: gray;
+            border-top-style: solid;
+            padding-top: 0px;
+            padding-bottom: 0px;
+            border-bottom-style: solid;
+            border-bottom-width: 1px;
+            z-index: 10;
+        }
+        
+        #timeline-toolbox-footer {
+            position: absolute;
+            width: 100%;
+            bottom: 0px;
+            left: 0px;
+            height: 30px;
+            border-top-width: 1px;
+            border-top-color: gray;
+            border-top-style: solid;
+            padding-top: 0px;
+            padding-bottom: 0px;
+            border-bottom-style: solid;
+            border-bottom-width: 1px;
+        }
+        
+        #frame-def-container-footer {
+            position: absolute;
+            width: 100%;
+            bottom: 0px;
+            left: 0px;
+            height: 30px;
+            border-top-width: 1px;
+            border-top-color: gray;
+            border-top-style: solid;
+            padding-top: 0px;
+            padding-bottom: 0px;
+            border-bottom-style: solid;
+            border-bottom-width: 1px;
+        }
+        
+        #timeline-header {
+            position: absolute;
+            width: 100%;
+            top: 0px;
+            left: 0px;
+            height: 30px;
+        }
+        
+        #frame-marker-container {
+            position: absolute;
+            width: 100%;
+            top: 0px;
+            left: 0px;
+            height: 35px;
+            z-index: 10;
+        }
+        
+        #frame-def-container {
+            position: absolute;
+            width: 300px;
+            top: 0px;
+            height: 100%;
+            right: 0px;
+            box-shadow: rgb(3, 3, 3) 0px 0px 5px 0px;
+        }
+        
+        #seperator {
+            position: absolute;
+            width: 100%;
+            height: 0px;
+            border-bottom-width: 1px;
+            border-bottom-style: solid;
+            border-bottom-color: rgba(0, 0, 0, 0.2);
+            box-shadow: rgba(219, 210, 219, 0.2) 0px 1px 0px 0px;
+            left: 0px;
+            top: 30px;
+        }
+        
+        #rewind-keyframe-animation {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            overflow: visible;
+            border-bottom-style: solid;
+            border-bottom-width: 0px;
+            border-top-style: solid;
+            left: 18px;
+            font-size: 22px;
+            border-top-width: 0px;
+            background-image: url('{{module_path}}/toolboxhtml/images/backward.png');
+            top: 7px;
+            color: rgb(40, 142, 223) !important;
+            background-position: 2px 2px;
+            background-repeat: no-repeat no-repeat;
+        }
+        
+        #forward-keyframe-animation {
+            position: absolute;
+            font-size: 20px;
+            overflow: visible;
+            left: 76px;
+            border-bottom-style: solid;
+            width: 20px;
+            height: 20px;
+            border-bottom-width: 0px;
+            background-image: url('{{module_path}}/toolboxhtml/images/forward.png');
+            top: 7px;
+            color: rgb(40, 142, 223) !important;
+            background-position: 2px 2px;
+            background-repeat: no-repeat no-repeat;
+        }
+        
+        #play-keyframe-animation {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            left: 50px;
+            font-size: 20px;
+            overflow: visible;
+            background-image: url('{{module_path}}/toolboxhtml/images/play.png');
+            top: 7px;
+            color: rgb(40, 142, 223) !important;
+            background-position: 2px 2px;
+            background-repeat: no-repeat no-repeat;
+        }
+        
+        #timeline-toolbox {
+            position: absolute;
+            width: 200px;
+            height: 100%;
+            border-right-style: solid;
+            border-right-color: rgb(169, 169, 169);
+            border-right-width: 0px;
+            box-shadow: rgb(0, 0, 0) 1px 0px 4px -1px;
+            left: 0px;
+            top: 0px;
+            border-radius: 0px !important;
+        }
+        
+        .ticklabel {
+            position: absolute;
+            bottom: 0px;
+            width: 1px;
+            height: 25px;
+            text-indent: 5px;
+            pointer-events: none;
+            background-color: gray;
+            color: rgb(211, 211, 211);
+            font-size: 12px;
+        }
+        
+        .tickmajor {
+            position: absolute;
+            bottom: 0px;
+            width: 1px;
+            height: 10px;
+            pointer-events: none;
+            background-color: gray;
+            color: rgb(211, 211, 211);
+        }
+        
+        .tickminor {
+            position: absolute;
+            bottom: 0px;
+            width: 1px;
+            height: 8px;
+            pointer-events: none;
+            background-color: gray;
+            color: rgb(211, 211, 211);
+        }
+        
+        .framebubble {
+            position: absolute;
+            width: 11px;
+            height: 11px;
+            top: 0px;
+            left: -5px;
+            border-radius: 5px;
+            background: rgb(0, 123, 255);
+            pointer-events: all;
+        }
+        
+        .framebubbledragger {
+            position: absolute;
+            width: 11px;
+            height: 11px;
+            top: 0px;
+            left: 0px;
+            border-radius: 5px;
+            pointer-events: all;
+        }
+        
+        .changebubble {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            margin-top: 5px;
+            margin-left:-5px;
+            display: inline-block;
+            border-radius: 5px;
+            background: white;
+            pointer-events: all;
+        }
+        
+        .keyframemarkerdragger {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 1px;
+            height: 100%;
+            cursor: col-resize;
+        }
+        
+        .keyframemarker {
+            position: absolute;
+            width: 1px;
+            height: 285px;
+            overflow: visible;
+            background: rgb(0, 123, 255);
+            pointer-events: all;
+        }
+        
+        .keyframe-list li:first-child {
+            border-top: 1px solid hsla(0, 0%, 0%, .05);
+        }
+        
+        #changeset-entries li {
+            padding-left: 10px !important;
+        }
+        
+        #frame-deflist li {
+            padding-left: 5px !important;
+        }
+        
+        .keyframe-list li {
+            padding: 0px !important;
+            border-top: 1px solid hsla(180, 1%, 38%, 1);
+            border-bottom: 1px solid hsla(180, 1%, 20%, 1);
+            margin: 0px;
+            margin-top: 1px;
+            background: hsla(210, 2%, 25%, 1);
+            height: 20px;
+            position: relative;
+        }
+        
+        .animheader.selected {
+            border-bottom: 1px solid rgb(0, 123, 255);
+        }
+        
+        .keyframe-list {
+            list-style-type: none;
+            overflow: hidden;
+            width: 100%;
+            height: calc(100% - 65px);
+            position: absolute;
+            top: 32px;
+            left: 0px;
+            margin: 0px;
+        }
+        
+        #frame-defset {
+            overflow-y: hidden;
+            width: 100%;
+            height: calc(100% - 65px);
+            position: absolute;
+            top: 32px;
+            left: 0px;
+            margin: 0px;
+            background: hsla(210, 2%, 25%, 1);
+        }
+        
+        #frame-defset li.selected {
+            border-bottom:1px solid rgb(0, 123, 255);
+            border-top:1px solid rgb(0, 123, 255);
+        }
+        
+        #keyframe-timeline-editor .vert-resizer{
+            background: none;
+            top: calc(100% - 1px) !important;
+            left: 1px;
+            height: 1px;
+        }
+        
+        #changeset-frame-marker::-webkit-scrollbar { 
+            display: none; 
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="property-toolbox quiet-scrollbars vert-resizable bottom-resizer" id="keyframe-timeline-editor" style="color: rgb(211, 211, 211); font-size: 14px; position: absolute; background-color: rgb(74, 77, 78); width: 100%; left: 0px; bottom: 0px; display: none; height: 286px;">
+        <div class="propertyToolboxHeader" style="display: block;">Keyframe Timeline Properties
+            <a class="close" id="keyframe-timeline-editor-close" style="display: block; ">×</a>
+            <div class="toolboxHeaderBottom" style="display: block;"></div>
+        </div>
+        <div id="frame-def-container" style="">
+            <div id="frame-def-container-footer" style="display: block;">
+                <input style="text-align: left; position: absolute; left: 5px; display: block; top: 4px; width: 236px;" id="new-keyframe-selector-value" value="" class="topcoat-text-input">
+                <button class="topcoat-button" type="button" id="save-keyframe-animation" style="height: 25px; position: absolute; width: 30px; display: block; top: 3px; left: 267px;">✔</button>
+            </div>
+            <input style="text-align: left; position: absolute; left: 5px; display: block; top: 4px; width: 236px;" id="keyframe-selector-value" value="" class="topcoat-text-input" disabled="true">
+            
+            <div id = "browse-keyframe-options-container" class="dropdown open" style="position: absolute;width: 1px; height: 1x; top: 25px; left: 296px;display:none">
+              <ul id = "browse-keyframe-options" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="min-width:200px;left:-220px;">
+
+              </ul>
+            </div>
+            
+            <button class="topcoat-button" type="button" id="browse-keyframe-animation" style="height: 25px; position: absolute; width: 30px; display: block; top: 3px; left: 267px;">...</button>
+            <div id="seperator" style="display: block;"></div>
+            <div id="frame-defset">
+                <div id="frame-deflist-container" style="position:absolute;width:50px;height:100%;top:0px;left:0px;border-right:1px solid gray;">
+                    <ul id="frame-deflist" class="keyframe-list" style="top:0px;height:100%;overflow:auto;">
+                        <li id="entry-keyframe-0">0%</li>
+                        <li id="entry-keyframe-100">100%</li>
+                    </ul>
+                </div>
+                <div id="keyframe-set-entries" style="position:absolute;width:calc(100% - 54px);height:100%;top:0px;left:52px;overflow:auto;"></div>
+            </div>
+        </div>
+        <div id="timeline-toolbox" style="display: block;">
+            <div id="play-keyframe-animation" style="display: block;">
+            </div>
+            <div id="forward-keyframe-animation" style="display: block;">
+            </div>
+            <div id="rewind-keyframe-animation" style="display: block;">
+            </div>
+            <button class="topcoat-button" type="button" id="stop-capture-frame-changes" style="position: absolute; text-shadow: none; height: 25px; width: 25px; display: block; padding: 0px; left: 140px; color: red !important; top: 3px;">□</button>
+            <button class="topcoat-button" type="button" id="new-keyframe-animation" style="height: 25px; position: absolute; width: 25px; padding: 0px; display: block; left: 170px; top: 3px;">+</button>
+            <div id="seperator" style="display: block;"></div>
+            <ul id="changeset-entries" class="keyframe-list" style="overflow-y:auto;">
+            </ul>
+            <div id="timeline-toolbox-footer" style="display: block;">
+                <button class="topcoat-button" type="button" id="play-all-keyframe-animation" style="height: 25px; position: absolute; width: 90px; padding: 0px; display: block; left: 5px; top: 3px;">Play All</button>
+                <button class="topcoat-button" type="button" id="stop-all-keyframe-animation" style="height: 25px; position: absolute; width: 90px; padding: 0px; display: block; left: 100px; top: 3px;">Stop All</button>
+            </div>
+        </div>
+        <div id="timeline-container" style="">
+            <div id="timeline-footer">
+                <div id="animation-time-span">
+                    <div id="current-time-marker">
+                        <div class="timedragger"></div>
+                    </div>
+                </div>
+                <div id="quarter-time-mark" class="ticklabel" style="height: 17px;left: 25%"></div>
+                <div id="half-time-mark" class="ticklabel" style="height: 17px;left: 50%"></div>
+                <div id="three-quarter-time-mark" class="ticklabel" style="height: 17px;left: 75%"></div>
+            </div>
+            <div id="timeline-header">
+                <div class="ticklabel" style="left: 0%">0%</div>
+                <div class="tickminor" style="left: 5%"></div>
+                <div class="tickmajor" style="left: 10%"></div>
+                <div class="tickminor" style="left: 15%"></div>
+                <div class="tickmajor" style="left: 20%"></div>
+                <div class="ticklabel" style="left: 25%">25%</div>
+                <div class="tickmajor" style="left: 30%"></div>
+                <div class="tickminor" style="left: 35%"></div>
+                <div class="tickmajor" style="left: 40%"></div>
+                <div class="tickminor" style="left: 45%"></div>
+                <div class="ticklabel" style="left: 50%">50%</div>
+                <div class="tickminor" style="left: 55%"></div>
+                <div class="tickmajor" style="left: 60%"></div>
+                <div class="tickminor" style="left: 65%"></div>
+                <div class="tickmajor" style="left: 70%"></div>
+                <div class="ticklabel" style="left: 75%">75%</div>
+                <div class="tickmajor" style="left: 80%"></div>
+                <div class="tickminor" style="left: 85%;"></div>
+                <div class="tickmajor" style="left: 90%"></div>
+                <div class="tickminor" style="left: 95%"></div>
+                <div class="ticklabel" style="left: 100%;text-indent:-35px;">100%</div>
+            </div>
+            <div id="frame-marker-container">
+                <div class="keyframemarker" id="keyframe-0" style="left:0%" data-markerat="0%">
+                    <div class="keyframemarkerdragger"></div>
+                    <div class="framebubble"></div>
+                </div>
+                <div class="keyframemarker" id="keyframe-100" style="left:100%" data-markerat="100%">
+                    <div class="keyframemarkerdragger"></div>
+                    <div class="framebubble"></div>
+                </div>
+            </div>
+            <ul id="changeset-frame-marker" class="keyframe-list" style="overflow-y:auto;">
+            </ul>
+            <div id="seperator" style="display: block;"></div>
+        </div>
+    </div>
+</body>

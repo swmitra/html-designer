@@ -1,0 +1,24 @@
+<style>
+@-webkit-keyframes prospective-blink {
+    20% { outline: 1px solid; } 
+    50% { outline: 2px solid; } 
+    80% { outline: 3px solid; } 
+    100% { outline: 2px solid; }
+}
+
+#prospective-parent-highlighter
+{ 
+    outline: 1px solid blue;
+    display:none;
+    position:absolute;
+    top:10px;
+    left:10px;
+    height:100px;
+    width:100px;
+	margin-top: -24px;
+	margin-left: -24px;
+    -webkit-animation: prospective-blink 1s ease-in infinite; 
+}
+    
+</style>
+<div id="prospective-parent-highlighter" ></div>

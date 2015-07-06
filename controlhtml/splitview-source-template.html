@@ -1,0 +1,73 @@
+<style>
+    #html-inline-editor .CodeMirror
+    {
+        position: absolute !important;
+        width: calc(100% - 20px) !important;
+        height: calc(100% - 20px) !important; 
+    }
+    
+    #html-inline-editor .Code-warnings
+    {
+        display:none !important;
+    }
+    
+    #html-inline-editor {
+        position:static !important;
+        float: left; 
+        margin-top: 0px; 
+        margin-left: 0px; 
+        width: 100%; 
+        height: 100%; 
+        overflow:hidden;
+    }
+    
+    #source-editor-container .horz-resizer{
+        background: url('../images/Gripper_Horizontal.png') no-repeat 0 50%;
+        left: calc(100% - 1px) !important;
+        top: 1px;
+        width: 1px;
+    }
+
+    #source-editor-container .vert-resizer{
+        background: url('../images/Gripper_Vertical.png') no-repeat 0 50%;
+        top: calc(100% - 1px) !important;
+        left: 1px;
+        height: 1px;
+    }
+    
+    .minimizedSourceView{
+        width:100px !important;
+        height:0px !important;
+        top:calc(100% - 24px) !important;
+        right: 0px;
+        left: auto !important;
+        z-index: 51 !important;
+        min-width: 100px !important;
+    }
+    
+    .minimizedSourceView .propertyToolboxHeader{
+        border:1px solid gray;
+    }
+    
+    .minimizedSourceView #source-editor-minimize{
+        display:none !important;
+    }
+    
+    .minimizedSourceView #source-editor-maximize{
+        display:block !important;
+    }
+    
+    .minimizedSourceView #minimized-title{
+        display:block !important;
+    }
+    
+</style>
+<div class="splitViewEditor property-toolbox horz-resizable right-resizer vert-resizable bottom-resizer" id="source-editor-container" draggable="true">
+    <div class="propertyToolboxHeader">
+        <a class ="close" id="source-editor-minimize" style="margin-top:-1px;display:block;">&minus;</a>
+        <a class ="close" id="source-editor-maximize" style="margin-top:-1px;display:none;">&square;</a>
+        <span class="close" id="minimized-title" style="display:none;">Source</span>
+        <div class="toolboxHeaderBottom"></div>
+    </div>
+    <div id="html-inline-editor" style=""></div>
+</div>

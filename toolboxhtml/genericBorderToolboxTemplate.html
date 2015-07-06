@@ -1,0 +1,60 @@
+<style>
+    .activeBorderRadius{
+        background:#288edf;
+        border-color:white !important;
+    }
+    
+    .activeBorder{
+        background:#288edf;
+        border-color:white !important;
+    }
+    
+</style>
+<div class="property-toolbox" id="border-toolbox" style="display: none; font-size: 13px; color: rgb(211, 211, 211); background-color: rgb(74, 77, 78); position: absolute; pointer-events: auto; height: 186px; left: 111px; top: 112px; width: 181px;" draggable="true">
+    <div class="propertyToolboxHeader" >Border Toolbox
+         <a class ="close" id="border-toolbox-close" style="">×</a>
+         <div class="toolboxHeaderBottom"></div>
+    </div>
+    <div id="border-toolbox-container" style="position: absolute; height: 27px; left: 0px; top: 0px; width: 100%;">
+        <div class="topcoat-button" id="border-toolbox-anchor" style="position: absolute; width: 49%; height: 100%; border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; left: 1px; top: 0px;">Border</div>
+        <div class="topcoat-button" id="border-radius-toolbox-anchor" style="position: absolute; width: 49%; height: 100%; border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; top: 0px; left: 49.72%;">Radius</div>
+    </div>
+    <div id="border-radius-editor" style="display: none; color: rgb(211, 211, 211); background-color: rgb(74, 77, 78); position: absolute; left: 0px; top: 60px; height: 84px; width: 100%;" >
+        <span style="position: absolute; left: 10px; top: 15px;">Border Radius</span>
+        <input class="topcoat-text-input" id="border-radius" type="text" style="position: absolute; height: 21px; top: 14px; left: 94px; width: 60px;">
+
+        <div class="topcoat-button-bar" style="height: 40px; pointer-events: auto; font-size: 10px; margin-left: 1px; margin-top: 125px; width: 177px;">
+            <div class="borderRadius" id="border-radius-all" data-key="border-radius" style="border: 2px solid rgb(211, 211, 211); border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; position: absolute; width: 22px; height: 21px; left: 10px; top: 48px;"></div>
+            <div class="borderRadius" id="border-radius-top-left" data-key="border-top-left-radius" style="border-width: 1px 1px 1px 2px; border-style: dotted dotted dotted solid; border-color: gray gray gray rgb(211, 211, 211);border-top:2px solid lightgray;border-top-left-radius: 10px; position: absolute; width: 22px; height: 21px; left: 46px; top: 48px;"></div>
+            <div class="borderRadius" id="border-radius-top-right" data-key="border-top-right-radius" style="border-width: 1px 2px 1px 1px; border-style: dotted solid dotted dotted; border-color: gray rgb(211, 211, 211) gray gray;border-top:2px solid lightgray;border-top-right-radius: 10px; position: absolute; width: 22px; height: 21px; left: 82px; top: 48px;"></div>
+            <div class="borderRadius" id="border-radius-bottom-left" data-key="border-bottom-left-radius" style="border:1px dotted gray;border-bottom:2px solid lightgray;border-left:2px solid lightgray;border-bottom-left-radius:10px; position: absolute; width: 22px; height: 21px; left: 116px; top: 48px;"></div>
+            <div class="borderRadius" id="border-radius-bottom-right" data-key="border-bottom-right-radius" style="border:1px dotted gray;border-bottom:2px solid lightgray;border-right:2px solid lightgray;border-bottom-right-radius:10px; position: absolute; width: 22px; height: 21px; left: 150px; top: 48px;"></div>
+        </div>
+</div>
+    <div id="border-editor" style="display: none; color: rgb(211, 211, 211); background-color: rgb(74, 77, 78); position: absolute; height: 158px; width: 100%; left: 0px; top: 28px;"> 
+    <span style="position: absolute; left: 10px; top: 15px;">Border Color</span>
+    <input class="topcoat-text-input" id="element-border-color" type="text" style="position: absolute; height: 21px; top: 14px; width: 66px; left: 88px;">
+    <span style="position: absolute; left: 10px; top: 54px;">Border Width</span>
+    <input class="topcoat-text-input" id="element-border-size" type="number" value='0' min='0' style="position: absolute; height: 21px; pointer-events: auto; top: 51px; width: 66px; left: 88px;">
+    <span style="position: absolute; top: 91px; left: 10px;">Border Style</span>
+    
+    <select class="topcoat-select-button-dark" id="element-border-style" style="padding-top:0px;position: absolute; top: 87px; left: 86px; width: 89px;">
+      <option value="solid">solid</option>
+      <option value="dotted">dotted</option>
+      <option value="dashed">dashed</option>
+      <option value="double">double</option>
+      <option value="groove">groove</option>
+      <option value="ridge">ridge</option>
+      <option value="inset">inset</option>
+      <option value="outset">outset</option>
+    </select>
+
+    <div class="topcoat-button-bar" style="height: 40px; pointer-events: auto; font-size: 10px; margin-left: 1px; margin-top: 125px; width: 177px;">
+        <div class="border activeBorder" id="border-all" data-key="border" style="border: 2px solid rgb(211, 211, 211); position: absolute; width: 22px; height: 21px; left: 10px; top: 125px;"></div>
+        <div class="border" id="border-left" data-key="border-left" style="border-width: 1px 1px 1px 2px; border-style: dotted dotted dotted solid; border-color: gray gray gray rgb(211, 211, 211); position: absolute; width: 22px; height: 21px; left: 46px; top: 125px;"></div>
+        <div class="border" id="border-right" data-key="border-right" style="border-width: 1px 2px 1px 1px; border-style: dotted solid dotted dotted; border-color: gray rgb(211, 211, 211) gray gray; position: absolute; width: 22px; height: 21px; left: 82px; top: 125px;"></div>
+        <div class="border" id="border-top" data-key="border-top" style="border-width: 2px 1px 1px; border-style: solid dotted dotted; border-color: rgb(211, 211, 211) gray gray; position: absolute; width: 22px; height: 21px; left: 116px; top: 125px;"></div>
+        <div class="border" id="border-bottom" data-key="border-bottom" style="border-width: 1px 1px 2px; border-style: dotted dotted solid; border-color: gray gray rgb(211, 211, 211); position: absolute; width: 22px; height: 21px; left: 150px; top: 125px;"></div>
+    </div>
+</div>
+</div>

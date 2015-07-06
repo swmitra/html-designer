@@ -1,0 +1,77 @@
+{  
+    "html" : {
+        "all" : [ 
+                { "key" : "id", "type" : "text"},
+                { "key" : "alt", "type" : "text"},
+                { "key" : "title", "type" : "text"},
+                { "key" : "lang", "type" : "text"},
+                { "key" : "href", "type" : "text"},
+                { "key" : "src", "type" : "path"},
+                { "key" : "value", "type" : "text"},
+                { "key" : "min", "type" : "number"},
+                { "key" : "max", "type" : "number"},
+                { "key" : "class", "type" : "list"},
+                { "key" : "data", "type" : "list"},
+                { "key" : "disabled", "type" : "toggle"},
+                { "key" : "placeholder", "type" : "text"}
+            ],
+        "common" : [
+                { "key" : "title", "type" : "text"},
+                { "key" : "name", "type" : "text"},
+                { "key" : "class", "type" : "text"},
+                { "key" : "data", "type" : "list"}
+            ],
+        "DIV" : [
+                { "key" : "id", "type" : "text"},
+                { "key" : "lang", "type" : "text"}
+            ],
+        "IMG" : [ 
+                { "key" : "id", "type" : "text"},
+                { "key" : "alt", "type" : "text"},
+                { "key" : "src", "type" : "path"}
+            ],
+        "A" : [
+                { "key" : "id", "type" : "text"},
+                { "key" : "href", "type" : "text"}
+            ],
+        "INPUT" :  {
+                    "attrs" :[ { "key" : "id", "type" : "text"},
+                                { "key" : "type", "type" : "select", "options" : ["text","number","button","radio","checkbox","slider","range","submit"]},
+                               { "key" : "disabled", "type" : "toggle"}
+                             ],
+                    "filter" : {
+                         "text": [
+                            { "key" : "value", "type" : "text"},
+                            { "key" : "placeholder", "type" : "text"}
+                         ],
+                         "number" : [
+                            { "key" : "value", "type" : "number"},
+                            { "key" : "min", "type" : "number"},
+                            { "key" : "max", "type" : "number"},
+                            { "key" : "placeholder", "type" : "text"}
+                         ],
+                         "slider" : [
+                            { "key" : "value", "type" : "number"},
+                            { "key" : "min", "type" : "number"},
+                            { "key" : "max", "type" : "number"}
+                         ],
+                         "range" : [
+                            { "key" : "value", "type" : "number"},
+                            { "key" : "min", "type" : "number"},
+                            { "key" : "max", "type" : "number"}
+                         ],
+                         "button" : [
+                             { "key" : "value", "type" : "text"}
+                         ],
+                         "submit" : [
+                         ],
+                         "radio" : [
+                             { "key" : "value", "type" : "text"}
+                         ],
+                         "checkbox" : [
+                             { "key" : "checked", "type" : "toggle"}
+                         ]
+                }  
+            }         
+        }
+}

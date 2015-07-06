@@ -1,0 +1,35 @@
+<div class="property-toolbox" id="transform-editor" style="color: rgb(211, 211, 211); background-color: rgb(74, 77, 78); position: absolute; width: 272px; height: 196px; display: none; left: 11px; top: 45px;">
+        <div class="propertyToolboxHeader" >Transform Toolbox
+             <a class ="close" id="transform-editor-close" style="">×</a>
+             <div class="toolboxHeaderBottom"></div>
+        </div>
+        
+        <span style="position: absolute; left: 11px; top: 15px; display: block;">TranslateX</span>
+        <span style="position: absolute; left: 139px; top: 15px; display: block;">TranslateY</span>
+        <span style="position: absolute; left: 12px; display: block; top: 60px;">SkewX</span>
+        <span style="position: absolute; left: 143px; display: block; top: 60px;">SkewY</span>
+        <span style="position: absolute; left: 12px; display: block; top: 105px;">Scale</span>
+
+        <input class="topcoat-text-input" id="translateX-input" type="number" value="0" step="1" style="position: absolute; height: 21px; top: 13px; width: 35px; left: 75px; display: block;">
+        <input class="topcoat-text-input" id="translateY-input" type="number" value="0" step="1" style="position: absolute; height: 21px; width: 35px; top: 14px; left: 202px; display: block;">
+
+        <input class="topcoat-text-input" id="scale-input" type="number" min="25" max="300" value="100" step="1" style="position: absolute; height: 21px; width: 35px; display: block; top: 103px; left: 76px;">
+        <input id="scale-range-input" class="topcoat-range" type="range" style="position: absolute; display: block; height: 17px; left: 12px; width: 244px; top: 146px;" placeholder="Start" min="25" max="300" value="100" step="1">
+
+
+        <div class="skewControl" id="skewx-rotary-container" style="pointer-events: all; position: absolute; width: 60px; height: 60px; left: 76px; display: block; top: 47px;">
+            <input class="skewControlInput" id="skewx-input" type="text" style="background-color: transparent; border-width: 0px; position: absolute; top: 0px; left: 49px; width: 24px; height: 22px; display: block;" value="0" data-width="50" data-height="50" data-bgcolor="#3c3f41" data-fgcolor="rgb(211, 211, 211)" data-thickness=".3" data-skin="tron" data-angleoffset="-90" data-min="-90" data-max="90" data-anglearc="180">
+        </div>
+
+        <div class="skewControl" id="skewy-rotary-container" style="pointer-events: all; position: absolute; width: 60px; height: 60px; display: block; left: 205px; top: 47px;">
+            <input class="skewControlInput" id="skewy-input" type="text" style="background-color: transparent; border-width: 0px; position: absolute; top: 0px; left: 49px; width: 24px; height: 22px; display: block;" value="0" data-width="50" data-height="50" data-bgcolor="#3c3f41" data-fgcolor="rgb(211, 211, 211)" data-thickness=".3" data-skin="tron" data-angleoffset="-90" data-min="-90" data-max="90" data-anglearc="180">
+        </div>
+
+        <div id="rotation-rotary-container" style="position: absolute; width: 60px; height: 60px; top: 89px; display: block; left: 205px;">
+            <input id="rotation-input" type="text" style="border-width: 0px; position: absolute; top: 0px; left: 49px; width: 24px; height: 22px; display: block; background-color: transparent;" value="0" data-width="50" data-height="50" data-bgcolor="#3c3f41" data-fgcolor="rgb(211, 211, 211)" data-thickness=".3" data-skin="tron" data-angleoffset="0" data-min="0" data-max="360">
+        </div>
+        <span style="position: absolute; display: block; left: 147px; top: 106px;">Angle</span>
+
+        <span style="position: absolute; color: gray; display: block; left: 15px; top: 162px;">25%</span>
+        <span style="position: absolute; color: gray; display: block; left: 221px; top: 161px;">300%</span>
+</div>

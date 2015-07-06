@@ -1,0 +1,87 @@
+<style>
+    
+    #instrumentation-toolbox {
+            position: absolute;
+            width: 200px;
+            height: 100%;
+            border-right-style: solid;
+            border-right-color: rgb(169, 169, 169);
+            border-right-width: 0px;
+            box-shadow: rgb(0, 0, 0) 1px 0px 4px -1px;
+            left: 0px;
+            top: 0px;
+            border-radius: 0px !important;
+            padding:5px;
+        }
+    
+    #sequence-container {
+            position: absolute;
+            top: 0px;
+            height: 100%;
+            left: 206px;
+            width: calc(100% - 512px);
+        }
+    
+    #timing-def-container {
+            position: absolute;
+            width: 300px;
+            top: 0px;
+            height: 100%;
+            right: 0px;
+            box-shadow: rgb(3, 3, 3) 0px 0px 5px 0px;
+        }
+    
+    .sequence-list li {
+            padding: 0px !important;
+            border-top: 1px solid hsla(180, 1%, 38%, 1);
+            border-bottom: 1px solid hsla(180, 1%, 20%, 1);
+            margin: 0px;
+            margin-top: 1px;
+            background: hsla(210, 2%, 25%, 1);
+            height: 20px;
+            position: relative;
+        }
+        
+        .sequence-list {
+            list-style-type: none;
+            overflow: hidden;
+            width: 100%;
+            height: calc(100% - 10px);
+            position: absolute;
+            top: 5px;
+            left: 0px;
+            margin: 0px;
+        }
+    
+    #animation-decl-container{
+        position: static;
+        float:left;
+        width: 100%;
+        height: calc(50% - 5px);
+        background: hsla(210, 2%, 25%, 1);
+    }
+    
+    #element-decl-container{
+        position: static;
+        float:left;
+        width: 100%;
+        margin-top: 5px;
+        height: calc(50% - 10px);
+        background: hsla(210, 2%, 25%, 1);
+    }
+</style>
+
+<div class="property-toolbox quiet-scrollbars" id="keyframe-sequence-editor" style="color: rgb(211, 211, 211); font-size: 14px; position: absolute; background-color: rgb(74, 77, 78); width: 100%; left: 0px; bottom: 0px; display: block; height: 286px;">
+    <div class="propertyToolboxHeader" style="display: block;">
+        <a class="close" id="keyframe-associate-editor-close" style="display: block;">×</a>
+        <div class="toolboxHeaderBottom" style="display: block;"></div>
+    </div>
+    <div id="instrumentation-toolbox">
+        <div id="animation-decl-container"></div>
+        <div id="element-decl-container"></div>
+    </div>
+    <div id="sequence-container">
+        <ul class="sequence-list"></ul>
+    </div>
+    <div id="timing-def-container"></div>
+</div>

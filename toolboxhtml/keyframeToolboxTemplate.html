@@ -1,0 +1,94 @@
+<head>
+    <style>
+        #animation-infinite-loop {
+            border: 1px dotted gray;
+            position: absolute;
+            width: 18px;
+            height: 17px;
+            top: 336px;
+            left: 126px;
+        }
+        
+        #keyframe-cubic-bezier-container {
+            position: absolute;
+            left: 21px;
+            width: 211px;
+            height: 211px;
+            top: 33px;
+        }
+        
+        .beziercontrolpointkf {
+            position: absolute;
+            background-color: white;
+            width: 9px;
+            height: 9px;
+            border: 1px solid blue;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+        
+        .beziercontroldraggerkf {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="property-toolbox quiet-scrollbars" id="keyframe-associate-editor" style="color: rgb(211, 211, 211); font-size: 14px; position: absolute; background-color: rgb(74, 77, 78); width: 238px; height: 404px; display: none; right: 10px; top: 10px;">
+        <div class="propertyToolboxHeader" style="display: block;">KeyFrame Properties
+            <a class="close" id="keyframe-associate-editor-close" style="display: block;">×</a>
+            <div class="toolboxHeaderBottom" style="display: block;"></div>
+        </div>
+        <span style="float: left; margin-left: 8px; margin-top: -1px; position: absolute; left: 0px; top: 11px; display: block;">Timing-fn</span>
+        <select class="topcoat-select" id="keyframe-timing-fn-select" style="padding-top: 0px; position: absolute; height: 22px; left: 73px; width: 153px; top: 8px !important; display: block;" value="0.250, 0.100, 0.250, 1.000">
+            <optgroup label="defaults" style="display: block;">
+                <option value="0.250, 0.100, 0.250, 1.000" style="display: block;" selected="selected">ease(default)</option>
+                <option value="0.250, 0.250, 0.750, 0.750" style="display: block;">linear</option>
+                <option value="0.420, 0.000, 1.000, 1.000" style="display: block;">ease-in</option>
+                <option value="0.000, 0.000, 0.580, 1.000" style="display: block;">ease-out</option>
+                <option value="0.420, 0.000, 0.580, 1.000" style="display: block;">ease-in-out</option>
+            </optgroup>
+            <optgroup label="Penner Equations (approximated)" style="display: block;">
+                <option value="0.550, 0.085, 0.680, 0.530" style="display: block;">easeInQuad</option>
+                <option value="0.550, 0.055, 0.675, 0.190" style="display: block;">easeInCubic</option>
+                <option value="0.895, 0.030, 0.685, 0.220" style="display: block;">easeInQuart</option>
+
+                <option value="0.250, 0.460, 0.450, 0.940" style="display: block;">easeOutQuad</option>
+                <option value="0.215, 0.610, 0.355, 1.000" style="display: block;">easeOutCubic</option>
+                <option value="0.165, 0.840, 0.440, 1.000" style="display: block;">easeOutQuart</option>
+
+                <option value="0.455, 0.030, 0.515, 0.955" style="display: block;">easeInOutQuad</option>
+                <option value="0.645, 0.045, 0.355, 1.000" style="display: block;">easeInOutCubic</option>
+                <option value="0.770, 0.000, 0.175, 1.000" style="display: block;">easeInOutQuart</option>
+            </optgroup>
+        </select>
+        <div id="keyframe-cubic-bezier-container" style="display: block;">
+            <canvas id="cubic-bezier-curve-keyframe" width="200" height="200" style="position: absolute; top: 5px; left: 5px; box-shadow: gray 0px 0px 6px 1px inset; background-color: rgb(48, 50, 51); display: block;"></canvas>
+            <div class="beziercontrolpointkf" id="kf-bezier-cp1" style="display: block;">
+                <div class="beziercontroldraggerkf" style="display: block;"></div>
+            </div>
+            <div class="beziercontrolpointkf" id="kf-bezier-cp2" style="display: block;">
+                <div class="beziercontroldraggerkf" style="display: block;"></div>
+            </div>
+        </div>
+        <span style="float: left; margin-left: 178px; margin-top: 1px; position: absolute; left: -171px; top: 301px; display: block;">Duration</span>
+        <input class="topcoat-text-input" id="animation-duration-input" type="number" value="0" style="position: absolute; height: 24px; left: 62px; top: 297px; display: block; width: 33px;" title="Duration in ms">
+        <span style="float: left; margin-left: 243px; margin-top: 18px; position: absolute; top: 284px; display: block; left: -110px;">Delay</span>
+        <input class="topcoat-text-input" id="animation-delay-input" type="number" value="0" style="position: absolute; height: 24px; top: 297px; display: block; width: 33px; left: 171px;" title="Delay in ms">
+        <span style="float: left; margin-left: 8px; margin-top: -1px; position: absolute; -webkit-transform: rotate(270deg); left: -42px; top: 162px; display: block;">Animation(%) →</span><span style="float: left; margin-left: 8px; margin-top: -1px; position: absolute; left: 83px; top: 241px; display: block;">Time →</span>
+        <input style="text-align: center; position: absolute; width: 180px; left: 25px; top: 258px; display: block;" id="keyframe-timing-fn-value" value="0.250, 0.250, 0.750, 0.750" class="topcoat-text-input">
+        <button class="topcoat-button" type="button" id="apply-keyframe-animation" style="height: 28px; position: absolute; width: 31px; left: 196px; display: block; top: 371px;">✔</button>
+
+        <input class="topcoat-text-input" id="animation-selector-name" type="text" style="position: absolute; height: 24px; left: 7px; top: 372px; display: block; width: 127px;" disabled="" title="Animation configuration class name">
+
+        <span style="float: left; margin-left: 178px; margin-top: 1px; position: absolute; left: -171px; top: 337px; display: block;">Loop</span>
+        <input class="topcoat-text-input" id="animation-loop-count" type="number" value="1" style="position: absolute; height: 24px; left: 62px; top: 334px; display: block; width: 33px;" title="Loop count as Integer">
+        <input type="checkbox" id="animation-infinite-loop" style=""><span style="float: left; margin-left: 178px; margin-top: 1px; position: absolute; display: block; top: 338px; left: -27px;">Infinite Loop</span>
+        <button class="topcoat-button" type="button" id="timeline-anchor" style="height: 28px; position: absolute; width: 31px; display: block; left: 164px; top: 371px;"><strong style="color:red !important">t</strong>
+        </button>
+    </div>
+</body>

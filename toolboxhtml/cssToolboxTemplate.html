@@ -1,0 +1,31 @@
+<style>
+.disabledProperty{
+	opacity:0.2;
+}
+    #css-editor .vert-resizer{
+        background: url('../images/Gripper_Vertical.png') no-repeat 0 50%;
+        top: calc(100% - 1px) !important;
+        left: 1px;
+        height: 1px;
+    }
+</style>
+<div class="property-toolbox quiet-scrollbars vert-resizable bottom-resizer" id="css-editor" style="padding-bottom:5px;display: none; color: rgb(211, 211, 211); background-color: rgb(74, 77, 78); position: absolute; right: 0px; top: 40px; width: 281px; height: 241px;">
+     <div class="propertyToolboxHeader" >CSS Toolbox
+         <a class ="close" id="css-editor-close" style="">×</a>
+         <div class="toolboxHeaderBottom"></div>
+    </div>
+    <span style="text-align: center; border: 0px dotted gray; position: absolute; height: 21px; left: 5px; top: 5px; width: 63px;">css-target</span>
+    <select class="topcoat-select" id="css-target-select" style="padding-top: 0px; position: absolute; height: 22px; left: 74px; top: 5px; width: 201px;">
+    </select>
+    <span style="text-align: center; border: 0px dotted gray; position: absolute; height: 21px; left: 5px; top: 37px; width: 63px;">style-sheet</span>
+    <span  style="padding-left:5px;text-align: left; border: 1px solid gray; position: absolute; height: 20px; left: 74px; top: 35px; width: 194px;"><a id="target-stylesheet-file" style="color:inherit;"></a></span>
+    <div id="ruleset-editor-container" style="display: block; color: rgb(211, 211, 211); background-color: rgb(74, 77, 78); position: absolute; height:calc(100% - 66px); overflow:hidden;width:100%; left:0px; top: 66px;">
+        <div id="ruleset-editor" style="display: block; color: rgb(211, 211, 211); background-color: rgb(74, 77, 78); position: absolute; height: calc(100% - 30px); overflow:auto;width:100%; left:0px; top: 0px;border-bottom:1px gray solid">
+    </div>
+    <div id="ruleset-editor-toolbar" style="display: block; color: rgb(211, 211, 211); background-color: rgb(74, 77, 78); position: absolute; height: 28px; width:100%; left:0px; bottom: 1px;">
+        <img id="save-ruleset" src="{{module_path}}/toolboxhtml/images/save.png" style="float:right;margin-right:10px;margin-top:5px;width:20px;height:20px;">
+        <img id="new-ruleset-property" src="{{module_path}}/toolboxhtml/images/new.png" style="float:right;margin-right:10px;margin-top:5px;width:20px;height:20px;">
+    </div>
+    </div>
+    
+</div>

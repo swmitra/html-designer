@@ -1,0 +1,22 @@
+<style>
+    .disabledli {
+        pointer-events: none;
+        opacity: 0.4;
+    }
+</style>
+
+<div id="designer-context-menu-cont" class="dropdown open" style="position: absolute;width: 1px; height: 1x; top: 46px; left: 77px;display:none">
+    <ul id="designer-context-menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="min-width:100px;">
+        <li><a id="context-cut-element" role="menuitem" tabindex="-1" href="#" data-action="cut-element">Cut</a>
+        </li>
+        <li><a id="context-copy-element" role="menuitem" tabindex="-1" href="#" data-action="copy-element">Copy</a>
+        </li>
+        <li class="disabledli"><a id="context-paste-element" role="menuitem" tabindex="-1" href="#" data-action="paste-element">Paste</a>
+        </li>
+        <li><a id="context-delete-element" role="menuitem" tabindex="-1" href="#" data-action="delete-element">Delete</a>
+        </li>
+        <li role="presentation" class="divider"></li>
+        <li><a id="context-add-to-animation" role="menuitem" tabindex="-1" href="#" data-action="add-to-animation-context">Add To Animation Context</a>
+        </li>
+    </ul>
+</div>

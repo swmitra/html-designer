@@ -1,0 +1,144 @@
+    <style>
+        @-webkit-keyframes capture-blink {
+             0% {
+                outline-color: red;
+            }
+            50% {
+                outline-color: transparent;
+            }
+            100% {
+                outline-color: red;
+            }
+        }
+        
+        .blinkingcaptureindicator {
+            outline: red solid 1px;
+            -webkit-animation: capture-blink 0.2s ease-in infinite;
+        }
+        
+        #capture-property-changes {
+            position: absolute;
+            height: 28px;
+            width: 67px;
+            left: 321px;
+            top: 220px;
+        }
+        
+        #define-property-changes {
+            position: absolute;
+            height: 28px;
+            width: 65px;
+            left: 234px;
+            top: 220px;
+        }
+        
+        #properties-container {
+            border: 0px solid rgb(128, 128, 128);
+            position: absolute;
+            background-color: rgb(48, 50, 51);
+            left: 234px;
+            box-shadow: rgb(128, 128, 128) 0px 0px 2px 1px;
+            top: 38px;
+            width: 226px;
+            padding: 1px;
+            height: 102px;
+            overflow: auto;
+            outline: rgba(128, 128, 128, 0.498039) solid 1px;
+        }
+        
+        #cubic-bezier-container {
+            position: absolute;
+            left: 21px;
+            width: 211px;
+            height: 211px;
+            top: 33px;
+        }
+        
+        .beziercontrolpoint {
+            position: absolute;
+            background-color: white;
+            width: 9px;
+            height: 9px;
+            border: 1px solid blue;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+        
+        .beziercontroldragger {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+
+    <div class="property-toolbox quiet-scrollbars" id="transition-editor" style="color: rgb(211, 211, 211); font-size: 14px; position: absolute; background-color: rgb(74, 77, 78); width: 474px; right: 175px; top: 61px; display: none; height: 288px;">
+        <div class="propertyToolboxHeader" style="display: block;">Transition Toolbox
+            <a class="close" id="transition-editor-close" style="display: block;">×</a>
+            <div class="toolboxHeaderBottom" style="display: block;"></div>
+        </div>
+        <span style="float: left; margin-left: 8px; margin-top: -1px; position: absolute; left: 0px; top: 11px; display: block;">Timing-fn</span>
+        <select class="topcoat-select" id="timing-fn-select" style="padding-top: 0px; position: absolute; height: 22px; left: 73px; width: 154px; top: 8px !important; display: block;" value="0.250, 0.100, 0.250, 1.000">
+            <optgroup label="defaults" style="display: block;">
+                <option value="0.250, 0.100, 0.250, 1.000" style="display: block;" selected="selected">ease(default)</option>
+                <option value="0.250, 0.250, 0.750, 0.750" style="display: block;">linear</option>
+                <option value="0.420, 0.000, 1.000, 1.000" style="display: block;">ease-in</option>
+                <option value="0.000, 0.000, 0.580, 1.000" style="display: block;">ease-out</option>
+                <option value="0.420, 0.000, 0.580, 1.000" style="display: block;">ease-in-out</option>
+            </optgroup>
+            <optgroup label="Penner Equations (approximated)" style="display: block;">
+                <option value="0.550, 0.085, 0.680, 0.530" style="display: block;">easeInQuad</option>
+                <option value="0.550, 0.055, 0.675, 0.190" style="display: block;">easeInCubic</option>
+                <option value="0.895, 0.030, 0.685, 0.220" style="display: block;">easeInQuart</option>
+
+                <option value="0.250, 0.460, 0.450, 0.940" style="display: block;">easeOutQuad</option>
+                <option value="0.215, 0.610, 0.355, 1.000" style="display: block;">easeOutCubic</option>
+                <option value="0.165, 0.840, 0.440, 1.000" style="display: block;">easeOutQuart</option>
+
+                <option value="0.455, 0.030, 0.515, 0.955" style="display: block;">easeInOutQuad</option>
+                <option value="0.645, 0.045, 0.355, 1.000" style="display: block;">easeInOutCubic</option>
+                <option value="0.770, 0.000, 0.175, 1.000" style="display: block;">easeInOutQuart</option>
+            </optgroup>
+        </select>
+        <div id="cubic-bezier-container" style="display: block;">
+            <canvas id="cubic-bezier-curve" width="200" height="200" style="position: absolute; top: 5px; left: 5px; box-shadow: gray 0px 0px 6px 1px inset; background-color: rgb(48, 50, 51); display: block;"></canvas>
+            <div class="beziercontrolpoint" id="bezier-cp1" style="display: block;">
+                <div class="beziercontroldragger" style="display: block;"></div>
+            </div>
+            <div class="beziercontrolpoint" id="bezier-cp2" style="display: block;">
+                <div class="beziercontroldragger" style="display: block;"></div>
+            </div>
+        </div>
+        <span style="float: left; margin-left: 178px; margin-top: 1px; position: absolute; top: 10px; left: 56px; display: block;">Duration</span>
+        <input class="topcoat-text-input" id="trn-duration-input" type="number" value="0" style="position: absolute; height: 24px; left: 289px; width: 43px; top: 6px; display: block;" title="Duration in ms">
+        <span style="float: left; margin-left: 243px; margin-top: 18px; position: absolute; top: -7px; left: 114px; display: block;">Delay</span>
+        <input class="topcoat-text-input" id="trn-delay-input" type="number" value="0" style="position: absolute; height: 24px; left: 395px; width: 48px; top: 6px; display: block;" title="Delay in ms">
+        <span style="float: left; margin-left: -34px; margin-top: 56px; position: absolute; left: 268px; top: 96px; display: block;">Properties</span>
+        <input class="topcoat-text-input" id="trn-property-input" type="text" style="position: absolute; height: 24px; width: 136px; left: 307px; top: 149px; display: block;" disabled="">
+        <span style="float: left; margin-left: 8px; margin-top: -1px; position: absolute; -webkit-transform: rotate(270deg); left: -42px; top: 162px; display: block;">Animation(%) →</span><span style="float: left; margin-left: 8px; margin-top: -1px; position: absolute; left: 83px; top: 241px; display: block;">Time →</span>
+        <div id="properties-container" style="display: block;"></div>
+        <input style="text-align: center;position: absolute;width: 180px;left: 25px;display: block;top: 258px;" id="timing-fn-value" value="0.250, 0.250, 0.750, 0.750" class="topcoat-text-input">
+        <span style="float: left; margin-left: 243px; margin-top: 18px; position: absolute; display: block; left: 60px; top: 208px;">or</span>
+        <button class="topcoat-button" type="button" id="define-property-changes" style="display: block;">Define</button>
+        <button class="topcoat-button btn primary" type="button" id="capture-property-changes" style="display: block;">Capture</button>
+        <button class="topcoat-button" type="button" id="preview-trn-animation" style="position: absolute; margin-top: 0px; margin-left: 0px; width: 33px; height: 28px; display: block; left: 394px; top: 254px;">
+            <img src="{{module_path}}/toolboxhtml/images/Preview.png" style="position: absolute; height: 22px; left: 3px; top: 1px; width: 24px; display: block;">
+        </button>
+        <button class="topcoat-button" type="button" id="stop-capture-property-changes" style="position: absolute; text-shadow: none; height: 29px; width: 33px; color: red !important; display: block; left: 394px; top: 220px;">□</button>
+        <button class="topcoat-button" type="button" id="apply-transition-animation" style="height: 28px; position: absolute; width: 31px; display: block; left: 433px; top: 254px;">✔</button>
+        <select class="topcoat-select" id="item-state-selector" style="padding-top: 0px; position: absolute; width: 150px; display: block; left: 235px; height: 25px; top: 256px !important;" value="0.250, 0.100, 0.250, 1.000">
+            <optgroup label="Element states" style="display: block;">
+                <option value="hover" style="display: block;" selected="selected">hover</option>
+                <option value="focus" style="display: block;">focus</option>
+                <option value="active" style="display: block;">active</option>
+                <option value="visited" style="display: block;">visited</option>
+            </optgroup>
+            <optgroup label="User defined trigger" style="display: block;">
+                <option value="custom" style="display: block;">custom</option>
+            </optgroup>
+        </select>
+        <input class="topcoat-text-input" id="changeset-selector-name" type="text" style="position: absolute; height: 24px; width: 207px; display: block; left: 236px; top: 187px;" disabled="">
+        <button class="topcoat-button" type="button" id="save-changeset" style="position: absolute; margin-top: 0px; margin-left: 0px; width: 31px; height: 29px; display: block; left: 433px; top: 220px;">
+            <img src="{{module_path}}/toolboxhtml/images/save.png" style="position: absolute; height: 22px; left: 4px; top: 2px; width: 22px; display: block;">
+        </button>
+    </div>

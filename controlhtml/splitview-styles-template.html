@@ -1,0 +1,105 @@
+    <style>        
+        #styles-inline-editor .CodeMirror {
+            width: 100% !important;
+            height: 100% !important;
+            position: absolute !important;
+        }
+        
+        #styles-inline-editor .Code-warnings{
+            display:none !important;
+        }
+        
+        #styles-inline-editor{
+            margin-top: 21px !important;
+            margin-left: 0px;
+            width: calc(100% - 173px) !important;
+            height: calc(100% - 41px) !important;
+            position: absolute !important;
+            overflow:hidden;
+        }
+        
+        #styles-editor-container .horz-resizer {
+            background: url('../images/Gripper_Horizontal.png') no-repeat 0 50%;
+            left: calc(100% - 1px) !important;
+            top: 1px;
+            width: 1px;
+        }
+        
+        #styles-editor-container .vert-resizer {
+            background: url('../images/Gripper_Vertical.png') no-repeat 0 50%;
+            top: calc(100% - 1px) !important;
+            left: 1px;
+            height: 1px;
+        }
+        
+        .topcoat-list__item {
+            padding: 2px;
+            padding-left: 7px;
+            border-top: 1px solid hsla(180,1%,38%,1);
+            border-bottom: 1px solid hsla(180,1%,20%,1);
+            list-style-type: none;
+            width: 100%;
+            
+        }
+        
+        .topcoat-list__itemselected {
+            background:url(extensions/default/ADHTMLDesign/controlhtml/Widget_highlight.png);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-origin: padding-box;
+        }
+        
+        .topcoat-list{
+            border-top: 1px solid hsla(180,1%,20%,1);
+            color: hsla(180,2%,78%,1);
+            margin: 0 0 1px 2px;
+            width: 100%;
+        }
+        
+        .minimizedCSSView{
+            min-width:100px !important;
+            width:100px !important;
+            height:0px !important;
+            top:calc(100% - 24px) !important;
+            right: 0px;
+            left: auto !important;
+            z-index: 51 !important;
+        }
+        
+        .minimizedCSSView .propertyToolboxHeader{
+            border:1px solid gray;
+        }
+        
+        .minimizedCSSView #styles-editor-minimize{
+            display:none !important;
+        }
+
+        .minimizedCSSView #styles-editor-maximize{
+            display:block !important;
+        }
+        
+        .minimizedCSSView #minimized-title{
+            display:block !important;
+        }
+        
+    </style>
+
+    <div class="splitViewEditor property-toolbox horz-resizable right-resizer vert-resizable bottom-resizer" id="styles-editor-container" draggable="true">
+        <div class="propertyToolboxHeader" style="display: block;">
+            <a class ="close" id="styles-editor-minimize" style="margin-top:-1px;display:block;">&minus;</a>
+            <a class ="close" id="styles-editor-maximize" style="margin-top:-1px;display:none;">&square;</a>
+            <span class="close" id="minimized-title" style="display:none;">Styles</span>
+            <div class="toolboxHeaderBottom" style="display: block;"></div>
+        </div>
+        <div class="selectors-list-container" style="position:absolute;display: block;width:150px !important; height:calc(100% - 40px) !important;top:30px;;right:10px;z-index:10;background-color: rgb(74, 77, 78);overflow-y:auto;overflow-x:hidden;">
+                <ul class="selectors-list topcoat-list"></ul>
+        </div>
+        <button class="topcoat-button" type="button" id="create-new-stylesheet" data-toggle="dropdown" style="text-shadow:none;height: 26px; padding-top: 0px !important; margin-top: -23px; position: absolute; left: 10px; top: 25px;">
+            New Stylesheet ...
+        </button>
+
+        <select class="topcoat-select" id="stylesheet-file-select" style="padding-top: 0px; position: absolute; height: 24px; width: 150px; top: 2px !important; right: 10px !important;">
+        </select>
+        <div id="styles-inline-editor" style=""></div>
+
+    </div>

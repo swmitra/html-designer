@@ -1,0 +1,51 @@
+<div class="property-toolbox" id="background-image-editor" style="display: none; color: rgb(211, 211, 211); background-color: rgb(74, 77, 78); position: absolute; width: 274px; height: 350px; left: 0px; top: 35px;">
+    <div class="propertyToolboxHeader" >Background Toolbox
+         <a class ="close" id="background-image-editor-close" style="">×</a>
+         <div class="toolboxHeaderBottom"></div>
+    </div>
+    <span style="position: absolute; top: 15px; left: 10px;">Image URL</span>
+    <input class="topcoat-text-input" id="bg-image-url" type="text" style="position: absolute; height: 21px; top: 14px; width: 128px; left: 75px;">
+    <input type="button" class="topcoat-select-button-dark bg-image-url browse-file" id="bg-button-browse" style="position: absolute; width: 34px; top: 15px; height: 22px; left: 228px;" value="...">
+    <span style="position: absolute; left: 10px; top: 51px;">Repeat</span>
+
+    <select id="bg-repeat-menu-dropdown" class="topcoat-select-button-dark" style="width: 187px; margin-left: 75px; margin-top: 42px; height: 29px;padding-top: 0px;
+padding-left: 20px;">
+        <option value="no-repeat">no-repeat</option>
+        <option value="repeat">repeat</option>
+        <option value="repeat-x">repeat-x</option>
+        <option value="repeat-y">repeat-y</option>
+    </select>
+
+    <span style="position: absolute; top: 97px; left: 10px;">Background Position</span>
+    <input class="topcoat-text-input" id="bg-image-position-x" type="number" value="0" data-unit="px" data-unit-supported="%,px" style="position: absolute; height: 21px; width: 43px; left: 170px; top: 110px;">
+    <span style="position: absolute; width: 18px; left: 242px; top: 83px;">X</span>
+    <input class="topcoat-text-input" id="bg-image-position-y" type="number" value="0" style="position: absolute; height: 21px; width: 43px; left: 170px; top: 81px;">
+    <span style="position: absolute; width: 20px; left: 242px; top: 111px;">Y</span>
+    <span style="position: absolute; width: 77px; left: 12px; top: 157px;">BG Color</span>
+    <input class="topcoat-text-input" id="bg-color-toolbox-anchor" type="text" style="position: absolute; top: 155px; height: 22px; left: 78px; border: 1px solid gray !important; width: 165px;">
+    <div id="gradient-editor" style="display: block; color: rgb(211, 211, 211); background-color: rgb(74, 77, 78); position: absolute; height: 159px; width: 274px; left: 0px; top: 191px;">
+        <span style="position: absolute; top: 14px; left: 11px;">Start Color</span>
+        <span style="position: absolute; top: 39px; left: 11px;">End Color</span>
+        <input class="topcoat-text-input" id="gradient-start-color" type="text" style="position: absolute; height: 21px; top: 13px; left: 78px; width: 166px;">
+        <input class="topcoat-text-input" id="gradient-end-color" type="text" style="position: absolute; height: 21px; top: 39px; left: 78px; width: 166px;">
+        <div style="position: absolute; border-top-width: 1px; border-top-style: solid; border-top-color: gray; height: 0px; margin-top: 0px; top: 68px; left: 4px; width: 265px;"></div>
+
+        <span style="position: absolute; margin-left: 44px; margin-top: 36px; left: 67px; top: 60px;">Start</span>
+        <input id="start-position-range-input" class="topcoat-range" type="range" style="position: absolute; width: 86px; left: 79px; top: 81px;" placeholder="Start" min="0" max="100" value="0" step="1">
+        <input class="topcoat-text-input" id="start-position-input" type="number" min="0" max="100" value="0" step="1" style="position: absolute; height: 21px; top: 74px; left: 176px; width: 67px;">
+
+        <span style="position: absolute; margin-left: 44px; margin-top: 36px; left: 69px; top: 99px;">End</span>
+        <input id="end-position-range-input" class="topcoat-range" type="range" style="position: absolute; width: 86px; left: 79px; top: 118px;" placeholder="End" min="0" max="100" value="100" step="1">
+        <input class="topcoat-text-input" id="end-position-input" type="number" min="0" max="100" value="100" step="1" style="position: absolute; height: 21px; top: 111px; left: 176px; width: 67px;">
+
+        <!--<span style="position: absolute; margin-left: 44px; margin-top: 36px; left: -33px; top: 108px;">Angle</span>-->
+        <!--<input id="angle-range-input" class="topcoat-range" type="range" style="position: absolute; top: 137px; width: 119px; left: 51px;" placeholder="Angle" min="0" max="360" value="0" step="1">-->
+        <div id="angle-rotary-container" style="position: absolute;width: 60px;height: 60px;left: 14px;top: 80px;">
+            <input id="angle-input" type="text" style="background-color:rgb(74, 77, 78);border-width:0px;position: absolute; top: 0px;left: 49px;width: 24px;height: 22px;" value="0" data-width="50" data-height="50" data-bgcolor="#3c3f41" data-fgcolor="rgb(211, 211, 211)" data-thickness=".3" data-skin="tron" data-angleoffset="0" data-min="0" data-max="360">
+        </div>
+
+        <span style="position: absolute;left: 24px;top: 135px;">Angle</span>
+        <div style="position: absolute; border-top-width: 1px; border-top-style: solid; border-top-color: gray; height: 0px; margin-top: 0px; width: 265px; left: 6px; top: 0px;"></div>
+        <div style="position: absolute; border-top-width: 1px; border-top-style: solid; border-top-color: gray; height: 0px; margin-top: 0px; width: 265px; left: 5px; top: -47px;"></div>
+    </div>
+</div>

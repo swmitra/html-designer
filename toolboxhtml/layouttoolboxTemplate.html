@@ -1,0 +1,112 @@
+<style>
+    .box-model-input {
+        background-color: transparent !important;
+        border-width: 0px !important;
+        box-shadow: none !important;
+        text-align: center !important;
+    }
+    
+    .box-model-input:focus {
+        background-color: transparent !important;
+        border-width: 0px !important;
+        box-shadow: none !important;
+        text-align: center !important;
+    }
+    
+    .iconFocus {
+        background: #3c3f41 !important;
+    }
+    
+    .disabledStaticPositionControl {
+        opacity: .3;
+    }
+    
+    .selectedStaticPositionControl {
+        box-shadow: inset 0 1px rgba(255, 255, 255, 0.36), 0 0 0 1px #6fb5f1 !important;
+        background-color: black;
+    }
+</style>
+
+
+
+
+<div class="property-toolbox" id="layout-editor" style="display: none; color: rgb(211, 211, 211); font-size: 14px; position: absolute; background-color: rgb(74, 77, 78); width: 278px; height: 282px; right: 371px; top: 61px;">
+    <div class="propertyToolboxHeader">BoxModel Toolbox
+        <a class="close" id="layout-editor-close" style="">×</a>
+        <div class="toolboxHeaderBottom"></div>
+    </div>
+    <div id="layout-options" style="border: 0px dotted gray; position: absolute; height: 27px; width: 272px; left: 3px; top: 6px;">
+        <span id="layout-layer" style="text-align: center; border: 0px dotted gray; position: absolute; width: 56px; top: 4px; height: 21px; left: 6px;">margin</span>
+        <input class="topcoat-text-input" id="layout-h-modifier-value" type="number" style="border: 1px solid gray; position: absolute; height: 20px; top: 2px; left: 62px; width: 39px;">
+        <input class="topcoat-text-input" id="layout-v-modifier-value" type="number" style="border: 1px solid gray; position: absolute; top: 2px; height: 20px; left: 125px; width: 38px;">
+        <select class="topcoat-select" id="layout-position-select" style="padding-top: 0px; position: absolute; width: 76px; height: 22px; top: 2px !important; left: 190px;">
+            <option value="static">static</option>
+            <option value="absolute">absolute</option>
+            <option value="relative">relative</option>
+            <option value="fixed">fixed</option>
+        </select>
+    </div>
+    <div id="dimension-box" style="background-color: rgb(60, 63, 65); border: 1px solid gray; position: absolute; z-index: 4; left: 94px; height: 26px; width: 93px; pointer-events: auto; top: 106px;">
+        <span style="position: absolute; color: gray; top: 4px; pointer-events: auto; left: 39px;">x</span>
+        <input class="box-model-input topcoat-text-input" id="element-width-input" type="number" data-css-key="width" style="margin-top: -22px; height: 24px; margin-left: -2px; position: absolute; border-left-width: 3px; left: -3px; pointer-events: auto; top: 23px; width: 28px;" value="0">
+        <input class="box-model-input topcoat-text-input" id="element-height-input" type="number" data-css-key="height" style="top: 1px; left: 154px; height: 24px; border-right-width: 3px; width: 28px; margin-left: 48px; margin-top: 1px;" value="0">
+    </div>
+    <div id="padding-box" style="background-color: rgb(60, 63, 65); border: 1px solid gray; position: absolute; height: 68px; width: 146px; z-index: 3; left: 65px; top: 87px;">
+        <span style="position: absolute; color: gray; top: 1px; left: 3px;">Padding</span>
+        <input class="box-model-input topcoat-text-input" id="pad-left" type="number" data-css-key="padding-left" style="margin-top: -22px; height: 24px; margin-left: -2px; position: absolute; border-left-width: 3px; width: 31px; top: 42px; left: -8px;" value="0">
+        <input class="box-model-input topcoat-text-input" id="pad-right" type="number" data-css-key="padding-right" style="top: 1px; left: 154px; height: 24px; border-right-width: 3px; margin-left: 111px; width: 33px; margin-top: 20px;" value="0">
+        <input class="box-model-input topcoat-text-input" id="pad-top" type="number" data-css-key="padding-top" style="margin-top: -22px; height: 24px; margin-left: -2px; position: absolute; border-top-width: 3px; width: 31px; left: 49px; top: 20px;" value="0">
+        <input class="box-model-input topcoat-text-input" id="pad-bottom" type="number" data-css-key="padding-bottom" style="margin-top: -40px; height: 24px; margin-left: 238px; position: absolute; border-bottom-width: 3px; width: 31px; left: -191px; top: 86px;" value="0">
+    </div>
+    <div id="margin-box" style="background-color: rgb(74, 77, 78); border: 1px solid gray; position: absolute; height: 116px; pointer-events: auto; width: 203px; left: 37px; z-index: 2; top: 62px;">
+        <span style="position: absolute; color: gray; top: 1px; left: 3px;">Margin</span>
+        <input class="box-model-input topcoat-text-input" id="mar-left" type="number" data-css-key="margin-left" style="margin-top: -22px; margin-left: 4px; position: absolute; height: 23px; width: 32px; top: 68px; left: -15px;" value="0">
+        <input class="box-model-input topcoat-text-input" id="mar-right" type="number" data-css-key="margin-right" style="top: 1px; left: 153px; height: 23px; width: 32px; margin-left: 166px; margin-top: 46px;" value="0">
+        <input class="box-model-input topcoat-text-input" id="mar-top" type="number" data-css-key="margin-top" style="margin-top: -22px; margin-left: 4px; position: absolute; height: 23px; top: 23px; width: 31px; left: 71px;" value="0">
+        <input class="box-model-input topcoat-text-input" id="mar-bottom" type="number" data-css-key="margin-bottom" style="margin-top: -22px; margin-left: 5px; position: absolute; height: 23px; top: 116px; width: 31px; left: 70px;" value="0">
+    </div>
+    <div id="position-box" style="background-color: rgb(60, 63, 65); border: 1px solid gray; position: absolute; pointer-events: auto; height: 163px; width: 262px; left: 7px; z-index: 1; top: 41px;">
+        <span style="position: absolute; color: gray; top: 1px; left: 12px;">Position</span>
+        <input class="box-model-input topcoat-text-input" id="pos-top" type="number" data-css-key="top" style="margin-top: -21px; margin-left: 104px; position: absolute; height: 23px; width: 31px; left: 1px; top: 20px;" value="0">
+        <input class="box-model-input topcoat-text-input" id="pos-left" type="number" data-css-key="left" style="margin-top: -21px; margin-left: 4px; position: absolute; height: 23px; width: 33px; top: 88px; left: -17px;" value="0">
+        <input class="box-model-input topcoat-text-input" id="pos-right" type="number" data-css-key="right" style="margin-left: 133px; margin-top: 16px; position: absolute; height: 23px; width: 34px; left: 91px; top: 51px;" value="0">
+        <input class="box-model-input topcoat-text-input" id="pos-bottom" type="number" data-css-key="bottom" style="margin-left: 0px; margin-top: 0px; position: absolute; height: 23px; width: 31px; top: 140px; left: 105px;" value="0">
+        <div class="anchorControl" data-anchor="top-left" id="top-left-anchor" style="width: 0px; height: 0px; border-style: solid; border-width: 15px 15px 0px 0px; border-color: gray transparent transparent; position: absolute; left: -1px; top: -1px;"></div>
+        <div class="anchorControl" data-anchor="top-right" id="top-right-anchor" style="width: 0px; height: 0px; border-style: solid; border-width: 0px 15px 15px 0px; border-color: transparent gray transparent transparent; position: absolute; left: 247px; top: 0px;"></div>
+        <div class="anchorControl" data-anchor="bottom-left" id="bottom-left-anchor" style="width: 0px; height: 0px; border-style: solid; border-width: 15px 0px 0px 15px; border-color: transparent transparent transparent gray; position: absolute; left: 0px; top: 149px;"></div>
+        <div class="anchorControl" data-anchor="bottom-right" id="bottom-right-anchor" style="width: 0px; height: 0px; border-style: solid; border-width: 0px 0px 15px 15px; border-color: transparent transparent gray; position: absolute; left: 248px; top: 148px;"></div>
+    </div>
+
+    <span style="position: absolute; color: rgb(211, 211, 211); left: 8px; top: 215px;">Float</span>
+    <button class="floatControl staticPositionControl topcoat-icon-button" id="set-float-left" style="position: absolute; left: 41px; width: 32px; top: 212px;" data-css-key="float" data-css-value="left">
+        <img src="{{module_path}}/toolboxhtml/images/Float_Left.png" style="margin-top: -2px;">
+    </button>
+    <button class="floatControl staticPositionControl topcoat-icon-button" id="set-float-right" style="position: absolute; left: 111px; top: 212px;" data-css-key="float" data-css-value="right">
+        <img src="{{module_path}}/toolboxhtml/images/Float_Right.png" style="margin-top: -3px;">
+    </button>
+    <button class="floatControl staticPositionControl topcoat-icon-button" id="set-float-none" style="position: absolute; left: 75px; top: 212px;" data-css-key="float" data-css-value="none">
+        <img src="{{module_path}}/toolboxhtml/images/Float_None.png" style="margin-top: -2px;">
+    </button>
+
+    <span style="position: absolute; color: rgb(211, 211, 211); left: 7px; top: 248px;">Clear</span>
+    <button class="clearControl staticPositionControl topcoat-icon-button" id="set-clear-left" style="position: absolute; height: 23px; width: 24px; left: 41px; top: 246px;" data-css-key="clear" data-css-value="none">
+        <img src="{{module_path}}/toolboxhtml/images/Clear_Left.png">
+    </button>
+    <button class="clearControl staticPositionControl topcoat-icon-button" id="set-clear-right" style="position: absolute; width: 22px; left: 98px; top: 246px;" data-css-key="clear" data-css-value="right">
+        <img src="{{module_path}}/toolboxhtml/images/Clear_Right.png">
+    </button>
+    <button class="clearControl staticPositionControl topcoat-icon-button" id="set-clear-both" style="position: absolute; width: 27px; left: 68px; top: 246px;" data-css-key="clear" data-css-value="both">
+        <img src="{{module_path}}/toolboxhtml/images/Clear_Both.png">
+    </button>
+    <button class="clearControl staticPositionControl topcoat-icon-button" id="set-clear-none" style="position: absolute; width: 20px; left: 122px; top: 246px;" data-css-key="clear" data-css-value="none"><span>X</span>
+    </button>
+    <span style="position: absolute; color: rgb(211, 211, 211); left: 148px; top: 214px;">z-index</span>
+    <span style="position: absolute; color: rgb(211, 211, 211); left: 146px; top: 248px;">Display</span>
+    <input class="topcoat-text-input" id="z-index-input" type="text" style="position: absolute; height: 24px; width: 56px; left: 194px; top: 211px;">
+    <select class="topcoat-select" id="layout-display-select" style="padding-top: 0px; position: absolute; width: 76px; height: 22px; left: 194px; top: 246px;">
+        <option value="block">block</option>
+        <option value="inline-block">inline-block</option>
+        <option value="none">none</option>
+        <option value="initial">initial</option>
+    </select>
+</div>

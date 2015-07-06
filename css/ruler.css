@@ -1,0 +1,185 @@
+.ruler {
+	background: #3c3f41;
+	color:gray;
+	font-size: 12px;
+    font-family: SourceSansPro, Helvetica, Arial, 'Meiryo UI', 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+	line-height: 14px;
+	overflow: hidden;
+}
+
+.ruler > div {
+	background: gray;
+    color:lightgray;
+}
+
+.hRule {
+    position:absolute;
+	height: 18px;
+	left: 0px;
+	top: 0px;
+	border-top:1px solid gray;
+	border-bottom: 1px solid;
+	z-index: 9;
+}
+.vRule {
+	position: absolute;
+	width: 18px;
+	left: 0px;
+	top: 0px;
+	border-right: 1px solid;
+	z-index: 9;
+    border-left:1px solid gray;
+}
+.corner {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 22px;
+	height: 22px;
+	border: 1px solid gray;
+	z-index: 100;
+    overflow: visible;
+    cursor: context-menu;
+}
+.hRule .tickLabel {
+	position: absolute;
+	top: 3px;
+	width: 1px;
+	height: 100%;
+	text-indent: 5px;
+    pointer-events: none;
+}
+.hRule .tickMajor {
+	position: absolute;
+	bottom: 0px;
+	width: 1px;
+	height: 6px;
+    pointer-events: none;
+}
+.hRule .tickMinor {
+	position: absolute;
+	bottom: 0px;
+	width: 1px;
+	height: 4px;
+    pointer-events: none;
+}
+.vRule .tickLabel {
+	position: absolute;
+	right: 0px;
+	height: 1px;
+	width: 100%;
+	text-indent: 5px;
+    pointer-events: none;
+}
+.vRule .tickLabel span {
+	display: block;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	margin-right: 18px;
+	-webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+	
+	-webkit-transform-origin: top right;
+  -moz-transform-origin: top right;
+  -ms-transform-origin: top right;
+  -o-transform-origin: top right;
+  transform-origin: top right;
+    pointer-events: none;
+	
+}
+.vRule .tickMajor {
+	position: absolute;
+	right: 0px;
+	height: 1px;
+	width: 6px;
+    pointer-events: none;
+}
+.vRule .tickMinor {
+	position: absolute;
+	right: 0px;
+	height: 1px;
+	width: 4px;
+    pointer-events: none;
+}
+
+.vMouse {
+	display: block;
+	position: absolute;
+	height: 0px;
+	color: blue;
+	left: 1px;
+	background: rgba(0,0,0,0);
+	border-left: 22px solid #288edf;
+    border-bottom: 22px solid transparent;
+    opacity: 0.6;
+	z-index: 11;
+    pointer-events: none;
+}
+
+.vGuide {
+    cursor:col-resize;
+    pointer-events: all;
+	display: block;
+	position: absolute;
+	width: 0px;
+    height:100%;
+	top: 0;
+	background: rgba(0,0,0,0);
+    color: red;
+	border-left: 1px solid;
+	z-index: 6;
+    pointer-events: all;
+    opacity:0.2;
+    height: 100% !important;
+}
+
+.hGuide {
+    cursor:row-resize;
+	display: block;
+	position: absolute;
+	width: 100%;
+	top: 0;
+	background: rgba(0,0,0,0);
+    color: red;
+	border-bottom: 1px solid;
+	z-index: 6;
+    pointer-events: all;
+    opacity: 0.2;
+    width: 100% !important;
+    pointer-events: all;
+}
+
+.hMouse {
+	display: block;
+	position: absolute;
+	top: 1px;
+	background: rgba(0,0,0,0);
+	border-top: 22px solid #288edf;
+    border-right: 22px solid transparent;
+    opacity: 0.6;
+	z-index: 11;
+    pointer-events: none;
+}
+
+.mousePosBox {
+	height: 16px;
+	background: rgba(0,0,0,0.25);
+	color: #fff;
+	font-family: source code pro;
+	font-size: 12px;
+	line-height: 16px;
+	border: 1px solid rgba(0,0,0,0.5);
+	position: fixed;
+	white-space: no-wrap;
+	display: block;
+	overflow-y:hidden;
+	float: left;
+	text-align: left;
+	left: -50%;
+	top: -50%;
+	padding: 0 2px;
+}

@@ -1,0 +1,20 @@
+<style>
+    #markup-editor-container .CodeMirror
+    {
+        position:static !important;
+        float: left; 
+        margin-top: 0px; 
+        margin-left: 0px; 
+        width: 100%; 
+        height: calc(100% - 40px); 
+    }
+</style>
+<div class="property-toolbox horz-resizable right-resizer vert-resizable bottom-resizer" id="markup-editor-container" style="pointer-events: all; display: none; position: absolute; padding: 10px 10px 10px 10px; background-color: rgb(74, 77, 78); top: 25%; z-index: 52; left: 203px; height: 40%; width: 50%;" draggable="true">
+    <div class="propertyToolboxHeader">
+        <div class="toolboxHeaderBottom"></div>
+    </div>
+    <button class="topcoat-button btn primary" id="markup-edit-confirm" style="position: absolute; height: 27px; right: 10px; margin-right: 0px; margin-left: 0px; width: 82px; bottom: 10px;">Confirm</button>
+    <button class="topcoat-button" id="markup-edit-cancel" style="position: absolute; height: 27px; width: 82px; right: 96px; bottom: 10px;">Cancel</button>
+
+    <textarea id="markup-data-input" style="position:static !important;float: left; margin-top: 0px; margin-left: 0px; width: 100% !important; height: calc(100% - 40px) !important;"></textarea>
+</div>

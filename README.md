@@ -11,13 +11,13 @@ Features
 * WYSIWYG design editor to design and customize HTML pages
 * Rendering of HTML page with Split view support for stylesheet editing and HTML page source editing
 * Illustration controls for popular CSS properties like -
-	1.Layout ( BoxModel)
-	2.Background Properties
-	3.Shadow Properties
-	4.Transformation properties
-	5.Border Properties
-	6.Transition Animation(with Preview)
-	7.CSS3 Keyframe animation(With Preview)
+	* Layout ( BoxModel)
+	* Background Properties
+	* Shadow Properties
+	* Transformation properties
+	* Border Properties
+	* Transition Animation(with Preview)
+	* CSS3 Keyframe animation(With Preview)
 * Drag Selection to position 
 * Drag Resize controls to Resize
 * Shift+Drag to change containment 
@@ -29,6 +29,9 @@ Features
 * Shift+Drag Border radius control point to change radius for all corners
 * Ctrl+Drag to copy/Clone ( nested )
 * Double Click a selected element to open inner HTML editor non-modal popup
+* MultiSelect by Ctrl+Click
+* Multiselect by drawing control rect
+* Alignment on multiselected elements
 
 **Information Overlay**
 ------------
@@ -56,7 +59,18 @@ Features
 The following snapshots will show the different controls and their access source
 ![Designer Launch option](https://github.com/swmitra/html-designer/blob/master/Getting%20Started/View-Options.png)
 
+![Designer Skeleton](https://github.com/swmitra/html-designer/blob/master/Getting%20Started/Designer-skeleton.png)
+
 ![Designer Split view](https://github.com/swmitra/html-designer/blob/master/Getting%20Started/Split-view-skeleton.png)
+
+![Illustration controls](https://github.com/swmitra/html-designer/blob/master/Getting%20Started/CSS-illustration-controls.png)
+
+![HTML Attributes](https://github.com/swmitra/html-designer/blob/master/Getting%20Started/HTML-attributes-editor.png)
+
+![HTML Attributes input controls](https://github.com/swmitra/html-designer/blob/master/Getting%20Started/attributes-input-control.png)
+
+![Multiselect and Align controls](https://github.com/swmitra/html-designer/blob/master/Getting%20Started/Alignment-controls.png)
+
 ------------
 Installation
 ------------

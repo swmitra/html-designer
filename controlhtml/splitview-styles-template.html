@@ -19,14 +19,12 @@
         }
         
         #styles-editor-container .horz-resizer {
-            background: url('../images/Gripper_Horizontal.png') no-repeat 0 50%;
             left: calc(100% - 1px) !important;
             top: 1px;
             width: 1px;
         }
         
         #styles-editor-container .vert-resizer {
-            background: url('../images/Gripper_Vertical.png') no-repeat 0 50%;
             top: calc(100% - 1px) !important;
             left: 1px;
             height: 1px;
@@ -43,7 +41,7 @@
         }
         
         .topcoat-list__itemselected {
-            background:url(extensions/default/ADHTMLDesign/controlhtml/Widget_highlight.png);
+            background:url('{{module_path}}/controlhtml/Widget_highlight.png');
             background-repeat: no-repeat;
             background-size: cover;
             background-origin: padding-box;
@@ -85,7 +83,8 @@
     </style>
 
     <div class="splitViewEditor property-toolbox horz-resizable right-resizer vert-resizable bottom-resizer" id="styles-editor-container" draggable="true">
-        <div class="propertyToolboxHeader" style="display: block;">
+        <div class="propertyToolboxHeader" style="display: block;">Styles
+            <a class ="close" id="styles-editor-close" style="display:none;">×</a>
             <a class ="close" id="styles-editor-minimize" style="margin-top:-1px;display:block;">&minus;</a>
             <a class ="close" id="styles-editor-maximize" style="margin-top:-1px;display:none;">&square;</a>
             <span class="close" id="minimized-title" style="display:none;">Styles</span>

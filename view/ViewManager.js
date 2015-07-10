@@ -29,7 +29,7 @@ define(function (require, exports, module) {
 
     var HTMLDesignViewTemplate = require("text!html/html-design-view.html");
     var StatusBarViewOptionsTemplate = require("text!controlhtml/view-options.html");
-    var StylesSplitViewTemplate = require("text!controlhtml/splitview-styles-template.html");
+    var StylesSplitViewTemplate = require("text!controlhtml/splitview-styles-template.html").split("{{module_path}}").join(MODULE_PATH);
     var SourceSplitViewTemplate = require("text!controlhtml/splitview-source-template.html");
     var SelectionControlTemplate = require("text!controlhtml/selection-pane.html");
     var MultiselectionControlTemplate = require("text!toolboxhtml/multiselectionToolboxTemplate.html").split("{{module_path}}").join(MODULE_PATH);

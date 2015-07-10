@@ -29,11 +29,12 @@ define(function (require, exports, module) {
     $(document).on("click",".borderRadius",function(event){
         $(".borderRadius").removeClass("activeBorderRadius");
         $(this).addClass("activeBorderRadius");
+        //$("#border-radius").val(lastSelectedRuleset.css($(".activeBorderRadius").data('key')));
         event.preventDefault();
         event.stopPropagation();
     });
     
-    $(document).on("blur change input","#border-radius",function(event){
+    $(document).on("blur change","#border-radius",function(event){
         if(lastSelectedRuleset){           
             lastSelectedRuleset.css($(".activeBorderRadius").data('key'),$("#border-radius").val());
             lastSelectedRuleset.persist();

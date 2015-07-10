@@ -22,14 +22,12 @@
     }
     
     #source-editor-container .horz-resizer{
-        background: url('../images/Gripper_Horizontal.png') no-repeat 0 50%;
         left: calc(100% - 1px) !important;
         top: 1px;
         width: 1px;
     }
 
     #source-editor-container .vert-resizer{
-        background: url('../images/Gripper_Vertical.png') no-repeat 0 50%;
         top: calc(100% - 1px) !important;
         left: 1px;
         height: 1px;
@@ -63,7 +61,8 @@
     
 </style>
 <div class="splitViewEditor property-toolbox horz-resizable right-resizer vert-resizable bottom-resizer" id="source-editor-container" draggable="true">
-    <div class="propertyToolboxHeader">
+    <div class="propertyToolboxHeader">Source
+        <a class ="close" id="source-editor-close" style="display:none;">×</a>
         <a class ="close" id="source-editor-minimize" style="margin-top:-1px;display:block;">&minus;</a>
         <a class ="close" id="source-editor-maximize" style="margin-top:-1px;display:none;">&square;</a>
         <span class="close" id="minimized-title" style="display:none;">Source</span>

@@ -95,14 +95,12 @@
 }
 
 #markup-editor-container .horz-resizer{
-    background: url('../images/Gripper_Horizontal.png') no-repeat 0 50%;
     left: calc(100% - 1px) !important;
     top: 1px;
     width: 1px;
 }
 
 #markup-editor-container .vert-resizer{
-    background: url('../images/Gripper_Vertical.png') no-repeat 0 50%;
     top: calc(100% - 1px) !important;
     left: 1px;
     height: 1px;

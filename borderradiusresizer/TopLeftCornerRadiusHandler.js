@@ -16,7 +16,7 @@ define(function (require, exports, module) {
     
     $(document).on("ruleset-wrapper.created","#html-design-editor",function(event,rulesetref){
        lastSelectedRuleset = rulesetref;
-        _synchWithDOM();
+       _synchWithDOM();
     });
     
     function _synchWithDOM(){
@@ -40,7 +40,7 @@ define(function (require, exports, module) {
                     .css('left',(hRadii - 3))
                     .css('top',(vRadii-3));
         
-        $("#border-radius").val(''+hRadii+'px '+vRadii+'px');
+        //$("#border-radius").val(''+hRadii+'px '+vRadii+'px');
     }
     
     $(document).on("mousedown","#border-top-left-control",function(event){
@@ -48,6 +48,8 @@ define(function (require, exports, module) {
         $("#element-resize-plane").show();
         if(event.shiftKey === true){
             changeAll = true;
+            $(".borderRadius").removeClass("activeBorderRadius");
+            $("#border-radius-all").addClass("activeBorderRadius");
         } else {
             $(".borderRadius").removeClass("activeBorderRadius");
             $("#border-radius-top-left").addClass("activeBorderRadius");
@@ -76,6 +78,7 @@ define(function (require, exports, module) {
             }else{
                 lastSelectedRuleset.css("border-top-left-radius",''+hRadii+'px '+vRadii+'px');
             }
+            $("#border-radius").val(''+hRadii+'px '+vRadii+'px')
             _synchWithDOM();
             startOffset = {x:event.clientX,y:event.clientY};
             event.stopPropagation();
@@ -86,6 +89,7 @@ define(function (require, exports, module) {
         if(startOffset){
             startOffset = null;
             $("#element-resize-plane").hide();
+            //lastSelectedRuleset.css("border-radius",$("#border-outline").css("border-radius"));
             lastSelectedRuleset.persist();
             event.stopPropagation();
         }

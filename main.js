@@ -76,6 +76,7 @@ define(function (require, exports, module) {
     require("stylemodule/CSSRuleSetManager");
     require("stylemodule/RuleSetCreator");
     require("stylemodule/RuleSetRemover");
+    require("stylemodule/RuleSetUpdater");
     require("stylemodule/CSSPersistenceManager");
     require("stylemodule/StylesheetManager");
     

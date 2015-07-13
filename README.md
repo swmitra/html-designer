@@ -81,8 +81,6 @@ The following snapshots will show the different controls and their access source
 
 ![HTML Attributes input controls](https://github.com/swmitra/html-designer/blob/master/Getting%20Started/attributes-input-control.png)
 
-![Multiselect and Align controls](https://github.com/swmitra/html-designer/blob/master/Getting%20Started/Alignment-controls.png)
-
 ------------
 Installation
 ------------

@@ -65,7 +65,11 @@ define(function (require, exports, module) {
            if(attr.key === 'value'){
                 $(selectedElement).val(entry.find(".attr-value").val()); 
            } else {
+                var oldval = $(selectedElement).attr(attr.key);
                 $(selectedElement).attr(attr.key,entry.find(".attr-value").val() || '');
+                if(oldval && entry.find(".attr-value").val() && attr.key === "id"){
+                    $("#html-design-editor").trigger("id-attribute-update",[oldval,entry.find(".attr-value").val()]);
+                }
            }
            $("#html-design-editor").trigger("refresh.element.selection");
            $("#html-design-editor").trigger('html.element.updated');

@@ -4,6 +4,8 @@ html-designer
 
 An extension for the popular open-source code editor Brackets to design and customize web UI with HTML and CSS
 
+![Basic UI](https://github.com/swmitra/html-designer-user-guide/blob/master/demo/Intro.gif)
+
 --------
 Features
 --------

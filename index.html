@@ -3,35 +3,191 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
     <title>Html-designer by swmitra</title>
   </head>
 
   <body>
+    <div id="container">
+      <div class="inner">
 
-    <header>
-      <div class="container">
-        <h1>Html-designer</h1>
-        <h2>An extension for popular opensource editor Brackets , to design and customize html pages/applications along with transition and key-frame CSS3 animation support. USER GUIDE (In Progress) here :</h2>
+        <header>
+          <h1>Html-designer</h1>
+          <h2>An extension for popular opensource editor Brackets , to design and customize html pages/applications along with transition and key-frame CSS3 animation support. USER GUIDE (In Progress) here :</h2>
+        </header>
 
-        <section id="downloads">
-          <a href="https://github.com/swmitra/html-designer/zipball/master" class="btn">Download as .zip</a>
-          <a href="https://github.com/swmitra/html-designer/tarball/master" class="btn">Download as .tar.gz</a>
-          <a href="https://github.com/swmitra/html-designer" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/swmitra/html-designer/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/swmitra/html-designer/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/swmitra/html-designer" id="view-on-github" class="button"><span>View on GitHub</span></a>
         </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1></h1>
+
+<h1>
+<a id="html-designer" class="anchor" href="#html-designer" aria-hidden="true"><span class="octicon octicon-link"></span></a>html-designer</h1>
+
+<p>An extension for the popular open-source code editor Brackets to design and customize web UI with HTML and CSS</p>
+
+<p><img src="https://github.com/swmitra/html-designer-user-guide/blob/master/demo/Intro.gif" alt="Basic UI"></p>
+
+<hr>
+
+<h2>
+<a id="features" class="anchor" href="#features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Features</h2>
+
+<ul>
+<li>WYSIWYG design editor to design and customize HTML pages</li>
+<li>Rendering of HTML page with Split view support for stylesheet editing and HTML page source editing</li>
+<li>Illustration controls for popular CSS properties like -
+
+<ul>
+<li>Layout ( BoxModel)
+
+<ul>
+<li>All CSS layout support</li>
+<li>Reference anchoring change by retaining current position( when element is positioned)</li>
+<li>Layouting parameters change by retaining current position</li>
+<li>Intelligent unit persistance and incr/decr logic based on unit present in target selector<br>
+</li>
+</ul>
+</li>
+<li>Background Properties</li>
+<li>Shadow Properties</li>
+<li>Transformation properties</li>
+<li>Border Properties</li>
+<li>Transition Animation(with Preview)</li>
+<li>CSS3 Keyframe animation(With Preview)</li>
+</ul>
+</li>
+<li>Automatic CSS selector selection based on specificity for property change persistence</li>
+<li>User can override tools automatic selection for property change presistense </li>
+<li>Drag Selection to position ( Decision tree driven property selection for positioning a positioned or non-positioned element )</li>
+<li>Drag Resize controls to Resize</li>
+<li>Precise positioning by using arrow keys to shift by 1 pixel</li>
+<li>Precise Resizing by using shift+arrow keys to increase/decrease height/width by 1 pixel</li>
+<li>Shift+Drag to change containment </li>
+<li>Alt+Click to do layered selection</li>
+<li>Element serach by using jquery selector</li>
+<li>On-Demand sandboxing of application iFrame to stop JS execution</li>
+<li>HTML attribute editing using intutive input controls</li>
+<li>Drag Border radius control points to change radius for one corner</li>
+<li>Shift+Drag Border radius control point to change radius for all corners</li>
+<li>Ctrl+Drag to copy/Clone ( nested )</li>
+<li>Double Click a selected element to open inner HTML editor non-modal popup</li>
+<li>MultiSelect by Ctrl+Click</li>
+<li>Multiselect by drawing control rect</li>
+<li>Alignment on multiselected elements</li>
+<li>Cut/Copy/Paste of elements using context menu</li>
+</ul>
+
+<h2>
+<a id="information-overlay" class="anchor" href="#information-overlay" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Information Overlay</strong>
+</h2>
+
+<hr>
+
+<ul>
+<li>Offset Markers with Offset values</li>
+<li>Element position reference axis ( x and y)</li>
+<li>Current containment and prospective containment based on mouse interaction while editing containment using Shift+Drag</li>
+<li>Border radius focal point for rx and ry</li>
+<li>Selection Rectangle</li>
+</ul>
+
+<h2>
+<a id="ruler-and-grid" class="anchor" href="#ruler-and-grid" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Ruler and Grid</strong>
+</h2>
+
+<hr>
+
+<ul>
+<li>Ruler and Grid support with pixel calibration</li>
+<li>On Demand grids by clicking on Rulers</li>
+<li>Dynamic position of Grids drawn</li>
+<li>Lockable grid lines</li>
+<li>Show/Hide of Grid lines </li>
+<li>Clear Grid lines </li>
+<li>Options accessible from right click context menu at grid corner block</li>
+</ul>
+
+<h2>
+<a id="skeleton-snapshots" class="anchor" href="#skeleton-snapshots" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Skeleton Snapshots</strong>
+</h2>
+
+<hr>
+
+<p>The following snapshots will show the different controls and their access source</p>
+
+<p><img src="https://github.com/swmitra/html-designer/blob/master/Getting%20Started/View-Options.png" alt="Designer Launch option"></p>
+
+<p><img src="https://github.com/swmitra/html-designer/blob/master/Getting%20Started/Designer-skeleton.png" alt="Designer Skeleton"></p>
+
+<p><img src="https://github.com/swmitra/html-designer/blob/master/Getting%20Started/Split-view-skeleton.png" alt="Designer Split view"></p>
+
+<p><img src="https://github.com/swmitra/html-designer/blob/master/Getting%20Started/CSS-illustration-controls.png" alt="Illustration controls"></p>
+
+<p><img src="https://github.com/swmitra/html-designer/blob/master/Getting%20Started/HTML-attributes-editor.png" alt="HTML Attributes"></p>
+
+<p><img src="https://github.com/swmitra/html-designer/blob/master/Getting%20Started/attributes-input-control.png" alt="HTML Attributes input controls"></p>
+
+<p><img src="https://github.com/swmitra/html-designer/blob/master/Getting%20Started/Alignment-controls.png" alt="Multiselect and Align controls"></p>
+
+<hr>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>Can be used as a Brackets extension only in its current form.
+Install <a href="http://brackets.io">Brackets</a>.
+GoTo Extension Manager --&gt; Available tab and search for "html-designer"</p>
+
+<hr>
+
+<h2>
+<a id="licence" class="anchor" href="#licence" aria-hidden="true"><span class="octicon octicon-link"></span></a>Licence</h2>
+
+<p>html-designer is released under MIT License.</p>
+
+<hr>
+
+<h2>
+<a id="contact" class="anchor" href="#contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contact</h2>
+
+<p>For queries and discussions, please contact: <a href="mailto:swagatammitra@gmail.com">swagatammitra@gmail.com</a></p>
+
+<p>Moreover any contribution towards stabilization or new feature addition is most welcome</p>
+
+<hr>
+
+<h2>
+<a id="todo" class="anchor" href="#todo" aria-hidden="true"><span class="octicon octicon-link"></span></a>TODO</h2>
+
+<ul>
+<li>Stabilization of split view feature</li>
+<li>Undo Redo from design context ( as of now switch to code view to do the same )</li>
+<li>Media query support</li>
+<li>Pseudo element illustration</li>
+<li>Revamp of Transform control with 3D support</li>
+</ul>
+        </section>
+
+        <footer>
+          Html-designer is maintained by <a href="https://github.com/swmitra">swmitra</a><br>
+          This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
       </div>
-    </header>
-
-    <div class="container">
-      <section id="main_content">
-        <p><img src="https://github.com/swmitra/html-designer-user-guide/blob/master/demo/Intro.gif" alt="HTML Designer"></p>
-      </section>
     </div>
-
-    
   </body>
 </html>

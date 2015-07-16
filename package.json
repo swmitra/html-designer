@@ -3,9 +3,10 @@
     "title": "HTML Designer for Brackets",
     "description": "Design and customize web ui with HTML and CSS",
     "homepage": "https://github.com/swmitra/html-designer",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "author": "Swagatam Mitra <swagatammitra@gmail.com>",
     "license": "MIT",
+    "keywords":["HTML","CSS","Designer","Illustration","Design Editor"],
     "engines": {
         "brackets": ">=1.0.0"
     }

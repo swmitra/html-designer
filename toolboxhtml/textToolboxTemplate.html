@@ -1,0 +1,161 @@
+    <style>
+        #text-toolbox {
+            position: absolute;
+            height: 130px;
+            left: 139px;
+            top: 87px;
+            width: 434px;
+            background-color: rgb(74, 77, 78);
+            display: none;
+        }
+        
+        .text-control-button-holder {
+            border: 1px solid gray;
+            padding: 1px;
+            border-radius: 5px;
+            position: absolute;
+        }
+
+        #text-color-input {
+            height: 23px;
+            width: 110px;
+            position: absolute;
+            top: 2px;
+            left: 31px;
+        }
+    
+        #text-bg-color-input {
+            height: 23px;
+            width: 110px;
+            position: absolute;
+            top: 2px;
+            left: 31px;
+        }
+    
+        #text-size-input {
+            position: absolute;
+            left: 31px;
+            top: 2px;
+            height: 23px;
+            width: 24px;
+        }
+        
+        #text-indent-input {
+            position: absolute;
+            left: 32px;
+            top: 2px;
+            height: 23px;
+            width: 30px;
+        }
+    
+        #line-height-input {
+            position: absolute;
+            left: 31px;
+            top: 2px;
+            height: 23px;
+            width: 24px;
+        }
+    
+        #text-direction-select {
+            width: 49px;
+            height: 28px;
+        }
+        
+        .text-toolbox-icon-button {
+            width: 30px; 
+            height: 27px;
+        }
+        
+        .activeTextControl {
+            background-color: #288edf !important;
+            color:white !important;
+        }
+        
+    </style>
+
+    <div id="text-toolbox" class="property-toolbox">
+        <div class="propertyToolboxHeader">Text Toolbox
+            <a class="close" id="text-toolbox-close" >×</a>
+            <div class="toolboxHeaderBottom"></div>
+        </div>
+
+        <div class="text-control-button-holder" style="left: 9px; top: 7px;" id="align-button-holder">
+            <button type="button" id="text-align-left" class="topcoat-button text-toolbox-icon-button"  name="left" title="Text Align Left"><span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+            </button>
+            <button type="button" id="text-align-center" class="topcoat-button text-toolbox-icon-button" name="center" title="Text Align Center"><span class="glyphicon glyphicon-align-center" aria-hidden="true"></span>
+            </button>
+            <button type="button" id="text-align-right" class="topcoat-button text-toolbox-icon-button" name="right" title="Text Align Right"><span class="glyphicon glyphicon-align-right" aria-hidden="true"></span>
+            </button>
+            <button type="button" id="text-align-justify" class="topcoat-button text-toolbox-icon-button"  name="justify" title="Text Align Justify"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+            </button>
+            <button type="button" id="text-align-justify" class="topcoat-button text-toolbox-icon-button"  name="" title="Remove Align Property"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+            </button>
+        </div>
+        
+        <div class="text-control-button-holder" style="top: 7px; left: 194px;" id="decoration-button-holder">
+            <button type="button" id="text-deco-none" class="topcoat-button text-toolbox-icon-button decoration-button"  data-key="text-decoration" data-value="none" title="Text Decoration None"><span class="glyphicon glyphicon-font" aria-hidden="true"></span>
+            </button>
+            <button type="button" id="text-deco-bold" class="topcoat-button text-toolbox-icon-button weight-button" style="width: 31px; height: 27px;" data-key="font-weight" data-value="bold" title="Text Decoration Bold"><span class="glyphicon glyphicon-bold" aria-hidden="true"></span>
+            </button>
+            <button type="button" id="text-deco-italic" class="topcoat-button text-toolbox-icon-button style-button" name="italic" data-key="font-style" data-value="italic" title="Text Decoration Italic"><span class="glyphicon glyphicon-italic" aria-hidden="true"></span>
+            </button>
+            <button type="button" id="text-deco-st" class="topcoat-button text-toolbox-icon-button decoration-button" name="line-through" data-key="text-decoration" data-value="line-through" title="Text Decoration Line Through"><span class="glyphicon" aria-hidden="true" style="font-size:15px;margin-top:-4px;text-decoration:line-through;">S</span>
+            </button>
+            <button type="button" id="text-deco-overline" class="topcoat-button text-toolbox-icon-button decoration-button" name="overline" data-key="text-decoration" data-value="overline" title="Text Decoration Overline"><span class="glyphicon" aria-hidden="true" style="font-size:15px;margin-top:-4px;text-decoration:overline;">O</span>
+            </button>
+            <button type="button" id="text-deco-underline" class="topcoat-button text-toolbox-icon-button decoration-button" name="underline" data-value="underline" style="width: 30px; height: 27px; margin-top: 0px; margin-left: 0px;" data-key="text-decoration" data-value="underline" title="Text Decoration Underline"><span class="glyphicon" aria-hidden="true" style="font-size:15px;margin-top:-4px;text-decoration:underline;">U</span>
+            </button>
+            <button type="button" id="reset-text-decoration" class="topcoat-button" title="Remove Text Decoration Property" style="width: 30px;height: 27px;"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+            </button>
+        </div>
+        
+        <div class="text-control-button-holder" style="top: 92px;left: 338px;width:82px;" id="indent-button-holder">
+            <div id="text-indent-icon" class="" style="width: 30px; height: 27px; margin-left: 1px; margin-top: 0px; color: rgb(211, 211, 211);"><span class="glyphicon glyphicon-indent-left" aria-hidden="true" style="left: 8px; top: 7px;"></span>
+            </div>
+            <input id="text-indent-input" type="text" class="topcoat-text-input" title="Text indent">
+        </div>
+        
+        <div class="text-control-button-holder" style="left: 8px;top: 50px;width: 161px;" id="text-color-container">
+            <div type="button" id="button61317461065-0" class="" style="width: 30px; height: 27px; margin-left: 1px; margin-top: 0px; color: rgb(211, 211, 211);"><span class="glyphicon glyphicon-text-color" aria-hidden="true" style="left: 8px; top: 7px;"></span>
+            </div>
+            <input id="text-color-input" type="text" class="topcoat-text-input" title="Text color">
+        </div>
+        
+        <div class="text-control-button-holder" style="top: 92px; left: 8px;width:161px;" id="text-bg-color-container">
+            <div id="div61318320700-0" class="" style="width: 30px; height: 27px; margin-left: 1px; margin-top: 0px; color: rgb(211, 211, 211);"><span class="glyphicon glyphicon-text-background" aria-hidden="true" style="left: 8px; top: 7px;"></span>
+            </div>
+            <input id="text-bg-color-input" type="text" class="topcoat-text-input" title="Text BG color">
+        </div>
+        
+        <div class="text-control-button-holder" style="top: 50px; left: 194px;width: 75px;" id="text-size-container">
+            <div type="button" id="text-size-icon" class="" style="width: 30px; height: 27px; margin-left: 1px; margin-top: 0px; color: rgb(211, 211, 211);"><span class="glyphicon glyphicon-text-size" aria-hidden="true" style="left: 8px; top: 7px;"></span>
+            </div>
+            <input id="text-size-input" type="text" class="topcoat-text-input" title="Font size">
+        </div>
+        
+        <div class="text-control-button-holder" style="top: 92px; left: 194px;" id="transform-button-holder">
+            <button type="button" id="button613181931769-3" class="topcoat-button text-toolbox-icon-button"  name="lowercase" title="Text Transform Lowercase"><span class="glyphicon" aria-hidden="true" style="margin-left:-3px;font-size:15px;margin-top:-4px;text-transform:lowercase;">AA</span>
+            </button>
+            <button type="button" id="button613181931769-4" class="topcoat-button text-toolbox-icon-button"  name="uppercase" title="Text Transform Uppercase"><span class="glyphicon" aria-hidden="true" style="margin-left:-3px;margin-top: -4px; text-transform: uppercase; font-size: 13px;">AA</span>
+            </button>
+            <button type="button" id="button613181931769-5" class="topcoat-button text-toolbox-icon-button"  name="capitalize" title="Text Transform Capitalize"><span class="glyphicon" aria-hidden="true" style="margin-left:-3px;font-size:15px;margin-top:-4px;text-transform:capitalize;">Aa</span>
+            </button>
+            <button type="button" id="button61317481457-0" class="topcoat-button text-toolbox-icon-button"  name="" title="Remove Text Transform"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+            </button>
+        </div>
+        
+        <div class="text-control-button-holder" style="left: 275px; top: 50px; width: 75px;" id="line-height-container">
+            <div type="button" id="line-height-icon" class="" style="width: 30px; height: 27px; margin-left: 1px; margin-top: 0px; color: rgb(211, 211, 211);"><span class="glyphicon glyphicon-text-height" aria-hidden="true" style="left: 8px; top: 7px;"></span>
+            </div>
+            <input id="line-height-input" type="text" class="topcoat-text-input" title="Line height">
+        </div>
+
+        <div class="text-control-button-holder" style="left: 357px; top: 50px; height: 27px;" id="orientation-container">
+            <select id="text-direction-select" class="topcoat-select-button-dark" style="width:30px;padding: 0px;height:25px;top:1px;" title="Text Direction ltr/rtl">
+                <option value="ltr">ltr</option>
+                <option value="rtl">rtl</option>
+            </select>
+            <button type="button" class="topcoat-button" style="height: 27px; width: 30px;" title="Remove Direction"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+            </button>
+        </div>
+    </div>

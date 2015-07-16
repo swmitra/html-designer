@@ -81,6 +81,8 @@ The following snapshots will show the different controls and their access source
 
 ![HTML Attributes input controls](https://github.com/swmitra/html-designer/blob/master/Getting%20Started/attributes-input-control.png)
 
+![CSS Text controls](https://github.com/swmitra/html-designer/blob/master/Getting%20Started/Text-controls.png)
+
 ------------
 Installation
 ------------

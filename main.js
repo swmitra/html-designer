@@ -14,11 +14,10 @@ define(function (require, exports, module) {
     
     require("lib/jquery.ruler");
     require("lib/jQuery-Knob/js/jquery.knob");
-    
-    require("lib/colorpicker/js/colorpicker");
     require("lib/DOMParserHTMLExtension");
     require("lib/jquery-ui-1.10.3.custom");
     require("lib/numeric-1.2.6.min");
+    require("lib/bootstrap-colorpicker/js/bootstrap-colorpicker");
     
     require("DesignDOMUpdater");
     require("PersistenceManager");
@@ -68,7 +67,7 @@ define(function (require, exports, module) {
     require("propertysheet/TransitionToolboxHandler");
     require("propertysheet/KeyframeToolboxHandler");
     require("propertysheet/KeyframeTimelineToolboxHandler");
-    //require("propertysheet/TransformControlHandler");
+    require("propertysheet/TextToolboxHandler");
     
     
     require("attribute/HTMLAttributeEditor");
@@ -88,7 +87,8 @@ define(function (require, exports, module) {
     ExtensionUtils.loadStyleSheet(module, "css/ruler.css");
     ExtensionUtils.loadStyleSheet(module, "css/topcoat-desktop-dark.css");
     ExtensionUtils.loadStyleSheet(module, "css/breadcrumb.css");
-    ExtensionUtils.loadStyleSheet(module, "lib/colorpicker/css/colorpicker.css");
     ExtensionUtils.loadStyleSheet(module, "lib/jquery-ui-1.10.3.custom.css");
+    ExtensionUtils.loadStyleSheet(module, "lib/bootstrap/css/bootstrap.css");
+    ExtensionUtils.loadStyleSheet(module, "lib/bootstrap-colorpicker/css/bootstrap-colorpicker.css");
     
 });

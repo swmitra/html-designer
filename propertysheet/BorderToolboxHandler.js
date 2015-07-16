@@ -12,10 +12,16 @@ define(function (require, exports, module) {
     var AppInit       = brackets.getModule("utils/AppInit");
     var lastSelectedRuleset = null;
     
-    $(document).on("ruleset-wrapper.created ruleset-wrapper.refreshed","#html-design-editor",function(event,rulesetref){
+    $(document).on("ruleset-wrapper.created","#html-design-editor",function(event,rulesetref){
         var asynchPromise = new $.Deferred();
        lastSelectedRuleset = rulesetref;
         _synchFromDOM();
+        return asynchPromise.promise();
+    });
+    
+    $(document).on("ruleset-wrapper.refreshed","#html-design-editor",function(event,rulesetref){
+        var asynchPromise = new $.Deferred();
+       lastSelectedRuleset = rulesetref;
         return asynchPromise.promise();
     });
     
@@ -71,7 +77,9 @@ define(function (require, exports, module) {
     }
     
     AppInit.appReady(function () {
-        $("#element-border-color").ColorPicker({
+        $("#element-border-color").colorpicker().on('changeColor.colorpicker', function(event){
+          _applyBorderColor();
+        });/*.ColorPicker({
             onShow: function (colpkr) {
                 $(colpkr).fadeIn(500);
                 return false;
@@ -94,7 +102,7 @@ define(function (require, exports, module) {
         })
         .bind('keyup', function(){
             $(this).ColorPickerSetColor(this.value);
-        });
+        });*/
     });
     
     function _stopPropagation(event){
@@ -103,11 +111,11 @@ define(function (require, exports, module) {
     }
         
     
-    $(document).on("change","#element-border-color",_applyBorderColor);
+    //$(document).on("change","#element-border-color",_applyBorderColor);
     $(document).on("change","#element-border-size",_applyBorderSize);
     $(document).on("change","#element-border-style",_applyBorderStyle);
     
-    $(document).on("click","#element-border-color",_stopPropagation);
+    //$(document).on("click","#element-border-color",_stopPropagation);
     $(document).on("click","#element-border-size",_stopPropagation);
     $(document).on("click","#element-border-style",_stopPropagation);
         

@@ -16,24 +16,6 @@ define(function (require, exports, module) {
        lastSelectedRuleset = rulesetref;
     });
     
-    /*$(document).on("click","#bg-gradient-toolbox-anchor",function(event){
-        $('.property-toolbox').trigger('hide'); 
-        $("#gradient-editor").show();
-        event.preventDefault();
-        event.stopPropagation();
-    });
-    
-    $(document).on("hide",".property-toolbox",function(event){
-        $("#gradient-editor").hide();
-    });
-    
-    $(document).on("click","#gradient-editor-close",function(event){
-        $("#gradient-editor").hide();
-        event.preventDefault();
-        event.stopPropagation();
-        
-    });*/
-    
     function _applyGradient(){
         var startColor = $("#gradient-start-color").val();
         var endColor = $("#gradient-end-color").val();
@@ -47,54 +29,12 @@ define(function (require, exports, module) {
     }
     
     AppInit.appReady(function () {
-        $("#gradient-start-color").ColorPicker({
-            onShow: function (colpkr) {
-                $(colpkr).fadeIn(500);
-                return false;
-            },
-            onHide: function (colpkr) {
-                $(colpkr).fadeOut(500);
-                return false;
-            },
-            onSubmit: function(hsb, hex, rgb, el) {
-                $(el).val(hex);
-                $(el).ColorPickerHide();
-            },
-            onBeforeShow: function () {
-                $(this).ColorPickerSetColor(this.value);
-            },
-            onChange: function (hsb, hex, rgb) {
-                $("#gradient-start-color").val('#' + hex);
-                _applyGradient();
-            }
-        })
-        .bind('keyup', function(){
-            $(this).ColorPickerSetColor(this.value);
+        $("#gradient-start-color").colorpicker().on('changeColor.colorpicker', function(event){
+          _applyGradient();
         });
         
-        $("#gradient-end-color").ColorPicker({
-            onShow: function (colpkr) {
-                $(colpkr).fadeIn(500);
-                return false;
-            },
-            onHide: function (colpkr) {
-                $(colpkr).fadeOut(500);
-                return false;
-            },
-            onSubmit: function(hsb, hex, rgb, el) {
-                $(el).val(hex);
-                $(el).ColorPickerHide();
-            },
-            onBeforeShow: function () {
-                $(this).ColorPickerSetColor(this.value);
-            },
-            onChange: function (hsb, hex, rgb) {
-                $("#gradient-end-color").val('#' + hex);
-                _applyGradient();
-            }
-        })
-        .bind('keyup', function(){
-            $(this).ColorPickerSetColor(this.value);
+        $("#gradient-end-color").colorpicker().on('changeColor.colorpicker', function(event){
+          _applyGradient();
         });
         
         $("#angle-input").knob({
@@ -125,8 +65,8 @@ define(function (require, exports, module) {
     });
         
     
-    $(document).on("change","#gradient-start-color",_applyGradient);
-    $(document).on("change","#gradient-end-color",_applyGradient);
+    //$(document).on("change","#gradient-start-color",_applyGradient);
+    //$(document).on("change","#gradient-end-color",_applyGradient);
     $(document).on("change","#start-position-input",_applyGradient);
     $(document).on("change","#end-position-input",_applyGradient);
     $(document).on("change","#angle-input",_applyGradient);

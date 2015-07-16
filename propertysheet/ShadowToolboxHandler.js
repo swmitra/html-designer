@@ -14,9 +14,16 @@ define(function (require, exports, module) {
     
     var ConversionUtils = require("propertysheet/UnitConversionUtils");
         
-    $(document).on("ruleset-wrapper.created ruleset-wrapper.refreshed","#html-design-editor",function(event,rulesetref){
+    $(document).on("ruleset-wrapper.refreshed","#html-design-editor",function(event,rulesetref){
         var asynchPromise = new $.Deferred();
-       lastSelectedRuleset = rulesetref;
+        lastSelectedRuleset = rulesetref;
+        asynchPromise.resolve();
+        return asynchPromise.promise();
+    });
+    
+    $(document).on("ruleset-wrapper.created","#html-design-editor",function(event,rulesetref){
+        var asynchPromise = new $.Deferred();
+        lastSelectedRuleset = rulesetref;
         _parseSetValue();
         asynchPromise.resolve();
         return asynchPromise.promise();
@@ -87,36 +94,9 @@ define(function (require, exports, module) {
     }
     
     AppInit.appReady(function () {
-        $("#element-shadow-color").ColorPicker({
-            onShow: function (colpkr) {
-                $(colpkr).fadeIn(500);
-                return false;
-            },
-            onHide: function (colpkr) {
-                $(colpkr).fadeOut(500);
-                return false;
-            },
-            onSubmit: function(hsb, hex, rgb, el) {
-                $(el).val(hex);
-                $(el).ColorPickerHide();
-            },
-            onBeforeShow: function () {
-                if(this.value && this.value.indexOf('rgb')>=0){
-                    $(this).ColorPickerSetColor(ConversionUtils.rgb2hex(this.value));
-                } else {
-                    $(this).ColorPickerSetColor(this.value);
-                }
-                
-            },
-            onChange: function (hsb, hex, rgb) {
-                $("#element-shadow-color").val('#' + hex);
-                _applyShadow();
-            }
-        })
-        .bind('keyup', function(){
-            $(this).ColorPickerSetColor(this.value);
+        $("#element-shadow-color").colorpicker({format:"rgb"}).on('changeColor.colorpicker', function(event){
+          _applyShadow();
         });
-        
     });
     
     $(document).on("input","#element-shadow-xoffset",function(){
@@ -137,8 +117,5 @@ define(function (require, exports, module) {
     
     $(document).on("change","#element-shadow-style",function(){
         _applyShadow();
-    });
-    
-    $(document).on("change","#element-shadow-color",_applyShadow);
-        
+    });        
 });

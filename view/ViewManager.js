@@ -50,6 +50,7 @@ define(function (require, exports, module) {
     var TransitionToolBoxTemplate = require("text!toolboxhtml/transitionToolboxTemplate.html").split("{{module_path}}").join(MODULE_PATH);
     var KeyframeToolBoxTemplate = require("text!toolboxhtml/keyframeToolboxTemplate.html");
     var KeyframeTimelineToolBoxTemplate = require("text!toolboxhtml/keyframeTimelineToolboxTemplate.html").split("{{module_path}}").join(MODULE_PATH);
+    var TextToolBoxTemplate = require("text!toolboxhtml/textToolboxTemplate.html");
 
     var $designview;
     var inDesignView = false;
@@ -234,6 +235,7 @@ define(function (require, exports, module) {
         $("#info-overlay-plane").append(WidgetDragSourceTemplate);
         $("#info-overlay-plane").append(TransitionToolBoxTemplate);
         $("#info-overlay-plane").append(KeyframeToolBoxTemplate);
+        $("#info-overlay-plane").append(TextToolBoxTemplate);
         $("#info-overlay-plane").append(KeyframeTimelineToolBoxTemplate);
         $("#design-toolbox-anchor").append(NewToolBoxTemplate);
     });

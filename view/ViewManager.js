@@ -142,7 +142,7 @@ define(function (require, exports, module) {
         if (doc) {
             var docPath = doc.file._path;
             var extn = FileUtils.getFileExtension(docPath);
-            if (extn === 'html' || _isDesignHandlerPresent(extn)) {
+            if (extn.indexOf('html') >= 0 || _isDesignHandlerPresent(extn)) {
                 $("#design-view-options").show();
                 if (inDesignView) {
                     _showDesignView();

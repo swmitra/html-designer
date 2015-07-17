@@ -21,7 +21,7 @@ define(function (require, exports, module) {
     
     function _isDOMSaveRequired(){
         var domSaveReqd = false;
-        if(currentApplication && FileUtils.getFileExtension(currentApplication) === 'html'){
+        if(currentApplication && FileUtils.getFileExtension(currentApplication).indexOf('html') >= 0){
             domSaveReqd = true;
         }
         return domSaveReqd;

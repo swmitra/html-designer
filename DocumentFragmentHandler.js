@@ -43,11 +43,18 @@ define(function (require, exports, module) {
         $("#html-design-editor").trigger("design-dom-changed");
     }
     
-    function _handleFragmentLoading(){ 
-        $("#htmldesignerIframe").hide();
+    function _setFramePath(){
         $("#htmldesignerIframe")[0].src = $("#main-doc-path")[0].value;
+        $("#htmldesignerShadowIframe")[0].src = $("#main-doc-path")[0].value;
         _hideLinkPanel();
-        window.setTimeout(_loadFragmentInMainContext,11000);
+        window.setTimeout(_loadFragmentInMainContext,6000);
+    }
+    
+    function _handleFragmentLoading(){ 
+        //$("#htmldesignerIframe").hide();
+        $("#htmldesignerIframe")[0].src = "about:blank";
+        $("#htmldesignerShadowIframe")[0].src = "about:blank";
+        window.setTimeout(_setFramePath,2000);
     }
     
     function _hideLinkPanel(){

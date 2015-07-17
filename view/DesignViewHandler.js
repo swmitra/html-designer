@@ -61,6 +61,7 @@ define(function (require, exports, module) {
     function _showHTMLDesign(){
         _showRuler();
         _synchDesignWithCode();
+        $('#htmldesignerIframe').off('load', _showHTMLDesign);
     }
     
     function _synchDesignWithCode(){
@@ -76,14 +77,14 @@ define(function (require, exports, module) {
     function _showDesignView() {
         EditorManager.getCurrentFullEditor().setVisible(false, false);
         $designview.show();
-        if (currentDoc != DocumentManager.getCurrentDocument() && FileUtils.getFileExtension(DocumentManager.getCurrentDocument().file._path) === 'html') {
+        if (currentDoc != DocumentManager.getCurrentDocument() && FileUtils.getFileExtension(DocumentManager.getCurrentDocument().file._path).indexOf('html') >= 0) {
             $("#htmldesignerIframe")[0].src = DocumentManager.getCurrentDocument().file._path;
             $("#htmldesignerShadowIframe")[0].src = DocumentManager.getCurrentDocument().file._path;
             currentDoc = DocumentManager.getCurrentDocument();
             $('#htmldesignerIframe').off('load', _showHTMLDesign);
             $('#htmldesignerIframe').on('load', _showHTMLDesign);
             $("#html-design-editor").trigger("design-dom-changed");
-        } else if(currentDoc === DocumentManager.getCurrentDocument() && FileUtils.getFileExtension(DocumentManager.getCurrentDocument().file._path) === 'html'){
+        } else if(currentDoc === DocumentManager.getCurrentDocument() && FileUtils.getFileExtension(DocumentManager.getCurrentDocument().file._path).indexOf('html') >= 0){
             _showHTMLDesign();
             $("#html-design-editor").trigger("design-dom-changed");
         }

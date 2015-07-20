@@ -35,10 +35,17 @@ define(function (require, exports, module) {
     function getOffset( target ) {
         var _x = 0;
         var _y = 0;
+        var _brdrTop,_brdrLeft;
         while( target && !isNaN( target.offsetLeft ) && !isNaN( target.offsetTop ) ) {
             _x += target.offsetLeft - target.scrollLeft;
             _y += target.offsetTop - target.scrollTop;
             target = target.offsetParent;
+            if(target){
+                _brdrTop = parseInt($(target).css("border-top-width")) || 0;
+                _brdrLeft = parseInt($(target).css("border-left-width")) || 0;
+                _x += _brdrLeft;
+                _y += _brdrTop; 
+            }
         }
         return { top: _y, left: _x };
     }

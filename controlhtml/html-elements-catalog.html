@@ -6,6 +6,7 @@
     margin:auto;
     margin-top:5px;
     padding:5px;
+    color:lightgrey;
 }
     
 .widgetDragSourceSeperator
@@ -17,10 +18,12 @@
     
 .widgetDragSourceSelected
 {
-    background-image:url('{{module_path}}/controlhtml/Widget_highlight.png');
     background-repeat: no-repeat;
     background-size: cover;
     background-origin: border-box;
+    background-color: #288edf;
+    border:1px solid gray;
+    border-radius:4px;
 }
     
 </style>
@@ -31,6 +34,9 @@
     </div>
     <div id="html-elements-catalog" style="position: absolute;width: 100%;height: 100%;left: 0px;border-left: 1px solid gray;">
         <img class="htmlwidget widgetDragSource widgetDrawSource" id="ad-element-pointer" src="{{module_path}}/controlhtml/widgetImages/Move_Widget.png" alt="Pointer" />
+        <div class="htmlwidget widgetDragSource widgetDrawSource" data-profile="html" id="ad-element-paragraph" style="height: 15px;width: 14px;">
+            <span class="glyphicon glyphicon-text-size" aria-hidden="true"></span>
+        </div>
         <img class="htmlwidget widgetDragSource widgetDrawSource" data-profile="html" id="ad-element-textbox" src="{{module_path}}/controlhtml/widgetImages/Text_Widget.png" alt="Text" />
         <img class="htmlwidget widgetDragSource widgetDrawSource" data-profile="html" id="ad-element-div" src="{{module_path}}/controlhtml/widgetImages/DIV_Widget.png" alt="Div" />
         <img class="htmlwidget widgetDragSource widgetDrawSource" data-profile="html" id="ad-element-img" src="{{module_path}}/controlhtml/widgetImages/Image_Widget.png" alt="Image" />
@@ -38,9 +44,16 @@
         <img class="htmlwidget widgetDragSource widgetDrawSource" data-profile="html" id="ad-element-list" src="{{module_path}}/controlhtml/widgetImages/List_Widget.png" alt="List" />
         <img class="htmlwidget widgetDragSource widgetDrawSource" data-profile="html" id="ad-element-chkbox" src="{{module_path}}/controlhtml/widgetImages/CheckBox_Widget.png" alt="CheckBox" />
         <img class="htmlwidget widgetDragSource widgetDrawSource" data-profile="html" id="ad-element-radio" src="{{module_path}}/controlhtml/widgetImages/Radio_Button_Widget.png" alt="Radio" />
+        <!--<div class="htmlwidget widgetDragSource widgetDrawSource" data-profile="html" id="ad-element-video" style="height: 15px;width: 14px;">
+            <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
+        </div>-->
+        <div class="htmlwidget widgetDragSource widgetDrawSource" data-profile="html" id="ad-element-table" style="height: 15px;width: 14px;">
+            <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+        </div>
 
         <img class="htmlwidget widgetDragSourceSeperator" src="{{module_path}}/controlhtml/Widget_Seperator.png" alt="" />
         <img class="htmlwidget widgetDragSource widgetDrawSource" data-profile="bootstrap" id="ad-element-dropdown" src="{{module_path}}/controlhtml/widgetImages/BS_Button_Dropdown.png" height="15px" width="20px"/>
         <img class="htmlwidget widgetDragSource widgetDrawSource" data-profile="bootstrap" id="ad-element-tabs" src="{{module_path}}/controlhtml/widgetImages/BS_Tabs.png" height="15px" width="20px"/>
+        
     </div>
 </div>

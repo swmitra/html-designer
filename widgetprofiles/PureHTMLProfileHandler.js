@@ -12,6 +12,8 @@ define(function (require, exports, module) {
         buttonTemplate = require("text!widgetprofiles/widgetTemplates/html/button.html"),
         checkboxTemplate = require("text!widgetprofiles/widgetTemplates/html/checkbox.html"),
         radioTemplate = require("text!widgetprofiles/widgetTemplates/html/radio.html"),
+        paragraphTemplate = require("text!widgetprofiles/widgetTemplates/html/text.html"),
+        tableTemplate = require("text!widgetprofiles/widgetTemplates/html/table.html"),
         listboxTemplate = require("text!widgetprofiles/widgetTemplates/html/listbox.html");
         
        
@@ -25,6 +27,8 @@ define(function (require, exports, module) {
             case 'radio': template = radioTemplate; break;
             case 'button': template = buttonTemplate; break;
             case 'textbox': template = textTemplate; break;
+            case 'paragraph': template = paragraphTemplate;break;
+            case 'table': template = tableTemplate;break;
         }
         var id = type+IDGen.getID();
         template = template.replace("{{ID}}",id);

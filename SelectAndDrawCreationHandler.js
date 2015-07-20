@@ -48,6 +48,16 @@ define(function (require, exports, module) {
         }
     }
     
+    function _isContainer(tagName){
+        switch(tagName){
+            case 'DIV':
+            case 'SPAN':
+            case 'BODY':
+            case 'P':return true;
+            default: return false;
+        }
+    }
+    
     //use iteration to find the next element in z-index
     function _getContainerAtPoint(doc,point){
         var toBeReverted = [];
@@ -57,7 +67,7 @@ define(function (require, exports, module) {
         while(!isContainerFound && targetElement){
             if(targetElement.tagName === 'HTML'){
                 targetElement = null;
-            }else if(targetElement.tagName === 'DIV' || targetElement.tagName === 'BODY'){
+            }else if(_isContainer(targetElement.tagName)){
                 isContainerFound =  true;
             } else {
                 $(targetElement).css("pointer-events",'none');

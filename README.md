@@ -11,11 +11,11 @@ How to enable Design Mode?
 --------
 
 When a document with ".html/.shtml" is opened in active editor as current document the "CodeView" button drop down is visible in the bottom right corner ( in StatusBar before 'extension' DropDown ). Please refer to the following image to have an illustration of the position and view options. 
-![View Options](https://github.com/swmitra/html-designer/blob/master/Getting%20Started/ViewOptionMenu.png)
+![View Options](https://github.com/swmitra/html-designer-user-guide/blob/master/Getting%20Started/ViewOptionMenu.png)
 
 Here is a small animation to depict how to enable Design Mode. 
 
-![Enable Design Mode](https://github.com/swmitra/html-designer/blob/master/Getting%20Started/EnableDesignView.gif)
+![Enable Design Mode](https://github.com/swmitra/html-designer-user-guide/blob/master/Getting%20Started/EnableDesignView.gif)
 
 NOTE: If you enable Design Mode and then navigate to another html file , Design Mode will be retained and the new document will be rendered in Design Mode. But if you navigate to any non html file while in Design Mode , the editor will switch back to code view and if you wish to enable Design Mode for the next html file you open , you need to follow the view options menu again described earlier. 
 
@@ -82,19 +82,19 @@ Features
 ------------
 The following snapshots will show the different controls and their access source
 
-![Designer Launch option](https://github.com/swmitra/html-designer/blob/master/Getting%20Started/View-Options.png)
+![Designer Launch option](https://github.com/swmitra/html-designer-user-guide/blob/master/Getting%20Started/View-Options.png)
 
-![Designer Skeleton](https://github.com/swmitra/html-designer/blob/master/Getting%20Started/Designer-skeleton.png)
+![Designer Skeleton](https://github.com/swmitra/html-designer-user-guide/blob/master/Getting%20Started/Designer-skeleton.png)
 
-![Designer Split view](https://github.com/swmitra/html-designer/blob/master/Getting%20Started/Split-view-skeleton.png)
+![Designer Split view](https://github.com/swmitra/html-designer-user-guide/blob/master/Getting%20Started/Split-view-skeleton.png)
 
-![Illustration controls](https://github.com/swmitra/html-designer/blob/master/Getting%20Started/CSS-illustration-controls.png)
+![Illustration controls](https://github.com/swmitra/html-designer-user-guide/blob/master/Getting%20Started/CSS-illustration-controls.png)
 
-![HTML Attributes](https://github.com/swmitra/html-designer/blob/master/Getting%20Started/HTML-attributes-editor.png)
+![HTML Attributes](https://github.com/swmitra/html-designer-user-guide/blob/master/Getting%20Started/HTML-attributes-editor.png)
 
-![HTML Attributes input controls](https://github.com/swmitra/html-designer/blob/master/Getting%20Started/attributes-input-control.png)
+![HTML Attributes input controls](https://github.com/swmitra/html-designer-user-guide/blob/master/Getting%20Started/attributes-input-control.png)
 
-![CSS Text controls](https://github.com/swmitra/html-designer/blob/master/Getting%20Started/Text-controls.png)
+![CSS Text controls](https://github.com/swmitra/html-designer-user-guide/blob/master/Getting%20Started/Text-controls.png)
 
 ------------
 Installation

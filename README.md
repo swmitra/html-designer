@@ -161,7 +161,8 @@ Versions
 * Design editor context menu upgrade with cut/copy/paste/delete icons
 
 **1.0.9**
-* New Multiselect toolbox display on multiselect ![MultiSelect Toolbox](https://github.com/swmitra/html-designer-user-guide/blob/master/Getting%20Started/MultiSelectToolBox.png)
+* New Multiselect toolbox display on multiselect 
+  ![MultiSelect Toolbox](https://github.com/swmitra/html-designer-user-guide/blob/master/Getting%20Started/MultiSelectToolBox.png)
 * Vertical spacing feature 
 * Horizontal spacing feature
 * Height normalization to multiselect box or reference element

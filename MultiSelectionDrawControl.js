@@ -55,8 +55,15 @@ define(function (require, exports, module) {
     
     function _doMultiSelect(event,element,point){
         bottomRightPoint = point;
+    
         if(topLeftPoint && bottomRightPoint){
-            var content = document.getElementById('htmldesignerIframe').contentWindow.document.body;
+            //swap the points if drawn in reverse
+            if(bottomRightPoint.x < topLeftPoint.x ){
+                bottomRightPoint = topLeftPoint;
+                topLeftPoint = point;
+            }
+            
+            var content = $(document.getElementById('htmldesignerIframe').contentWindow.document.body).children();
             var elements = SelectionUtility.getElementInRect(  content
                                                               ,topLeftPoint.x,topLeftPoint.y
                                                               ,bottomRightPoint.x,bottomRightPoint.y

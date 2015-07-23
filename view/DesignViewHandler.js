@@ -96,6 +96,7 @@ define(function (require, exports, module) {
             $("#html-design-editor").trigger("design-dom-changed");
         }
         $("#html-design-editor").trigger("design-editor-shown");
+        $("#html-design-editor").trigger("groupdeselect.all");
     }
     
     function _quitDesignView(){

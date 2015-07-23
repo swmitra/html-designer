@@ -8,10 +8,7 @@
 
 define(function (require, exports, module) {
     "use strict";
-    
-     var CommandManager = brackets.getModule("command/CommandManager"),
-         Commands = require("./Commands");
-    
+
     var layout,
         reference,
         referenceElement;
@@ -135,12 +132,5 @@ define(function (require, exports, module) {
                 case "align-bottom":_alignBottom();break;
         }
     });
-    
-    /*CommandManager.register("Align Left", Commands.AD_ALIGN_LEFT, _alignLeft);
-    CommandManager.register("Align Right", Commands.AD_ALIGN_RIGHT, _alignRight);
-    CommandManager.register("Align Top", Commands.AD_ALIGN_TOP, _alignTop);
-    CommandManager.register("Align Bottom", Commands.AD_ALIGN_BOTTOM, _alignBottom);
-    CommandManager.register("Align Middle", Commands.AD_ALIGN_MIDDLE, _alignMiddle);
-    CommandManager.register("Align Center", Commands.AD_ALIGN_CENTER, _alignCenter);*/
     
 });

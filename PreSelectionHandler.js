@@ -37,13 +37,13 @@ define(function (require, exports, module) {
         preselectedElement = null;
     }
     
-    $(document).on("design.editor.drag.activated","#html-design-editor",function(){
+    /*$(document).on("design.editor.drag.activated","#html-design-editor",function(){
         isPreSelectionActivated = false;
     });
     
     $(document).on("design.editor.drag.deactivated","#html-design-editor",function(){
         isPreSelectionActivated = true;
-    });
+    });*/
     
     $(document).on("targetdom.element.mousemove copymousemove","#html-design-editor",function(event,element,point){
         _handlePreSelection(element);

@@ -23,18 +23,32 @@ define(function (require, exports, module) {
                 // this element fits inside the selection rectangle
                 elementArray.push(element);
             }
-        var elementsSet = $(element).children();
-        elementsSet.each(function() {
-            _getContainedChildrens(this, x1, y1, x2, y2,elementArray);
-        });
+        if(elementArray.length === 0){
+            var elementsSet = $(element).children();
+            elementsSet.each(function() {
+                _getContainedChildrens(this, x1, y1, x2, y2,elementArray);
+            });
+        }
     }
     
     // x1, y1 would be top-left corner
     // x2, y2 would be bottom-right corner
     // all coordinates are considered relative to the document
-    function _elementsInRect(element, x1, y1, x2, y2) {
+    function _elementsInRect(elementSet, x1, y1, x2, y2) {
         var elements = [];
-        _getContainedChildrens(element, x1, y1, x2, y2,elements);
+        
+        elementSet.each(function() {
+            _getContainedChildrens(this, x1, y1, x2, y2,elements);
+        });
+        
+        if(elements.length === 1){
+            elementSet = $(elements[0]).children();
+            elements = [];
+            elementSet.each(function() {
+                _getContainedChildrens(this, x1, y1, x2, y2,elements);
+            });
+        }
+        //_getContainedChildrens(element, x1, y1, x2, y2,elements);
         return elements;
     }
     

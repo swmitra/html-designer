@@ -3,11 +3,11 @@
         background-color: rgb(74, 77, 78);
         position: absolute;
         pointer-events: auto;
-        height: 30px;
+        height: 100px;
         width: 198px;
-        top: -35px;
-        left: 0px;
-        display:none;
+        top: 20px;
+        left: 50%;
+        display: none;
     }
     
     .alignControl {
@@ -16,16 +16,67 @@
         margin-top: 5px;
         float: left;
     }
+    
+    .spacingControl {
+        border: 1px solid gray;
+        padding: 1px;
+        border-radius: 5px;
+        position: absolute;
+    }
+    
+    #distribute-vert-input,
+    #distribute-horz-input,
+    #normalize-width-input,
+    #normalize-height-input {
+        position: absolute;
+        left: 33px;
+        top: 2px;
+        height: 23px;
+        width: 24px;
+    }
 </style>
 
 
 
-<div id="multiselection-toolbox" style="padding-right: 10px;">
-    <img class="alignControl" data-operation="align-left" src="{{module_path}}/toolboxhtml/images/left.png" style="">
-    <img class="alignControl" data-operation="align-center" src="{{module_path}}/toolboxhtml/images/middle.png" style="">
-    <img class="alignControl" data-operation="align-right" src="{{module_path}}/toolboxhtml/images/right.png" style="">
+<div id="multiselection-toolbox" class="property-toolbox">
+    <div class="propertyToolboxHeader">Multiselect Toolbox
+        <div class="toolboxHeaderBottom"></div>
+    </div>
+    
+    <img class="alignControl" data-operation="align-left" src="{{module_path}}/toolboxhtml/images/left.png" title="Left Align">
+    <img class="alignControl" data-operation="align-center" src="{{module_path}}/toolboxhtml/images/middle.png" title="Center Align">
+    <img class="alignControl" data-operation="align-right" src="{{module_path}}/toolboxhtml/images/right.png" title="Right Align">
     <div class="alignControl" style="border-left-width: 1px; border-left-style: solid; border-left-color: gray; height: 20px;"></div>
-    <img class="alignControl" data-operation="align-top" src="{{module_path}}/toolboxhtml/images/top.png" style="">
-    <img class="alignControl" data-operation="align-middle" src="{{module_path}}/toolboxhtml/images/center.png" style="">
-    <img class="alignControl" data-operation="align-bottom" src="{{module_path}}/toolboxhtml/images/bottom.png" style="">
+    <img class="alignControl" data-operation="align-top" src="{{module_path}}/toolboxhtml/images/top.png" title="Top Align">
+    <img class="alignControl" data-operation="align-middle" src="{{module_path}}/toolboxhtml/images/center.png" title="Middle Align">
+    <img class="alignControl" data-operation="align-bottom" src="{{module_path}}/toolboxhtml/images/bottom.png" title="Bottom Align">
+
+    <div class="spacingControl" style="top: 31px; left: 10px; width: 77px;">
+        <button id="distribute-horz" class="topcoat-button text-toolbox-icon-button" title="Distribute Horizontally" style="">
+            <span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
+        </button>
+        <input id="distribute-horz-input" type="text" class="topcoat-text-input" title="H Spacing" placeholder="auto" >
+    </div>
+
+    <div class="spacingControl" style="top: 31px; width: 77px; left: 105px;">
+        <button id="distribute-vert" class="topcoat-button text-toolbox-icon-button" title="Distribute Vertically">
+            <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
+        </button>
+        <input id="distribute-vert-input" type="text" class="topcoat-text-input" title="V Spacing" placeholder="auto">
+    </div>
+    
+    <div class="spacingControl" style="top: 65px; left: 10px; width: 77px;">
+        <button id="normalize-width" class="topcoat-button text-toolbox-icon-button" title="Normalize Width" >
+            <span class="glyphicon glyphicon-resize-horizontal" aria-hidden="true"></span>
+        </button>
+        <input id="normalize-width-input" type="text" class="topcoat-text-input" title="Width" placeholder="auto">
+    </div>
+
+    <div class="spacingControl" style="top: 65px; width: 77px; left: 105px;">
+        <button id="normalize-height" class="topcoat-button text-toolbox-icon-button" title="Normalize Height">
+            <span class="glyphicon glyphicon-resize-vertical" aria-hidden="true"></span>
+        </button>
+        <input id="normalize-height-input" type="text" class="topcoat-text-input" title="Height" placeholder="auto">
+    </div>
+
 </div>

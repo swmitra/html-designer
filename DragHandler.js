@@ -31,7 +31,7 @@ define(function (require, exports, module) {
     function _initDrag(event,element,point){
         if(element && element.tagName !== 'BODY'){
             $("#html-design-editor").trigger("design.editor.drag.activated");
-            if(_isPinInEventOnDragSource(point) || (layout && layout.boxModel.cssRuleSet.element === element)){
+            if(_isPinInEventOnDragSource(point) || (layout && layout.boxModel && layout.boxModel.cssRuleSet.element === element)){
                 startOffset = point;
                 isDragged = false;  
                 $('.controlDiv').css('pointer-events','none');

@@ -222,7 +222,7 @@ define(function (require, exports, module) {
         $("#info-overlay-plane").append(PreMultiselectionAreaTemplate);
         $("#info-overlay-plane").append(BorderToolBoxTemplate);
         $("#info-overlay-plane").append(MarkupEditTemplate);
-        $("#selection-outline").append(MultiselectionControlTemplate);
+        $("#info-overlay-plane").append(MultiselectionControlTemplate);
         $("#info-overlay-plane").append(BackgroundImageToolBoxTemplate);
         $("#info-overlay-plane").append(TransformToolBoxTemplate);
         $("#info-overlay-plane").append(LayoutToolBoxTemplate);

@@ -53,12 +53,13 @@ define(function (require, exports, module) {
         isFragmentModeOn = true;
      });
     
-     $(document).on('design-dom-changed',"#html-design-editor",function(){
+     /*$(document).on('design-dom-changed',"#html-design-editor",function(){
         isFragmentModeOn = false;
-     });
+     });*/
     
      $(document).on("application.context","#html-design-editor", function(event,applicationKey){
          currentApplication = applicationKey;
+         isFragmentModeOn = false;
          if(currentApplication){
              currentApplication = currentApplication.split('?')[0];
          }

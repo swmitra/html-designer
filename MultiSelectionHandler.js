@@ -31,6 +31,7 @@ define(function (require, exports, module) {
     
     function _removeMultiSelectMarkers(){
         $(".multiSelectedElement").remove();
+        $('#multiselection-toolbox').hide();
         //elementGroup = null;
         multiselectMarkers = [];
         multiSelectArea = null;
@@ -158,6 +159,8 @@ define(function (require, exports, module) {
             }
         }
      });
+    
+    $(document).on('design-editor-shown',"#html-design-editor",_removeMultiSelectMarkers); 
     
     $(document).on('element.selected',"#html-design-editor",_removeMultiSelectMarkers); 
 });

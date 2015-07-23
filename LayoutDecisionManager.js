@@ -323,6 +323,16 @@ define(function (require, exports, module) {
         this.markChanged();
     };
     
+    Layout.prototype.changeWidthTo = function(width){
+        this.boxModel.cssRuleSet.boxModelHCSS('width',width);
+        this.markChanged();
+    };
+    
+    Layout.prototype.changeHeightTo = function(height){
+        this.boxModel.cssRuleSet.boxModelVCSS('height',height);
+        this.markChanged();
+    };
+    
     Layout.prototype.createSavePoint = function(){
         return {x:parseInt($(this.boxModel.targetElement).css(this.xAxisModifier)),
                           y:parseInt($(this.boxModel.targetElement).css(this.yAxisModifier))};
@@ -468,6 +478,70 @@ define(function (require, exports, module) {
         }
     };
     
+    CompositeLayout.prototype.distributeHorizontally = function(referenceRect,spaceParam,pivot){
+        var lastDistributedTo = 0;
+        this.layouts.sort(_hSortCompareFnOnLayouts);
+        if(!spaceParam){
+           var cummulativeWidth = 0;
+           for(var i in this.layouts) {
+                cummulativeWidth+= parseInt(this.layouts[i].boxModel.targetElement.getBoundingClientRect().width);
+            }
+            spaceParam = ((referenceRect.right - referenceRect.left) - cummulativeWidth)/(this.layouts.length - 1);
+        }
+        
+        spaceParam = parseInt(spaceParam);
+       
+        for(var i in this.layouts) {
+            if(i === "0"){
+                this.layouts[i].changeLeftTo(referenceRect.left);
+                lastDistributedTo+= this.layouts[i].boxModel.targetElement.getBoundingClientRect().width + referenceRect.left;
+            }else{
+                this.layouts[i].changeLeftTo(lastDistributedTo + spaceParam);
+                lastDistributedTo+= this.layouts[i].boxModel.targetElement.getBoundingClientRect().width + spaceParam;
+            }
+        }
+    };
+    
+    CompositeLayout.prototype.distributeVertically = function(referenceRect,spaceParam,pivot){
+        var lastDistributedTo = 0;
+        this.layouts.sort(_vSortCompareFnOnLayouts);
+        if(!spaceParam){
+           var cummulativeHeight = 0;
+           for (var i in this.layouts) {
+                cummulativeHeight+= parseInt(this.layouts[i].boxModel.targetElement.getBoundingClientRect().height);
+            }
+            spaceParam = ((referenceRect.bottom - referenceRect.top) - cummulativeHeight)/(this.layouts.length - 1);
+        }
+        
+        spaceParam = parseInt(spaceParam);
+        
+        for(var i in this.layouts) {
+            if(i === "0"){
+                this.layouts[i].changeTopTo(referenceRect.top);
+                lastDistributedTo+= this.layouts[i].boxModel.targetElement.getBoundingClientRect().height + referenceRect.top;
+            }else{
+                this.layouts[i].changeTopTo(lastDistributedTo + spaceParam);
+                lastDistributedTo+= this.layouts[i].boxModel.targetElement.getBoundingClientRect().height + spaceParam;
+            }
+        }
+    };
+    
+    CompositeLayout.prototype.changeWidthTo = function(width){
+        for (var i in this.layouts) {
+         if(this.layouts[i].changeWidthTo){
+                this.layouts[i].changeWidthTo(width);
+            }
+        }
+    };
+    
+    CompositeLayout.prototype.changeHeightTo = function(height){
+        for (var i in this.layouts) {
+         if(this.layouts[i].changeHeightTo){
+                this.layouts[i].changeHeightTo(height);
+            }
+        }
+    };
+    
     CompositeLayout.prototype.refresh = function(){
         $("#html-design-editor").trigger("grouprefresh.element.selection");
     };
@@ -526,6 +600,14 @@ define(function (require, exports, module) {
             }
         }
         return new CompositeLayout(decisions);
+    }
+    
+    function _hSortCompareFnOnLayouts(a,b) {
+        return a.boxModel.targetElement.getBoundingClientRect().left - b.boxModel.targetElement.getBoundingClientRect().left;
+    }
+    
+    function _vSortCompareFnOnLayouts(a,b) {
+        return a.boxModel.targetElement.getBoundingClientRect().top - b.boxModel.targetElement.getBoundingClientRect().top;
     }
    
      $(document).on("boxmodel.created","#html-design-editor", function(event,model){

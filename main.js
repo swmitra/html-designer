@@ -49,6 +49,7 @@ define(function (require, exports, module) {
     require("ElementHrchyBreadcrumbHandler");
     require("ElementMarkupEditHandler");
     require("BorderRadiusHandler");
+    require("DistributionHandler");
     
     require("grid/GridOptionsManager");
     require("propertysheet/GenericToolBoxHandler");

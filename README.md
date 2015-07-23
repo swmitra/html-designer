@@ -127,3 +127,43 @@ TODO
 * Media query support
 * Pseudo element illustration
 * Revamp of Transform control with 3D support
+
+--------
+Versions
+--------
+
+**1.0.1**
+* Bug Fixes in Selection
+* Minor UI changes
+
+**1.0.2**
+* Cascade update of pseudo selectors on element ID change using attribute editor
+
+**1.0.3**
+* New Text Toolbox Inclusion
+* Usability Improvement
+
+**1.0.4**
+* Fragment/Template Loader fix
+* Enable partial design view of ".shtml" files
+
+**1.0.5**
+* Widget Toolbox UI upgrade
+* Inclusion of text and table element in widget toolbox
+
+**1.0.6**
+* Scattering of text toolbox icons fix while PSD Extract plugin is installed
+
+**1.0.7**
+* Selection rectangle position fix while parent having border
+
+**1.0.8**
+* Design editor context menu upgrade with cut/copy/paste/delete icons
+
+**1.0.9**
+* New Multiselect toolbox display on multiselect ![MultiSelect Toolbox](https://github.com/swmitra/html-designer-user-guide/blob/master/Getting%20Started/MultiSelectToolBox.png)
+* Vertical spacing feature 
+* Horizontal spacing feature
+* Height normalization to multiselect box or reference element
+* Width normalization to multiselect box or reference element
+* Pre Selection rectangle display fix

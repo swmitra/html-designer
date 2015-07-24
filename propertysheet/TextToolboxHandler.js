@@ -47,16 +47,13 @@ define(function (require, exports, module) {
         }
     }
     
-    $(document).on("ruleset-wrapper.refreshed","#html-design-editor",function(event,rulesetref){
+    $(document).on("ruleset-wrapper.created ruleset-wrapper.refreshed","#html-design-editor",function(event,rulesetref){
         var asynchPromise = new $.Deferred();
+        if(rulesetref && rulesetref !== lastSelectedRuleset){
+            lastSelectedRuleset = rulesetref;
+            _synchWithDOM();
+        }
         lastSelectedRuleset = rulesetref;
-        return asynchPromise.promise();
-    });
-    
-    $(document).on("ruleset-wrapper.created","#html-design-editor",function(event,rulesetref){
-        var asynchPromise = new $.Deferred();
-        lastSelectedRuleset = rulesetref;
-        _synchWithDOM();
         return asynchPromise.promise();
     });
     

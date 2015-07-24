@@ -171,3 +171,6 @@ Versions
 * Height normalization to multiselect box or reference element
 * Width normalization to multiselect box or reference element
 * Pre Selection rectangle display fix
+
+**1.0.10**
+* ColorPicker fixes in Background/Border/Shadow/Text Tollboxes to allow edit in the host input fields

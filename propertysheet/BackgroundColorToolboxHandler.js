@@ -13,16 +13,12 @@ define(function (require, exports, module) {
     
     var lastSelectedRuleset = null;
     
-    $(document).on("ruleset-wrapper.created","#html-design-editor",function(event,rulesetref){
+    $(document).on("ruleset-wrapper.created ruleset-wrapper.refreshed","#html-design-editor",function(event,rulesetref){
         var asynchPromise = new $.Deferred();
-       lastSelectedRuleset = rulesetref;
-       $("#bg-color-toolbox-anchor").val(lastSelectedRuleset.css('background-color'));
-        return asynchPromise.promise();
-    });
-    
-    $(document).on("ruleset-wrapper.refreshed","#html-design-editor",function(event,rulesetref){
-        var asynchPromise = new $.Deferred();
-       lastSelectedRuleset = rulesetref;
+        if(rulesetref && rulesetref !== lastSelectedRuleset){
+            $("#bg-color-toolbox-anchor").val(rulesetref.css('background-color'));
+        }
+        lastSelectedRuleset = rulesetref;
         return asynchPromise.promise();
     });
         

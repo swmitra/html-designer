@@ -50,11 +50,6 @@ define(function (require, exports, module) {
         _applyGradient();
     });
     
-    $(document).on("input","#start-position-range-input",function(){
-        $("#start-position-input").val(this.value);
-        _applyGradient();
-    });
-    
     $(document).on("input","#end-position-range-input",function(){
         $("#end-position-input").val(this.value);
         _applyGradient();

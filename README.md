@@ -6,7 +6,7 @@ An extension for the popular open-source code editor Brackets to design and cust
 
 [Brackets HTML Designer channel on YouTube](https://www.youtube.com/channel/UChUxLJUZznyImYkSe6D5s9w/videos)
 
-![Basic UI](https://github.com/swmitra/html-designer-user-guide/blob/master/demo/Intro.gif)
+[![Basic UI](https://github.com/swmitra/html-designer-user-guide/blob/master/demo/Intro.gif)](https://www.youtube.com/channel/UChUxLJUZznyImYkSe6D5s9w/videos)
 
 --------
 How to enable Design Mode?

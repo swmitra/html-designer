@@ -174,3 +174,6 @@ Versions
 
 **1.0.10**
 * ColorPicker fixes in Background/Border/Shadow/Text Tollboxes to allow edit in the host input fields
+
+**1.0.11**
+* input type-checkbox selector removal from extension css as it might affect other checkboxes across the application

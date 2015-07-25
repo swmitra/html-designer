@@ -100,13 +100,30 @@
     </button>
     <button class="clearControl staticPositionControl topcoat-icon-button" id="set-clear-none" style="position: absolute; width: 20px; left: 122px; top: 246px;" data-css-key="clear" data-css-value="none"><span>X</span>
     </button>
-    <span style="position: absolute; color: rgb(211, 211, 211); left: 148px; top: 214px;">z-index</span>
+    <span style="position: absolute; color: rgb(211, 211, 211); left: 146px; top: 214px;">Boxsize</span>
+   <select class="topcoat-select" id="layout-boxsize-select" style="padding:0px;padding-left:3px; position: absolute; height: 22px; width: 76px; left: 194px; top: 213px;">
+        <option value="border-box">border-box</option>
+        <option value="content-box">content-box</option>
+    </select>
     <span style="position: absolute; color: rgb(211, 211, 211); left: 146px; top: 248px;">Display</span>
-    <input class="topcoat-text-input" id="z-index-input" type="text" style="position: absolute; height: 24px; width: 56px; left: 194px; top: 211px;">
     <select class="topcoat-select" id="layout-display-select" style="padding-top: 0px; position: absolute; width: 76px; height: 22px; left: 194px; top: 246px;">
-        <option value="block">block</option>
-        <option value="inline-block">inline-block</option>
-        <option value="none">none</option>
-        <option value="initial">initial</option>
+        <option value="inline"	title="Default value. Displays an element as an inline element (like <span>)">inline</option>
+        <option value="block"	title="Displays an element as a block element (like <p>)">block</option>
+        <option value="flex"	title="Displays an element as an block-level flex container. New in CSS3">flex</option>	
+        <option value="inline-block"	title="Displays an element as an inline-level block container. The inside of this block is formatted as block-level box, and the element itself is formatted as an inline-level box">inline-block</option>	
+        <option value="inline-flex"	title="Displays an element as an inline-level flex container. New in CSS3">inline-flex</option>	
+        <option value="inline-table"	title="The element is displayed as an inline-level table">inline-table</option>	 
+        <option value="list-item"	title="Let the element behave like a <li> element">list-item</option>
+        <option value="run-in"	title="Displays an element as either block or inline, depending on context">run-in</option>	 
+        <option value="table"	title="Let the element behave like a <table> element">table</option>	
+        <option value="table-caption"	title="Let the element behave like a <caption> element">table-caption</option>	
+        <option value="table-column-group"	title="Let the element behave like a <colgroup> element">table-column-group</option>	
+        <option value="table-header-group"	title="Let the element behave like a <thead> element">table-header-group</option>	
+        <option value="table-footer-group"	title="Let the element behave like a <tfoot> element">table-footer-group</option>	
+        <option value="table-row-group"	title="Let the element behave like a <tbody> element">table-row-group</option>	
+        <option value="table-cell"	title="Let the element behave like a <td> element">table-cell</option>	
+        <option value="table-column"	title="Let the element behave like a <col> element">table-column</option>	
+        <option value="table-row"	title="Let the element behave like a <tr> element">table-row</option>	
+        <option value="none" title="Hides the element">none</option>
     </select>
 </div>

@@ -30,6 +30,18 @@ define(function (require, exports, module) {
         }
     });
     
+    $(document).on("change","#layout-display-select",function(event){
+        if(currentLayout){
+            currentLayout.changeLayout('display',$("#layout-display-select").val(),true);
+        }
+    });
+    
+    $(document).on("change","#layout-boxsize-select",function(event){
+        if(currentLayout){
+            currentLayout.changeLayout('box-sizing',$("#layout-boxsize-select").val(),true);
+        }
+    });
+    
     function _showAnchor(decision){   
         if(decision.positioned){
             $("#top-left-anchor").css('border-color','lightgrey transparent transparent');
@@ -93,6 +105,9 @@ define(function (require, exports, module) {
         currentLayout = layoutObj;
         $("#layout-layer").html(currentLayout.positioned ? 'Position' : 'Margin');
         $("#layout-position-select").val(currentLayout.layout);
+        $("#layout-display-select").val($(layoutObj.boxModel.targetElement).css('display'));
+        $("#layout-boxsize-select").val($(layoutObj.boxModel.targetElement).css('box-sizing'));
+        
         
         $("#layout-h-modifier-value").val(parseInt(currentLayout.getXAxisModifierValue()));
         if(currentLayout.xAxisAlignment === 'left'){

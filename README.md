@@ -177,3 +177,7 @@ Versions
 
 **1.0.11**
 * input type-checkbox selector removal from extension css as it might affect other checkboxes across the application
+
+**1.0.12**
+* Adding box-sizing attribute in Layout Toolbox 
+* More select options for display attribute

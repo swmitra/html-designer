@@ -181,3 +181,7 @@ Versions
 **1.0.12**
 * Adding box-sizing attribute in Layout Toolbox 
 * More select options for display attribute
+
+**1.0.13**
+* Fix for hiding Brackets split view resizer while launching Design view from split view mode 
+* Pre selection UI highlight change ( with transparent blue fill )

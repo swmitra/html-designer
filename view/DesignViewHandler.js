@@ -22,6 +22,8 @@ define(function (require, exports, module) {
     var HRulerTemplate = require("text!html/hRulerTemplate.html");
     var VRulerTemplate = require("text!html/vRulerTemplate.html");
     
+    var CommonUtils = require("CommonUtils");
+    
     var isFragmentModeOn = false;
 
     function _showRuler() {
@@ -77,14 +79,14 @@ define(function (require, exports, module) {
     function _showDesignView() {
         EditorManager.getCurrentFullEditor().setVisible(false, false);
         $designview.show();
-        if (currentDoc != DocumentManager.getCurrentDocument() && FileUtils.getFileExtension(DocumentManager.getCurrentDocument().file._path).indexOf('html') >= 0) {
+        if (currentDoc != DocumentManager.getCurrentDocument() && CommonUtils.isValidMarkupFile(FileUtils.getFileExtension(DocumentManager.getCurrentDocument().file._path))) {
             $("#htmldesignerIframe")[0].src = DocumentManager.getCurrentDocument().file._path;
             $("#htmldesignerShadowIframe")[0].src = DocumentManager.getCurrentDocument().file._path;
             currentDoc = DocumentManager.getCurrentDocument();
             $('#htmldesignerIframe').off('load', _showHTMLDesign);
             $('#htmldesignerIframe').on('load', _showHTMLDesign);
             $("#html-design-editor").trigger("design-dom-changed");
-        } else if(currentDoc === DocumentManager.getCurrentDocument() && FileUtils.getFileExtension(DocumentManager.getCurrentDocument().file._path).indexOf('html') >= 0){
+        } else if(currentDoc === DocumentManager.getCurrentDocument() && CommonUtils.isValidMarkupFile(FileUtils.getFileExtension(DocumentManager.getCurrentDocument().file._path))){
             _showHTMLDesign();
             $("#html-design-editor").trigger("design-dom-changed");
         }

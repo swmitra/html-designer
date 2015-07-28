@@ -17,11 +17,13 @@ define(function (require, exports, module) {
     
     var beautify_html = require('lib/beautify/beautify-html').html_beautify;
     
+    var CommonUtils = require("CommonUtils");
+    
     var config = JSON.parse(require('text!lib/beautify/config/defaults.json')); 
     
     function _isDOMSaveRequired(){
         var domSaveReqd = false;
-        if(currentApplication && FileUtils.getFileExtension(currentApplication).indexOf('html') >= 0){
+        if(currentApplication && CommonUtils.isValidMarkupFile(FileUtils.getFileExtension(currentApplication))){
             domSaveReqd = true;
         }
         return domSaveReqd;

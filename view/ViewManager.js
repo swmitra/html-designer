@@ -25,6 +25,8 @@ define(function (require, exports, module) {
     
     var ViewPresentationPresets = require("view/ViewPresentationPresets");
     
+    var CommonUtils = require("CommonUtils");
+    
     var _auxilaryHandlers = {};
 
     var HTMLDesignViewTemplate = require("text!html/html-design-view.html");
@@ -142,7 +144,7 @@ define(function (require, exports, module) {
         if (doc) {
             var docPath = doc.file._path;
             var extn = FileUtils.getFileExtension(docPath);
-            if (extn.indexOf('html') >= 0 || _isDesignHandlerPresent(extn)) {
+            if (CommonUtils.isValidMarkupFile(extn) || _isDesignHandlerPresent(extn)) {
                 $("#design-view-options").show();
                 if (inDesignView) {
                     _showDesignView();

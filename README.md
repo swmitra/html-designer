@@ -185,3 +185,7 @@ Versions
 **1.0.13**
 * Fix for hiding Brackets split view resizer while launching Design view from split view mode 
 * Pre selection UI highlight change ( with transparent blue fill )
+
+**1.0.14**
+* Enable design view on '.htm' files
+* Fix for sidebar resizer control while design view is active

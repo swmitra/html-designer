@@ -40,6 +40,7 @@
     z-index: 20;
     display:none;
     overflow:hidden;
+    pointer-events: none;
 }
 
 #widget-toolbox
@@ -59,6 +60,7 @@
     height:calc(100% - 2px) !important;
     background: #2d2e30;
     z-index:10;
+    pointer-events: all;
 }
 
 #element-search-panel
@@ -150,38 +152,6 @@
     width:100%;
 }
 
-#style-browser
-{
-    display:none;
-    position:absolute;
-    right:0px;
-    top:0px;
-    border: 0px;
-    border:1px solid gray;
-    background: #333;
-    z-index: 10;
-    width: 305px !important;
-    height:100% !important;
-}
-
-#style-browser input[type="text"] {
-    display: inline-block;
-    height: 17px;
-    padding: 0px 0px 0px 3px;
-    margin-bottom: 3px;
-    font-size: 12px;
-    color: white;
-    -webkit-border-radius: 0px;
-    border-radius: 0px;
-    vertical-align: middle;
-    cursor: auto !important;
-    background: transparent;
-    font-family: SourceSansProRegular;
-    border: 0px;
-    width: auto;
-    -webkit-box-shadow:0px 0px 0px;
-}
-
 #html-design-editor
 {
     position:absolute;
@@ -192,6 +162,7 @@
     height:calc(100% - 28px);
     background: #3c3f41;
     overflow:hidden;
+    pointer-events: all;
 }
 
 .eventListnerPane

@@ -1,6 +1,5 @@
 /**
- * @author Swagatam Mitra
-  
+ * @author Swagatam Mitra 
  */
 
 /*jslint vars: true, plusplus: true, devel: true, nomen: true, indent: 4, maxerr: 50 */
@@ -26,7 +25,7 @@ define(function (require, exports, module) {
     function _handlePreSelection(element){
         if(preselectedElement !== element){
             _handleDeselection();
-            if(isPreSelectionActivated && element && element.tagName !== 'BODY' && lastSelectedElement!== element){
+            if(isPreSelectionActivated && element && element.tagName !== 'BODY' && element.tagName !== 'HTML' && lastSelectedElement!== element){
                 _showPreControls(element);
             }
         }

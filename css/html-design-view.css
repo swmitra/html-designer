@@ -46,7 +46,7 @@
 #widget-toolbox
 {
     width: 40px !important;
-    height:calc(100% - 350px) !important;
+    height:calc(100% - 27px) !important;
     background: #484B4C;
     display:none;
 }

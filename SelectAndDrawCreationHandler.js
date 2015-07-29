@@ -95,7 +95,7 @@ define(function (require, exports, module) {
     
     function _createWidget(){
         var template = ProfileSelector.getProfile(currentContext.profile).getTemplate(currentContext.type);
-        newElement = $(template.template).appendTo("#element-drawing-plane");
+        newElement = $(template.template).appendTo("#element-drawing-plane").css('pointer-events','none');
         newElementID = template.uid;
         
     }

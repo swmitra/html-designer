@@ -83,9 +83,14 @@ define(function (require, exports, module) {
         entry.find(".attr-value").hide();
         entry.find(".attr-value-select").hide();
         entry.find(".attr-toggle").show();
-        entry.find(".attr-toggle-input").prop('checked',$(selectedElement).prop(attr.key));
+        entry.find(".attr-toggle-input").prop('checked',/*$(selectedElement).prop(attr.key)*/selectedElement.hasAttribute(attr.key));
         entry.find(".attr-toggle-input").on('change',function(){
-           $(selectedElement).prop(attr.key,entry.find(".attr-toggle-input").prop('checked'));
+           if(entry.find(".attr-toggle-input").prop('checked')){
+               selectedElement.setAttributeNode(document.createAttribute(attr.key));
+           } else {
+               selectedElement.removeAttribute(attr.key);
+           }
+           //$(selectedElement).prop(attr.key,entry.find(".attr-toggle-input").prop('checked'));
            $("#html-design-editor").trigger("refresh.element.selection");
            $("#html-design-editor").trigger('html.element.updated');
         });

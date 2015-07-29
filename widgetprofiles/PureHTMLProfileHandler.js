@@ -14,7 +14,8 @@ define(function (require, exports, module) {
         radioTemplate = require("text!widgetprofiles/widgetTemplates/html/radio.html"),
         paragraphTemplate = require("text!widgetprofiles/widgetTemplates/html/text.html"),
         tableTemplate = require("text!widgetprofiles/widgetTemplates/html/table.html"),
-        listboxTemplate = require("text!widgetprofiles/widgetTemplates/html/listbox.html");
+        listboxTemplate = require("text!widgetprofiles/widgetTemplates/html/listbox.html"),
+        iframeTemplate = require("text!widgetprofiles/widgetTemplates/html/iframe.html");
         
        
     function getTemplate(type){
@@ -29,6 +30,7 @@ define(function (require, exports, module) {
             case 'textbox': template = textTemplate; break;
             case 'paragraph': template = paragraphTemplate;break;
             case 'table': template = tableTemplate;break;
+            case 'iframe': template = iframeTemplate;break;
         }
         var id = type+IDGen.getID();
         template = template.replace("{{ID}}",id);

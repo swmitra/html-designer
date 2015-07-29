@@ -47,6 +47,7 @@ define(function (require, exports, module) {
         var element = $(eventParams.template)
         .css('top',targetDOMPos.top)
         .css('left',targetDOMPos.left)
+        .css('pointer-events','')
         .appendTo(eventParams.containerElement).show();
         $("#html-design-editor").trigger('element.added',[element[0]]);
     }

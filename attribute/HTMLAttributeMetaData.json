@@ -10,33 +10,42 @@
                 { "key" : "value", "type" : "text"},
                 { "key" : "min", "type" : "number"},
                 { "key" : "max", "type" : "number"},
+                { "key" : "height", "type" : "number"},
+                { "key" : "width", "type" : "number"},
+                { "key" : "frameborder", "type" : "number"},
                 { "key" : "class", "type" : "list"},
                 { "key" : "data", "type" : "list"},
                 { "key" : "disabled", "type" : "toggle"},
                 { "key" : "placeholder", "type" : "text"}
             ],
         "common" : [
+                { "key" : "id", "type" : "text"},
                 { "key" : "title", "type" : "text"},
                 { "key" : "name", "type" : "text"},
                 { "key" : "class", "type" : "text"},
                 { "key" : "data", "type" : "list"}
             ],
         "DIV" : [
-                { "key" : "id", "type" : "text"},
                 { "key" : "lang", "type" : "text"}
             ],
+        "IFRAME" : [
+                { "key" : "src", "type" : "path"},
+                { "key" : "seamless", "type" : "toggle"},
+                { "key" : "frameborder", "type" : "number"},
+                { "key" : "height", "type" : "number"},
+                { "key" : "width", "type" : "number"}
+            ],
         "IMG" : [ 
-                { "key" : "id", "type" : "text"},
                 { "key" : "alt", "type" : "text"},
                 { "key" : "src", "type" : "path"}
             ],
         "A" : [
-                { "key" : "id", "type" : "text"},
                 { "key" : "href", "type" : "text"}
             ],
         "INPUT" :  {
-                    "attrs" :[ { "key" : "id", "type" : "text"},
-                                { "key" : "type", "type" : "select", "options" : ["text","number","button","radio","checkbox","slider","range","submit"]},
+                    "attrs" :[ { "key" : "type", "type" : "select", 
+                                 "options" : ["text","number","button","radio","checkbox","slider","range","submit"]
+                               },
                                { "key" : "disabled", "type" : "toggle"}
                              ],
                     "filter" : {

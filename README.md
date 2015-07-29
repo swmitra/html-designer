@@ -189,3 +189,9 @@ Versions
 **1.0.14**
 * Enable design view on '.htm' files
 * Fix for sidebar resizer control while design view is active
+
+**1.0.15**
+* Preselection highlight on HTML fix
+* Weidget toolbox UI change.
+* Addition of Iframe as an element in widget toolvox
+* Attribute editor restyling

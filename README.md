@@ -124,6 +124,7 @@ Moreover any contribution towards stabilization or new feature addition is most 
 TODO
 ----
 
+* Custom widget template addition in Widget Toolbox ( Next Release )
 * Stabilization of split view feature
 * Undo Redo from design context ( as of now switch to code view to do the same )
 * Media query support
@@ -192,6 +193,7 @@ Versions
 
 **1.0.15**
 * Preselection highlight on HTML fix
-* Weidget toolbox UI change.
-* Addition of Iframe as an element in widget toolvox
-* Attribute editor restyling
+* Widget toolbox UI change.
+* Addition of Iframe as an element in widget toolbox
+* Attribute editor re-styling
+* Removed bootstrap widgets from Widget toolbox ( see TODO section )

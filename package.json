@@ -1,9 +1,9 @@
 {
     "name": "swmitra.html-designer",
     "title": "HTML Designer for Brackets",
-    "description": "Design and customize web ui with HTML and CSS",
+    "description": "Design and customize web ui with HTML and CSS. Now with taggable Design snippet/bookmark support.",
     "homepage": "https://github.com/swmitra/html-designer",
-    "version": "1.0.15",
+    "version": "1.2.0",
     "author": "Swagatam Mitra <swagatammitra@gmail.com>",
     "license": "MIT",
     "keywords":["HTML","CSS","Designer","Illustration","Design Editor"],

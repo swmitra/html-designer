@@ -103,7 +103,10 @@ define(function (require, exports, module) {
     
     function _quitDesignView(){
         $("#html-design-editor").trigger("deselect.all");
+        $("#htmldesignerIframe")[0].src = "";
+        $("#htmldesignerShadowIframe")[0].src = "";
         EditorManager.getCurrentFullEditor().setVisible(true, true);
+        
         $designview.hide();
         EditorManager.getCurrentFullEditor()._codeMirror.refresh();
     }

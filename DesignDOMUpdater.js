@@ -45,6 +45,7 @@ define(function (require, exports, module) {
     function _appendNewElement(eventParams){
         var targetDOMPos = _computeLeftAndTopInTargetDOM(eventParams);
         var element = $(eventParams.template)
+        .css('position','absolute')
         .css('top',targetDOMPos.top)
         .css('left',targetDOMPos.left)
         .css('pointer-events','')
@@ -81,7 +82,7 @@ define(function (require, exports, module) {
     }
     
     $(document).on("design.editor.event","#html-design-editor",function(event, type, eventParams,profile){
-        if(profile === 'html' || profile === 'bootstrap'){
+        if(profile === 'html' || profile === 'custom'){
             if(type === 'create.new.element'){
                 _appendNewElement(eventParams);
                 $("#html-design-editor").trigger('html.element.dropped');

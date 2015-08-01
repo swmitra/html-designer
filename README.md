@@ -197,3 +197,10 @@ Versions
 * Addition of Iframe as an element in widget toolbox
 * Attribute editor re-styling
 * Removed bootstrap widgets from Widget toolbox ( see TODO section )
+
+**1.2.0**
+* Design snippet creation/tagging/bookmark support.
+* Design snippet edit support.
+* Design snippets import/export manually.
+
+ ![Snippet Addition](https://github.com/swmitra/html-designer-user-guide/blob/master/Getting%20Started/AddTemplate.png) ![Snippet Editing](https://github.com/swmitra/html-designer-user-guide/blob/master/Getting%20Started/EditTemplate.png) ![Snippet Bookmark](https://github.com/swmitra/html-designer-user-guide/blob/master/Getting%20Started/BookmarkTemplate.png)

@@ -41,6 +41,9 @@ define(function (require, exports, module) {
     var ParentTemplate = require("text!controlhtml/parent-highlight.html");
     var PreMultiselectionAreaTemplate = require("text!controlhtml/multiselect-draw-rect.html");
     var ContextMenuTemplate = require("text!controlhtml/context-menu-template.html");
+    var WidgetCreateContextMenuTemplate = require("text!widgetprofiles/html/widget-create-context-template.html");
+    var WidgetEditContextMenuTemplate = require("text!widgetprofiles/html/widget-edit-context-template.html");
+    var WidgetTemplateEditorTemplate = require("text!widgetprofiles/html/widget-profile-edit-template.html");
     var MarkupEditTemplate = require("text!controlhtml/markupEditTemplate.html");
     var BorderToolBoxTemplate = require("text!toolboxhtml/genericBorderToolboxTemplate.html");
     var TransformToolBoxTemplate = require("text!toolboxhtml/transformToolboxTemplate.html");
@@ -231,6 +234,8 @@ define(function (require, exports, module) {
         $("#info-overlay-plane").append(ShadowEditorTemplate);
         $("#info-overlay-plane").append(CSSEditorTemplate);
         $(".eventListnerPane").append(ContextMenuTemplate);
+        $(".eventListnerPane").append(WidgetCreateContextMenuTemplate);
+        $(".eventListnerPane").append(WidgetEditContextMenuTemplate);
         $("#info-overlay-plane").append(PreSelectionControlTemplate);
         $("#info-overlay-plane").append(ProspectiveParentTemplate);
         $("#info-overlay-plane").append(ParentTemplate);
@@ -240,6 +245,7 @@ define(function (require, exports, module) {
         $("#info-overlay-plane").append(TextToolBoxTemplate);
         $("#info-overlay-plane").append(KeyframeTimelineToolBoxTemplate);
         $("#design-toolbox-anchor").append(NewToolBoxTemplate);
+        $("#design-modal-backdrop").append(WidgetTemplateEditorTemplate);
     });
 
     AppInit.appReady(function () {

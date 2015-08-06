@@ -22,6 +22,10 @@ define(function (require, exports, module) {
     
     var currentApplication = null;
     
+    $(document).on("default-stylesheet-path","#html-design-editor", function(event,defaultPath){
+        defaultStyleSheet = defaultPath;
+    });
+    
     $(document).on("element.added","#html-design-editor",function(event,element){
         var styleSheet = _findDefaultStyleSheet(element.id,null/*ADProjectManager.getConfig('default-stylesheet')*/);
         if(!styleSheet){
@@ -101,7 +105,7 @@ define(function (require, exports, module) {
     }
     
     function _findDefaultStyleSheet(elementid,sheetPath) {
-        defaultStyleSheet = sheetPath;
+        //defaultStyleSheet = sheetPath;
         var styleSheets = document.getElementById('htmldesignerIframe').contentWindow.document.styleSheets;
         var sheetCount, styleSheet, targetStyleSheet;
         
@@ -119,9 +123,9 @@ define(function (require, exports, module) {
         } else {
             var styleNode =  document.getElementById('htmldesignerIframe').contentWindow.document.createElement('STYLE');
             styleNode = $(styleNode).appendTo(document.getElementById('htmldesignerIframe').contentWindow.document.head)[0];
-            styleSheet = styleNode.sheet;
+            targetStyleSheet = styleNode.sheet;
         }
-        return styleSheet;
+        return targetStyleSheet;
     }
     
     $(document).on("application.context","#html-design-editor", function(event,applicationKey){

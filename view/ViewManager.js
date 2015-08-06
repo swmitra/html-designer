@@ -31,6 +31,7 @@ define(function (require, exports, module) {
 
     var HTMLDesignViewTemplate = require("text!html/html-design-view.html");
     var StatusBarViewOptionsTemplate = require("text!controlhtml/view-options.html");
+    var DesignerSettingsTemplate = require("text!controlhtml/settingsTemplate.html");
     var StylesSplitViewTemplate = require("text!controlhtml/splitview-styles-template.html").split("{{module_path}}").join(MODULE_PATH);
     var SourceSplitViewTemplate = require("text!controlhtml/splitview-source-template.html");
     var SelectionControlTemplate = require("text!controlhtml/selection-pane.html");
@@ -246,6 +247,7 @@ define(function (require, exports, module) {
         $("#info-overlay-plane").append(KeyframeTimelineToolBoxTemplate);
         $("#design-toolbox-anchor").append(NewToolBoxTemplate);
         $("#design-modal-backdrop").append(WidgetTemplateEditorTemplate);
+        $("#design-modal-backdrop").append(DesignerSettingsTemplate);
     });
 
     AppInit.appReady(function () {

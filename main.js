@@ -51,6 +51,8 @@ define(function (require, exports, module) {
     require("BorderRadiusHandler");
     require("DistributionHandler");
     
+    require("DesignerSettingsManager");
+    
     require("grid/GridOptionsManager");
     require("propertysheet/GenericToolBoxHandler");
     require("propertysheet/GenericBorderToolBoxHandler");

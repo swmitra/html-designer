@@ -204,3 +204,6 @@ Versions
 * Design snippets import/export manually.
 
  ![Snippet Addition](https://github.com/swmitra/html-designer-user-guide/blob/master/Getting%20Started/AddTemplate.png) ![Snippet Editing](https://github.com/swmitra/html-designer-user-guide/blob/master/Getting%20Started/EditTemplate.png) ![Snippet Bookmark](https://github.com/swmitra/html-designer-user-guide/blob/master/Getting%20Started/BookmarkTemplate.png)
+
+**1.2.1**
+* Default stylesheet selection settings capability to let the tool know , which stylesheet to choose when creating/cloning elements using widget palette (NOTE: Unless a settings path "swmitra.html-designer.settings-file-path" is configured in preferences and Brackets reloaded, settings screen will not be shown. Settings screen will show all the stylesheets loaded for the current file in design mode and only one of them can be identified as "Default")

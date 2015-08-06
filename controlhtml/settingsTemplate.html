@@ -1,0 +1,66 @@
+<style>
+    #default-stylesheet-select-list.list-group {
+      padding-left: 0;
+      margin: 0px;
+    }
+    
+    #default-stylesheet-select-list.list-group .list-group-item {
+      position: relative;
+      display: block;
+      padding: 10px 15px;
+      margin-bottom: -1px;
+      border: 1px solid gray;
+    }
+    
+    #default-stylesheet-select-list.list-group .list-group-item a {
+      color:white;
+    }
+    
+    #default-stylesheet-select-list.list-group .list-group-item:first-child {
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+    }
+    
+    #default-stylesheet-select-list.list-group .list-group-item:last-child {
+      margin-bottom: 0;
+      border-bottom-right-radius: 4px;
+      border-bottom-left-radius: 4px;
+    }
+    
+    #default-stylesheet-select-list.list-group .list-group-item div {
+        display: none;
+        background-color: rgb(6, 169, 229);
+        color: white;
+        padding-left: 10px;
+        padding-right: 10px;
+        height: 100% !important;
+    }
+    
+    #default-stylesheet-select-list.list-group .list-group-item.active div {
+        display: flex;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+<div class="property-toolbox horz-resizable right-resizer vert-resizable bottom-resizer" id="designer-settings-container" style="pointer-events: all; display: none; position: absolute; padding: 10px; z-index: 52; width: 30%; left: 35%; top: 30%; background-color: rgb(74, 77, 78);">
+    <div class="propertyToolboxHeader">
+        Settings
+        <a class="close" id="designer-settings-close" style="">×</a>
+        <div class="toolboxHeaderBottom"></div>
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#Styles" style="color: rgb(255, 255, 255); background: transparent;">Styles</a>
+        </li>
+    </ul>
+
+    <div class="tab-content quiet-scrollbars" style="border: 1px solid rgba(255, 255, 255,0.2); margin-left: 0px; margin-top: 0px; padding: 5px;border-left-width:0px;border-right-width:0px;">
+        <div id="Styles" class="tab-pane fade in active">
+            <ul class="list-group" id="default-stylesheet-select-list" style="overflow-y: scroll;color:lightgray;">
+            </ul>
+        </div>
+    </div>
+    <button id="reset-default-stylesheet" class="btn warning" style="float:right">Reset</button>
+</div>

@@ -36,8 +36,8 @@ define(function (require, exports, module) {
     
     function _getElementFromTragetDOMUnderSelectionOutline(event){
         var shadowedDoc = document.getElementById('htmldesignerIframe').contentWindow.document;
-        var targetX = event.clientX - $(event.target).offset().left /*+ $(shadowedDoc).scrollLeft()*/ + $("#selection-outline").position().left;
-        var targetY = event.clientY - $(event.target).offset().top /*+ $(shadowedDoc).scrollTop()*/ + $("#selection-outline").position().top;
+        var targetX = event.clientX - $(event.target).offset().left + $(shadowedDoc).scrollLeft() + $("#selection-outline").position().left;
+        var targetY = event.clientY - $(event.target).offset().top + $(shadowedDoc).scrollTop() + $("#selection-outline").position().top;
         var targetElement = shadowedDoc.elementFromPoint(targetX,targetY);
         var toBeReturned = [targetElement,{x:targetX,y:targetY}];
         return toBeReturned;

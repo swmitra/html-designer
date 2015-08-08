@@ -38,7 +38,7 @@
         
         .customTemplateShortcut {
             height: 25px;
-            width: 25px;
+            width: 23px;
             margin-left: 1px;
         }
 
@@ -59,11 +59,7 @@
         }
     </style>
     <div class="property-toolbox" id="widget-toolbox">
-        <div class="propertyToolboxHeader">
-            <a class="close" id="widget-toolbox-close" style="">×</a>
-            <div class="toolboxHeaderBottom"></div>
-        </div>
-        <div id="html-elements-catalog" style="position: absolute; width: 100%; height: 100%; border-left-width: 1px; border-left-style: solid; border-left-color: gray; left: 0px; top: 0px;">
+        <div id="html-elements-catalog" style="position: absolute; width: calc(100% - 3px); height: calc(100% - 3px); border:1px solid gray; left: 0px; top: 0px;">
             <img class="htmlwidget widgetDragSource widgetDrawSource" id="ad-element-pointer" src="{{module_path}}/controlhtml/widgetImages/Move_Widget.png" alt="Pointer">
             <div class="htmlwidget widgetDragSource widgetDrawSource" data-profile="html" id="ad-element-paragraph" style="height: 15px;width: 14px;">
                 <span class="glyphicon glyphicon-text-size" aria-hidden="true"></span>

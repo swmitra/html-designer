@@ -222,6 +222,7 @@ define(function (require, exports, module) {
     AppInit.htmlReady(function () {
         $(StatusBarViewOptionsTemplate).insertAfter("#status-language").hide();
         $(HTMLDesignViewTemplate).appendTo("#editor-holder").hide();
+        $("#html-design-template").append(WidgetDragSourceTemplate);
         $("#info-overlay-plane").append(SourceSplitViewTemplate);
         $("#info-overlay-plane").append(StylesSplitViewTemplate);
         $("#info-overlay-plane").append(SelectionControlTemplate);
@@ -235,12 +236,12 @@ define(function (require, exports, module) {
         $("#info-overlay-plane").append(ShadowEditorTemplate);
         $("#info-overlay-plane").append(CSSEditorTemplate);
         $(".eventListnerPane").append(ContextMenuTemplate);
-        $(".eventListnerPane").append(WidgetCreateContextMenuTemplate);
-        $(".eventListnerPane").append(WidgetEditContextMenuTemplate);
+        $("#html-design-template").append(WidgetCreateContextMenuTemplate);
+        $("#html-design-template").append(WidgetEditContextMenuTemplate);
         $("#info-overlay-plane").append(PreSelectionControlTemplate);
         $("#info-overlay-plane").append(ProspectiveParentTemplate);
         $("#info-overlay-plane").append(ParentTemplate);
-        $("#info-overlay-plane").append(WidgetDragSourceTemplate);
+        //$("#info-overlay-plane").append(WidgetDragSourceTemplate);
         $("#info-overlay-plane").append(TransitionToolBoxTemplate);
         $("#info-overlay-plane").append(KeyframeToolBoxTemplate);
         $("#info-overlay-plane").append(TextToolBoxTemplate);

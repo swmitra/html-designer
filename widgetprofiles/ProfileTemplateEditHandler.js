@@ -17,8 +17,8 @@ define(function (require, exports, module) {
     $(document).on("contextmenu",".contextmenu-listner_create", function(event){
         if(_prefs.get('custom-template-path')){
             $("#widget-profile-context-menu-cont")
-                .css('top',event.clientY - $("#html-design-template").offset().top)
-                .css('left',event.clientX - $("#html-design-template").offset().left)
+                .css('top',event.clientY - $("#html-design-template").offset().top + 23)
+                .css('left',event.clientX - $("#html-design-template").offset().left + 23)
                 .addClass('open')
                 .show();
         }
@@ -27,12 +27,13 @@ define(function (require, exports, module) {
      
     $(document).on("click","#widget-profile-context-menu li a", function(event){
         $("#widget-profile-context-menu").trigger($(this).data('action'),[widgetContext]);
+        _hideContextMenu();
     });
     
     $(document).on("contextmenu",".customTemplateShortcut", function(event){
         $("#widget-profile-edit-context-cont")
-            .css('top',event.clientY - $("#html-design-template").offset().top)
-            .css('left',event.clientX - $("#html-design-template").offset().left)
+            .css('top',event.clientY - $("#html-design-template").offset().top+23)
+            .css('left',event.clientX - $("#html-design-template").offset().left+23)
             .addClass('open')
             .show();
         
@@ -41,6 +42,7 @@ define(function (require, exports, module) {
     
     $(document).on("click","#widget-profile-edit-context-menu li a", function(event){
         $("#widget-profile-context-menu").trigger($(this).data('action'),[widgetContext]);
+        _hideContextMenu();
     });
     
     

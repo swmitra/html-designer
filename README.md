@@ -1,4 +1,12 @@
 ====================
+What Next!
+====================
+
+Coming up in next realease Fluid Grid support with snap to grid feature and Responsive design tools ( Resolution breakpoints as media queries )
+
+![Fluid Grid](https://github.com/swmitra/html-designer-user-guide/blob/master/Getting%20Started/FluidGrid.gif)
+
+====================
 html-designer
 ====================
 

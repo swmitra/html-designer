@@ -34,7 +34,7 @@ define(function (require, exports, module) {
             $("#html-design-editor").trigger( "refresh.element.selection" );
         }
         if($(".fluidGridPlane:visible").length > 0){
-            _constructFluidGrid();
+            //_constructFluidGrid();
         }
         asynchPromise.resolve();
         return asynchPromise.promise();

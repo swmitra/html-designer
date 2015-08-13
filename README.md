@@ -219,3 +219,6 @@ Versions
 **1.2.2**
 * Docked Widget toolbox on the left of design area for better usability.
 ![Widget Toolbox](https://github.com/swmitra/html-designer-user-guide/blob/master/Getting%20Started/WidgetToolbox.png)
+
+**1.2.3**
+* Minor UI update in Widget Toolbox

@@ -44,14 +44,13 @@
     border: 1px solid gray;
 }
 
-#widget-toolbox
-{
-    width: 40px !important;
-    height:calc(100% - 9px) !important;
+#widget-toolbox {
+    width: 44px !important;
+    height: calc(100% - 9px) !important;
     background: #484B4C;
-    display:block;
-    left:3px;
-    top:0px;
+    display: block;
+    left: 1px;
+    top: 0px;
     margin-top: 1px !important;
 }
 

@@ -222,3 +222,6 @@ Versions
 
 **1.2.3**
 * Minor UI update in Widget Toolbox
+
+**1.2.4**
+* Online User tracking service integration

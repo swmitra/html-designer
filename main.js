@@ -86,6 +86,8 @@ define(function (require, exports, module) {
     
     require("editmodule/EditContext");
     
+    require("OnlineUserTrackingClient").init();
+    
     ExtensionUtils.loadStyleSheet(module, "css/html-design-view.css");
     ExtensionUtils.loadStyleSheet(module, "css/ruler.css");
     ExtensionUtils.loadStyleSheet(module, "css/topcoat-desktop-dark.css");

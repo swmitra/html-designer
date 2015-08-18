@@ -36,16 +36,20 @@ define(function (require, exports, module) {
         preselectedElement = null;
     }
     
-    /*$(document).on("design.editor.drag.activated","#html-design-editor",function(){
+    $(document).on("panelResizeStart", "#designer-content-placeholder", function () {
         isPreSelectionActivated = false;
     });
     
-    $(document).on("design.editor.drag.deactivated","#html-design-editor",function(){
+    $(document).on("panelResizeEnd", "#designer-content-placeholder", function () {
         isPreSelectionActivated = true;
-    });*/
+    });
     
     $(document).on("targetdom.element.mousemove copymousemove","#html-design-editor",function(event,element,point){
         _handlePreSelection(element);
+    });
+    
+    $(document).on("mouseout","#scrollPlane",function(event){
+        _handleDeselection();
     });
     
     $(document).on("targetdom.element.mouseout targetdom.element.mouseleave","#html-design-editor",function(){

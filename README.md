@@ -225,3 +225,6 @@ Versions
 
 **1.2.4**
 * Online User tracking service integration
+
+**1.2.5**
+* Hiding preselection while pointer leaves design area or design window getting resized

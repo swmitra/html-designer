@@ -1,0 +1,644 @@
+<style>
+    .box-model-input {
+        background-color: transparent !important;
+        border-width: 0px !important;
+        box-shadow: none !important;
+        text-align: center !important;
+    }
+
+    .box-model-input:focus {
+        background-color: transparent !important;
+        border-width: 0px !important;
+        box-shadow: none !important;
+        text-align: center !important;
+    }
+
+    .iconFocus {
+        background: #3c3f41 !important;
+    }
+
+    .disabledStaticPositionControl {
+        opacity: .3;
+    }
+
+    .selectedStaticPositionControl {
+        box-shadow: inset 0 1px rgba(255, 255, 255, 0.36), 0 0 0 1px #6fb5f1 !important;
+        background-color: black;
+    }
+
+    .layout-number-input {
+        margin-top: 2px;
+        -webkit-transition: all 100ms;
+        transition: all 100ms;
+        height: 25px !important;
+    }
+    
+    .layout-text-input {
+        margin-top: 2px;
+        -webkit-transition: all 100ms;
+        transition: all 100ms;
+        top: 0px;
+        position: relative !important;
+        box-sizing: border-box !important;
+        margin-left: 10px !important;
+        height: 25px !important;
+    }
+
+    .layout-select-input {
+        z-index: 1;
+        padding: 0px;
+        left: 7px;
+        margin-top: 2px;
+        border: 1px solid gray;
+        position: relative !important;
+        margin-left: -30px !important;
+        height: 25px !important;
+        border-radius: 0px !important;
+        width: 30px !important;
+        transition: all 100ms;
+    }
+
+    .layout-select-input.comp {
+        z-index: 1;
+        top: 0px;
+        position: relative !important;
+        box-sizing: border-box !important;
+        width: 0px !important;
+        visibility:hidden;
+    }
+
+    .layout-number-input.base {
+        z-index: 1;
+        top: 0px;
+        position: relative !important;
+        box-sizing: border-box !important;
+        margin-left: 10px !important;
+        width: calc(45% - 12px) !important;
+    }
+
+    .layout-number-input.comp {
+        z-index: 1;
+        top: 0px;
+        position: relative !important;
+        box-sizing: border-box !important;
+        margin-left: 10px !important;
+        width: 0px !important;
+        visibility:hidden;
+        background: rgba(255,255,255,0.2) !important;
+    }
+    
+    .layout-number-input.negative {
+        background: rgba(255,0,0,0.2) !important;
+    }
+    
+    .layout-number-input.possitive {
+        background: rgba(0,255,0,0.2) !important;
+    }
+
+    .layout-box-item {
+        position: absolute;
+        display: flex;
+        align-content: center;
+        width: calc(100% - 80px);
+        float: right;
+        left: 60px;
+    }
+
+    .layout-box-item.comp-mode .layout-number-input.comp {
+        visibility:visible;
+        width: calc(45% - 12px) !important;
+    }
+
+    .layout-box-item.comp-mode .layout-select-input.comp {
+        visibility:visible;
+        width: 30px !important;
+    }
+
+    .layout-entry {
+        display: block;
+        height: 30px;
+        width: 100%;
+        position: relative;
+        margin-top: 0px;
+    }
+    
+    .layout-entry.filler {
+        height: 10px;
+    }
+    
+    .advancedMode .revealed{
+        display:block !important;
+    }
+    
+    .layout-entry .close {
+        margin-right: 12px !important;
+        color: lightgray !important;
+        margin-top: 4px !important;
+        transition:all 100ms;
+    }
+    
+    .layout-entry .close.collapsed {
+        transform: rotate(180deg);
+    }
+</style>
+<div class="propertyToolboxHeader" style="position:relative !important;left:0px !important;margin:0px !important;top:0px;width: calc(100% - 2px);">Layout Toolbox
+    <a class ="close" id="layout-editor-close" style=""><span class="glyphicon glyphicon-chevron-up"></span></a>
+    <div class="toolboxHeaderBottom"></div>
+</div>
+<div id="advanced-layout-editor" style="padding-top:10px;display: block; color: rgb(211, 211, 211); font-size: 14px; position: relative; top:0px; width: calc(100% - 2px); /*height: 360px;*/ background-color: rgb(74, 77, 78);opacity:0.8;">
+    
+    <div class="layout-entry" name="Offset">
+        <span style="left: 0px; top: 0px; position: static; float: left; margin-left: 15px; margin-top: 7px;">H-Offset</span>
+        <div class="layout-box-item" id="H-Offset" data-type="h">
+            <input class="topcoat-text-input layout-number-input base" type="number" step="any">
+            <select class="topcoat-select layout-select-input base" value="%" >
+                <option value="%">%</option>
+                <option value="em">em</option>
+                <option value="rem">rem</option>
+                <option value="ex">ex</option>
+                <option value="px">px</option>
+                <option value="mm">mm</option>
+                <option value="in">in</option>
+                <option value="cm">cm</option>
+                <option value="pt">pt</option>
+                <option value="pc">pc</option>
+                
+            </select>
+            <input class="topcoat-text-input layout-number-input comp" type="number" step="any">
+            <select class="topcoat-select layout-select-input comp" value="px">
+                <option value="px">px</option>
+                <option value="mm">mm</option>
+                <option value="in">in</option>
+                <option value="cm">cm</option>
+                <option value="pt">pt</option>
+                <option value="pc">pc</option>
+            </select>
+        </div>
+    </div>
+    <div class="layout-entry" name="Offset">
+        <span style="left: 0px; top: 0px; position: static; float: left; margin-left: 15px; margin-top: 7px;">V-Offset</span>
+        <div class="layout-box-item" id="V-Offset" data-type="v">
+            <input class="topcoat-text-input layout-number-input base" type="number" step="any">
+            <select class="topcoat-select layout-select-input base" value="%" >
+                <option value="%">%</option>
+                <option value="em">em</option>
+                <option value="rem">rem</option>
+                <option value="ex">ex</option>
+                <option value="px">px</option>
+                <option value="mm">mm</option>
+                <option value="in">in</option>
+                <option value="cm">cm</option>
+                <option value="pt">pt</option>
+                <option value="pc">pc</option>
+            </select>
+            <input class="topcoat-text-input layout-number-input comp" type="number" step="any">
+            <select class="topcoat-select layout-select-input comp" value="px">
+                <option value="px">px</option>
+                <option value="mm">mm</option>
+                <option value="in">in</option>
+                <option value="cm">cm</option>
+                <option value="pt">pt</option>
+                <option value="pc">pc</option>
+            </select>
+        </div>
+    </div>
+    <div class="layout-entry filler" ></div>
+    <div class="layout-entry" >
+        <span style="left: 0px; top: 0px; position: static; float: left; margin-left: 20px; margin-top: 7px;">Width</span>
+        <div class="layout-box-item" name="width" data-type="h">
+            <input class="topcoat-text-input layout-number-input base" type="number" step="any">
+            <select class="topcoat-select layout-select-input base" value="%" >
+                <option value="%">%</option>
+                <option value="em">em</option>
+                <option value="rem">rem</option>
+                <option value="ex">ex</option>
+                <option value="px">px</option>
+                <option value="mm">mm</option>
+                <option value="in">in</option>
+                <option value="cm">cm</option>
+                <option value="pt">pt</option>
+                <option value="pc">pc</option>
+            </select>
+            <input class="topcoat-text-input layout-number-input comp" type="number" step="any">
+            <select class="topcoat-select layout-select-input comp" value="px">
+                <option value="px">px</option>
+                <option value="mm">mm</option>
+                <option value="in">in</option>
+                <option value="cm">cm</option>
+                <option value="pt">pt</option>
+                <option value="pc">pc</option>
+            </select>
+        </div>
+        <a class ="close" data-name="width-range" ><span class="glyphicon glyphicon-chevron-up"></span></a>
+    </div>
+    <div class="layout-entry" name="width-range">
+        <span style="float: left; margin-left: 40px; margin-top: 6px;">MIN</span>
+        <div class="layout-box-item" data-property="height">
+            <input class="topcoat-text-input layout-number-input base" type="number" step="any" placeholder="auto">
+            <select class="topcoat-select layout-select-input" value="%">
+                <option value="px">px</option>
+                <option value="mm">mm</option>
+                <option value="in">in</option>
+                <option value="cm">cm</option>
+                <option value="pt">pt</option>
+                <option value="pc">pc</option>
+            </select>
+            <input class="topcoat-text-input layout-number-input base" type="number" step="any" placeholder="auto">
+            <select class="topcoat-select layout-select-input" value="px">
+                <option value="px">px</option>
+                <option value="mm">mm</option>
+                <option value="in">in</option>
+                <option value="cm">cm</option>
+                <option value="pt">pt</option>
+                <option value="pc">pc</option>
+            </select>
+        </div>
+        <span style="float:right; margin-right: 7px; margin-top: 6px;">MAX</span>
+    </div>
+    <div class="layout-entry filler" ></div>
+    <div class="layout-entry" >
+        <span style="float: left; margin-left: 20px; margin-top: 6px;">Height</span>
+        <div class="layout-box-item" name="height" data-type="v">
+            <input class="topcoat-text-input layout-number-input base" type="number" step="any">
+            <select class="topcoat-select layout-select-input base" value="%">
+                <option value="%">%</option>
+                <option value="em">em</option>
+                <option value="rem">rem</option>
+                <option value="ex">ex</option>
+                <option value="px">px</option>
+                <option value="mm">mm</option>
+                <option value="in">in</option>
+                <option value="cm">cm</option>
+                <option value="pt">pt</option>
+                <option value="pc">pc</option>
+            </select>
+            <input class="topcoat-text-input layout-number-input comp" type="number" step="any">
+            <select class="topcoat-select layout-select-input comp" value="px">
+                <option value="px">px</option>
+                <option value="mm">mm</option>
+                <option value="in">in</option>
+                <option value="cm">cm</option>
+                <option value="pt">pt</option>
+                <option value="pc">pc</option>
+            </select>
+        </div>
+        <a class ="close" data-name="height-range" ><span class="glyphicon glyphicon-chevron-up"></span></a>
+    </div>
+    <div class="layout-entry" name="height-range">
+        <span style="float: left; margin-left: 40px; margin-top: 6px;">MIN</span>
+        <div class="layout-box-item" data-property="height">
+            <input class="topcoat-text-input layout-number-input base" type="number" step="any" placeholder="auto">
+            <select class="topcoat-select layout-select-input" value="%">
+                <option value="px">px</option>
+                <option value="mm">mm</option>
+                <option value="in">in</option>
+                <option value="cm">cm</option>
+                <option value="pt">pt</option>
+                <option value="pc">pc</option>
+            </select>
+            <input class="topcoat-text-input layout-number-input base" type="number" step="any" placeholder="auto">
+            <select class="topcoat-select layout-select-input" value="px">
+                <option value="px">px</option>
+                <option value="mm">mm</option>
+                <option value="in">in</option>
+                <option value="cm">cm</option>
+                <option value="pt">pt</option>
+                <option value="pc">pc</option>
+            </select>
+        </div>
+        <span style="float:right; margin-right: 7px; margin-top: 6px;">MAX</span>
+    </div>
+    <div class="layout-entry filler" ></div>
+    <div class="layout-entry" >
+        <span style="float: left; margin-left: 20px; margin-top: 6px;">Margin</span>
+        <div class="layout-box-item layout-box-item-text" name="margin">
+            <input class="topcoat-text-input layout-text-input" type="text" name="margin-shorthand" style="width:calc(100% - 52px) !important;">
+        </div>
+        <a class ="close" data-name="margin" style=""><span class="glyphicon glyphicon-chevron-up"></span></a>
+    </div>
+    <div class="layout-entry" name="margin">
+        <span style="float: left; margin-left: 25px; margin-top: 6px;">Left</span>
+        <div class="layout-box-item" name="margin-left" data-type="h">
+            <input class="topcoat-text-input layout-number-input base" type="number" step="any">
+            <select class="topcoat-select layout-select-input base" value="%">
+                <option value="%">%</option>
+                <option value="em">em</option>
+                <option value="rem">rem</option>
+                <option value="ex">ex</option>
+                <option value="px">px</option>
+                <option value="mm">mm</option>
+                <option value="in">in</option>
+                <option value="cm">cm</option>
+                <option value="pt">pt</option>
+                <option value="pc">pc</option>
+            </select>
+            <input class="topcoat-text-input layout-number-input comp" type="number" step="any">
+            <select class="topcoat-select layout-select-input comp" value="px">
+                <option value="px">px</option>
+                <option value="mm">mm</option>
+                <option value="in">in</option>
+                <option value="cm">cm</option>
+                <option value="pt">pt</option>
+                <option value="pc">pc</option>
+            </select>
+        </div>
+    </div>
+    <div class="layout-entry" name="margin">
+        <span style="float: left; margin-left: 25px; margin-top: 6px;">Top</span>
+        <div class="layout-box-item" name="margin-top" data-type="v">
+            <input class="topcoat-text-input layout-number-input base" type="number" step="any">
+            <select class="topcoat-select layout-select-input base" value="%">
+                <option value="%">%</option>
+                <option value="em">em</option>
+                <option value="rem">rem</option>
+                <option value="ex">ex</option>
+                <option value="px">px</option>
+                <option value="mm">mm</option>
+                <option value="in">in</option>
+                <option value="cm">cm</option>
+                <option value="pt">pt</option>
+                <option value="pc">pc</option>
+            </select>
+            <input class="topcoat-text-input layout-number-input comp" type="number" step="any">
+            <select class="topcoat-select layout-select-input comp" value="px">
+                <option value="px">px</option>
+                <option value="mm">mm</option>
+                <option value="in">in</option>
+                <option value="cm">cm</option>
+                <option value="pt">pt</option>
+                <option value="pc">pc</option>
+            </select>
+        </div>
+    </div>
+    <div class="layout-entry" name="margin">
+        <span style="float: left; margin-left: 25px; margin-top: 6px;">Right</span>
+        <div class="layout-box-item" name="margin-right" data-type="h">
+            <input class="topcoat-text-input layout-number-input base" type="number" step="any">
+            <select class="topcoat-select layout-select-input base" value="%">
+                <option value="%">%</option>
+                <option value="em">em</option>
+                <option value="rem">rem</option>
+                <option value="ex">ex</option>
+                <option value="px">px</option>
+                <option value="mm">mm</option>
+                <option value="in">in</option>
+                <option value="cm">cm</option>
+                <option value="pt">pt</option>
+                <option value="pc">pc</option>
+            </select>
+            <input class="topcoat-text-input layout-number-input comp" type="number" step="any">
+            <select class="topcoat-select layout-select-input comp" value="px">
+                <option value="px">px</option>
+                <option value="mm">mm</option>
+                <option value="in">in</option>
+                <option value="cm">cm</option>
+                <option value="pt">pt</option>
+                <option value="pc">pc</option>
+            </select>
+        </div>
+    </div>
+    <div class="layout-entry" name="margin">
+        <span style="float: left; margin-left: 25px; margin-top: 6px;">Bottom</span>
+        <div class="layout-box-item" name="margin-bottom" data-type="v">
+            <input class="topcoat-text-input layout-number-input base" type="number" step="any">
+            <select class="topcoat-select layout-select-input base" value="%">
+                <option value="%">%</option>
+                <option value="em">em</option>
+                <option value="rem">rem</option>
+                <option value="ex">ex</option>
+                <option value="px">px</option>
+                <option value="mm">mm</option>
+                <option value="in">in</option>
+                <option value="cm">cm</option>
+                <option value="pt">pt</option>
+                <option value="pc">pc</option>
+            </select>
+            <input class="topcoat-text-input layout-number-input comp" type="number" step="any">
+            <select class="topcoat-select layout-select-input comp" value="px">
+                <option value="px">px</option>
+                <option value="mm">mm</option>
+                <option value="in">in</option>
+                <option value="cm">cm</option>
+                <option value="pt">pt</option>
+                <option value="pc">pc</option>
+            </select>
+        </div>
+    </div>
+    <div class="layout-entry filler" ></div>
+    <!--Padding -->
+    <div class="layout-entry" >
+        <span style="float: left; margin-left: 20px; margin-top: 6px;">Padding</span>
+        <div class="layout-box-item layout-box-item-text" name="padding">
+            <input class="topcoat-text-input layout-text-input" type="text" style="width:calc(100% - 52px) !important;">
+        </div>
+        <a class ="close" data-name="padding" style=""><span class="glyphicon glyphicon-chevron-up"></span></a>
+    </div>
+    <div class="layout-entry" name="padding">
+        <span style="float: left; margin-left: 25px; margin-top: 6px;">Left</span>
+        <div class="layout-box-item" name="padding-left" data-type="h">
+            <input class="topcoat-text-input layout-number-input base" type="number" step="any">
+            <select class="topcoat-select layout-select-input base" value="%">
+                <option value="%">%</option>
+                <option value="em">em</option>
+                <option value="rem">rem</option>
+                <option value="ex">ex</option>
+                <option value="px">px</option>
+                <option value="mm">mm</option>
+                <option value="in">in</option>
+                <option value="cm">cm</option>
+                <option value="pt">pt</option>
+                <option value="pc">pc</option>
+            </select>
+            <input class="topcoat-text-input layout-number-input comp" type="number" step="any">
+            <select class="topcoat-select layout-select-input comp" value="px">
+                <option value="px">px</option>
+                <option value="mm">mm</option>
+                <option value="in">in</option>
+                <option value="cm">cm</option>
+                <option value="pt">pt</option>
+                <option value="pc">pc</option>
+            </select>
+        </div>
+    </div>
+    <div class="layout-entry" name="padding">
+        <span style="float: left; margin-left: 25px; margin-top: 6px;">Top</span>
+        <div class="layout-box-item" name="padding-top" data-type="v">
+            <input class="topcoat-text-input layout-number-input base" type="number" step="any">
+            <select class="topcoat-select layout-select-input base" value="%">
+                <option value="%">%</option>
+                <option value="em">em</option>
+                <option value="rem">rem</option>
+                <option value="ex">ex</option>
+                <option value="px">px</option>
+                <option value="mm">mm</option>
+                <option value="in">in</option>
+                <option value="cm">cm</option>
+                <option value="pt">pt</option>
+                <option value="pc">pc</option>
+            </select>
+            <input class="topcoat-text-input layout-number-input comp" type="number" step="any">
+            <select class="topcoat-select layout-select-input comp" value="px">
+                <option value="px">px</option>
+                <option value="mm">mm</option>
+                <option value="in">in</option>
+                <option value="cm">cm</option>
+                <option value="pt">pt</option>
+                <option value="pc">pc</option>
+            </select>
+        </div>
+    </div>
+    <div class="layout-entry" name="padding">
+        <span style="float: left; margin-left: 25px; margin-top: 6px;">Right</span>
+        <div class="layout-box-item" name="padding-right" data-type="h">
+            <input class="topcoat-text-input layout-number-input base" type="number" step="any">
+            <select class="topcoat-select layout-select-input base" value="%">
+                <option value="%">%</option>
+                <option value="em">em</option>
+                <option value="rem">rem</option>
+                <option value="ex">ex</option>
+                <option value="px">px</option>
+                <option value="mm">mm</option>
+                <option value="in">in</option>
+                <option value="cm">cm</option>
+                <option value="pt">pt</option>
+                <option value="pc">pc</option>
+            </select>
+            <input class="topcoat-text-input layout-number-input comp" type="number" step="any">
+            <select class="topcoat-select layout-select-input comp" value="px">
+                <option value="px">px</option>
+                <option value="mm">mm</option>
+                <option value="in">in</option>
+                <option value="cm">cm</option>
+                <option value="pt">pt</option>
+                <option value="pc">pc</option>
+            </select>
+        </div>
+    </div>
+    <div class="layout-entry" name="padding">
+        <span style="float: left; margin-left: 25px; margin-top: 6px;">Bottom</span>
+        <div class="layout-box-item" name="padding-bottom" data-type="v">
+            <input class="topcoat-text-input layout-number-input base" type="number" step="any">
+            <select class="topcoat-select layout-select-input base" value="%">
+                <option value="%">%</option>
+                <option value="em">em</option>
+                <option value="rem">rem</option>
+                <option value="ex">ex</option>
+                <option value="px">px</option>
+                <option value="mm">mm</option>
+                <option value="in">in</option>
+                <option value="cm">cm</option>
+                <option value="pt">pt</option>
+                <option value="pc">pc</option>
+            </select>
+            <input class="topcoat-text-input layout-number-input comp" type="number" step="any">
+            <select class="topcoat-select layout-select-input comp" value="px">
+                <option value="px">px</option>
+                <option value="mm">mm</option>
+                <option value="in">in</option>
+                <option value="cm">cm</option>
+                <option value="pt">pt</option>
+                <option value="pc">pc</option>
+            </select>
+        </div>
+    </div>
+    <div class="layout-entry filler" ></div>
+    <!--Advanced Layout Options-->
+    <div class="layout-entry topcoat-button" style="display: flex;align-items: center;justify-content: center;background: #454646;border-radius: 0px;width: calc(100% + 2px);">
+        Advanced Layout
+        <a id="reveal-advanced-layout-editor" class="close" style=""><span class="glyphicon glyphicon-chevron-down" style="color: lightgray;margin-left: 10px;margin-top: 5px;"></span></a>
+    </div>
+    <div class="revealed" id="layout-editor" style="display: none; color: rgb(211, 211, 211); font-size: 14px; position: relative; left: 10px; width: 278px; height: 282px;">
+        <div id="layout-options" style="border: 0px dotted gray; position: absolute; height: 27px; width: 272px; left: 3px; top: 6px;">
+            <span id="layout-layer" style="text-align: center; border: 0px dotted gray; position: absolute; width: 56px; top: 4px; height: 21px; left: 6px;">margin</span>
+            <input class="topcoat-text-input" id="layout-h-modifier-value" type="number" style="border: 1px solid gray; position: absolute; height: 20px; top: 2px; left: 62px; width: 39px;">
+            <input class="topcoat-text-input" id="layout-v-modifier-value" type="number" style="border: 1px solid gray; position: absolute; top: 2px; height: 20px; left: 125px; width: 38px;">
+            <select class="topcoat-select" id="layout-position-select" style="padding-top: 0px; position: absolute; width: 76px; height: 22px; top: 2px !important; left: 190px;">
+                <option value="static">static</option>
+                <option value="absolute">absolute</option>
+                <option value="relative">relative</option>
+                <option value="fixed">fixed</option>
+            </select>
+        </div>
+        <div id="dimension-box" style="background-color: rgb(60, 63, 65); border: 1px solid gray; position: absolute; z-index: 4; left: 94px; height: 26px; width: 93px; pointer-events: auto; top: 106px;">
+            <span style="position: absolute; color: gray; top: 4px; pointer-events: auto; left: 39px;">x</span>
+            <input class="box-model-input topcoat-text-input" id="element-width-input" type="number" data-css-key="width" style="margin-top: -22px; height: 24px; margin-left: -2px; position: absolute; border-left-width: 3px; left: -3px; pointer-events: auto; top: 23px; width: 28px;" value="0">
+            <input class="box-model-input topcoat-text-input" id="element-height-input" type="number" data-css-key="height" style="top: 1px; left: 154px; height: 24px; border-right-width: 3px; width: 28px; margin-left: 48px; margin-top: 1px;" value="0">
+        </div>
+        <div id="padding-box" style="background-color: rgb(60, 63, 65); border: 1px solid gray; position: absolute; height: 68px; width: 146px; z-index: 3; left: 65px; top: 87px;">
+            <span style="position: absolute; color: gray; top: 1px; left: 3px;">Padding</span>
+            <input class="box-model-input topcoat-text-input" id="pad-left" type="number" data-css-key="padding-left" style="margin-top: -22px; height: 24px; margin-left: -2px; position: absolute; border-left-width: 3px; width: 31px; top: 42px; left: -8px;" value="0">
+            <input class="box-model-input topcoat-text-input" id="pad-right" type="number" data-css-key="padding-right" style="top: 1px; left: 154px; height: 24px; border-right-width: 3px; margin-left: 111px; width: 33px; margin-top: 20px;" value="0">
+            <input class="box-model-input topcoat-text-input" id="pad-top" type="number" data-css-key="padding-top" style="margin-top: -22px; height: 24px; margin-left: -2px; position: absolute; border-top-width: 3px; width: 31px; left: 49px; top: 20px;" value="0">
+            <input class="box-model-input topcoat-text-input" id="pad-bottom" type="number" data-css-key="padding-bottom" style="margin-top: -40px; height: 24px; margin-left: 238px; position: absolute; border-bottom-width: 3px; width: 31px; left: -191px; top: 86px;" value="0">
+        </div>
+        <div id="margin-box" style="background-color: rgb(74, 77, 78); border: 1px solid gray; position: absolute; height: 116px; pointer-events: auto; width: 203px; left: 37px; z-index: 2; top: 62px;">
+            <span style="position: absolute; color: gray; top: 1px; left: 3px;">Margin</span>
+            <input class="box-model-input topcoat-text-input" id="mar-left" type="number" data-css-key="margin-left" style="margin-top: -22px; margin-left: 4px; position: absolute; height: 23px; width: 32px; top: 68px; left: -15px;" value="0">
+            <input class="box-model-input topcoat-text-input" id="mar-right" type="number" data-css-key="margin-right" style="top: 1px; left: 153px; height: 23px; width: 32px; margin-left: 166px; margin-top: 46px;" value="0">
+            <input class="box-model-input topcoat-text-input" id="mar-top" type="number" data-css-key="margin-top" style="margin-top: -22px; margin-left: 4px; position: absolute; height: 23px; top: 23px; width: 31px; left: 71px;" value="0">
+            <input class="box-model-input topcoat-text-input" id="mar-bottom" type="number" data-css-key="margin-bottom" style="margin-top: -22px; margin-left: 5px; position: absolute; height: 23px; top: 116px; width: 31px; left: 70px;" value="0">
+        </div>
+        <div id="position-box" style="background-color: rgb(60, 63, 65); border: 1px solid gray; position: absolute; pointer-events: auto; height: 163px; width: 262px; left: 7px; z-index: 1; top: 41px;">
+            <span style="position: absolute; color: gray; top: 1px; left: 12px;">Position</span>
+            <input class="box-model-input topcoat-text-input" id="pos-top" type="number" data-css-key="top" style="margin-top: -21px; margin-left: 104px; position: absolute; height: 23px; width: 31px; left: 1px; top: 20px;" value="0">
+            <input class="box-model-input topcoat-text-input" id="pos-left" type="number" data-css-key="left" style="margin-top: -21px; margin-left: 4px; position: absolute; height: 23px; width: 33px; top: 88px; left: -17px;" value="0">
+            <input class="box-model-input topcoat-text-input" id="pos-right" type="number" data-css-key="right" style="margin-left: 133px; margin-top: 16px; position: absolute; height: 23px; width: 34px; left: 91px; top: 51px;" value="0">
+            <input class="box-model-input topcoat-text-input" id="pos-bottom" type="number" data-css-key="bottom" style="margin-left: 0px; margin-top: 0px; position: absolute; height: 23px; width: 31px; top: 140px; left: 105px;" value="0">
+            <div class="anchorControl" data-anchor="top-left" id="top-left-anchor" style="width: 0px; height: 0px; border-style: solid; border-width: 15px 15px 0px 0px; border-color: gray transparent transparent; position: absolute; left: -1px; top: -1px;"></div>
+            <div class="anchorControl" data-anchor="top-right" id="top-right-anchor" style="width: 0px; height: 0px; border-style: solid; border-width: 0px 15px 15px 0px; border-color: transparent gray transparent transparent; position: absolute; left: 247px; top: 0px;"></div>
+            <div class="anchorControl" data-anchor="bottom-left" id="bottom-left-anchor" style="width: 0px; height: 0px; border-style: solid; border-width: 15px 0px 0px 15px; border-color: transparent transparent transparent gray; position: absolute; left: 0px; top: 149px;"></div>
+            <div class="anchorControl" data-anchor="bottom-right" id="bottom-right-anchor" style="width: 0px; height: 0px; border-style: solid; border-width: 0px 0px 15px 15px; border-color: transparent transparent gray; position: absolute; left: 248px; top: 148px;"></div>
+        </div>
+
+        <span style="position: absolute; color: rgb(211, 211, 211); left: 8px; top: 215px;">Float</span>
+        <button class="floatControl staticPositionControl topcoat-icon-button" id="set-float-left" style="position: absolute; left: 41px; width: 32px; top: 212px;" data-css-key="float" data-css-value="left">
+            <img src="{{module_path}}/toolboxhtml/images/Float_Left.png" style="margin-top: -2px;">
+        </button>
+        <button class="floatControl staticPositionControl topcoat-icon-button" id="set-float-right" style="position: absolute; left: 111px; top: 212px;" data-css-key="float" data-css-value="right">
+            <img src="{{module_path}}/toolboxhtml/images/Float_Right.png" style="margin-top: -3px;">
+        </button>
+        <button class="floatControl staticPositionControl topcoat-icon-button" id="set-float-none" style="position: absolute; left: 75px; top: 212px;" data-css-key="float" data-css-value="none">
+            <img src="{{module_path}}/toolboxhtml/images/Float_None.png" style="margin-top: -2px;">
+        </button>
+
+        <span style="position: absolute; color: rgb(211, 211, 211); left: 7px; top: 248px;">Clear</span>
+        <button class="clearControl staticPositionControl topcoat-icon-button" id="set-clear-left" style="position: absolute; height: 23px; width: 24px; left: 41px; top: 246px;" data-css-key="clear" data-css-value="none">
+            <img src="{{module_path}}/toolboxhtml/images/Clear_Left.png">
+        </button>
+        <button class="clearControl staticPositionControl topcoat-icon-button" id="set-clear-right" style="position: absolute; width: 22px; left: 98px; top: 246px;" data-css-key="clear" data-css-value="right">
+            <img src="{{module_path}}/toolboxhtml/images/Clear_Right.png">
+        </button>
+        <button class="clearControl staticPositionControl topcoat-icon-button" id="set-clear-both" style="position: absolute; width: 27px; left: 68px; top: 246px;" data-css-key="clear" data-css-value="both">
+            <img src="{{module_path}}/toolboxhtml/images/Clear_Both.png">
+        </button>
+        <button class="clearControl staticPositionControl topcoat-icon-button" id="set-clear-none" style="position: absolute; width: 20px; left: 122px; top: 246px;" data-css-key="clear" data-css-value="none"><span>X</span>
+        </button>
+        <span style="position: absolute; color: rgb(211, 211, 211); left: 146px; top: 214px;">Boxsize</span>
+       <select class="topcoat-select" id="layout-boxsize-select" style="padding:0px;padding-left:3px; position: absolute; height: 22px; width: 76px; left: 194px; top: 213px;">
+            <option value="border-box">border-box</option>
+            <option value="content-box">content-box</option>
+        </select>
+        <span style="position: absolute; color: rgb(211, 211, 211); left: 146px; top: 248px;">Display</span>
+        <select class="topcoat-select" id="layout-display-select" style="padding-top: 0px; position: absolute; width: 76px; height: 22px; left: 194px; top: 246px;">
+            <option value="inline"	title="Default value. Displays an element as an inline element (like <span>)">inline</option>
+            <option value="block"	title="Displays an element as a block element (like <p>)">block</option>
+            <option value="flex"	title="Displays an element as an block-level flex container. New in CSS3">flex</option>	
+            <option value="inline-block"	title="Displays an element as an inline-level block container. The inside of this block is formatted as block-level box, and the element itself is formatted as an inline-level box">inline-block</option>	
+            <option value="inline-flex"	title="Displays an element as an inline-level flex container. New in CSS3">inline-flex</option>	
+            <option value="inline-table"	title="The element is displayed as an inline-level table">inline-table</option>	 
+            <option value="list-item"	title="Let the element behave like a <li> element">list-item</option>
+            <option value="run-in"	title="Displays an element as either block or inline, depending on context">run-in</option>	 
+            <option value="table"	title="Let the element behave like a <table> element">table</option>	
+            <option value="table-caption"	title="Let the element behave like a <caption> element">table-caption</option>	
+            <option value="table-column-group"	title="Let the element behave like a <colgroup> element">table-column-group</option>	
+            <option value="table-header-group"	title="Let the element behave like a <thead> element">table-header-group</option>	
+            <option value="table-footer-group"	title="Let the element behave like a <tfoot> element">table-footer-group</option>	
+            <option value="table-row-group"	title="Let the element behave like a <tbody> element">table-row-group</option>	
+            <option value="table-cell"	title="Let the element behave like a <td> element">table-cell</option>	
+            <option value="table-column"	title="Let the element behave like a <col> element">table-column</option>	
+            <option value="table-row"	title="Let the element behave like a <tr> element">table-row</option>	
+            <option value="none" title="Hides the element">none</option>
+        </select>
+    </div>
+</div>
+</body>

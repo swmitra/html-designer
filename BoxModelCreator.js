@@ -74,19 +74,6 @@ define(function (require, exports, module) {
         
     }
     
-    /*$(document).on('element.selected',"#html-design-editor",function(event,element){
-        $("#html-design-editor").trigger('boxmodel.created',[_createBoxModel(element)]);
-     });
-    
-    $(document).on('multiselect.done',"#html-design-editor",function(event,elements){
-        var modelArray = [];
-        var index = 0;
-        for(index = 0;index<elements.length;index++){
-            modelArray.push(_createBoxModel(elements[index]));
-        }
-        $("#html-design-editor").trigger('groupmodel.created',[modelArray]);
-     });*/
-    
     $(document).on("ruleset-wrapper.created","#html-design-editor",function(event,rulesetref){
         if(rulesetref.isGroup()){
             var modelArray = [];

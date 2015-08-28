@@ -65,6 +65,7 @@ define(function (require, exports, module) {
         
         lastSelectedElement = element;
         //$(".controlDiv").show();
+        $("#html-design-editor").trigger("selection-area-computed",[offset,width,height]);
         if(refresh){
             $("#html-design-editor").trigger("element.selection.refreshed",[element]);
         } else {

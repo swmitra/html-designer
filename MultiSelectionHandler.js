@@ -40,7 +40,7 @@ define(function (require, exports, module) {
     
     function _markReference(index){
         if(currentRefIndex === index){
-            multiselectMarkers[index].removeClass("blinkinghighlight"); 
+            $(".blinkinghighlight").removeClass("blinkinghighlight");
             currentRefIndex = -1;
         } else {
             currentRefIndex = index;

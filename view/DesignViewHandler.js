@@ -25,6 +25,7 @@ define(function (require, exports, module) {
     var CommonUtils = require("CommonUtils");
     
     var isFragmentModeOn = false;
+    var isNWResource = false;
 
     function _showRuler() {
         $("#html-design-editor").ruler({
@@ -67,21 +68,23 @@ define(function (require, exports, module) {
     }
     
     function _synchDesignWithCode(){
-        var toBeUpdated = document.getElementById('htmldesignerIframe').contentWindow.document;
-        $("#html-design-editor").trigger("deselect.all");
-        if(isFragmentModeOn === true){
-            $(toBeUpdated).find("#ad-fragment-container").html(DocumentManager.getCurrentDocument().getText());
-        } else {
-            toBeUpdated.documentElement.innerHTML = DocumentManager.getCurrentDocument().getText();
+        if(!isNWResource){
+            var toBeUpdated = document.getElementById('htmldesignerIframe').contentWindow.document;
+            $("#html-design-editor").trigger("deselect.all");
+            if(isFragmentModeOn === true){
+                $(toBeUpdated).find("#ad-fragment-container").html(DocumentManager.getCurrentDocument().getText());
+            } else {
+                toBeUpdated.documentElement.innerHTML = DocumentManager.getCurrentDocument().getText();
+            }
         }
     }
 
     function _showDesignView() {
+        isNWResource = false;
         EditorManager.getCurrentFullEditor().setVisible(false, false);
         $designview.show();
         if (currentDoc != DocumentManager.getCurrentDocument() && CommonUtils.isValidMarkupFile(FileUtils.getFileExtension(DocumentManager.getCurrentDocument().file._path))) {
             $("#htmldesignerIframe")[0].src = DocumentManager.getCurrentDocument().file._path;
-            $("#htmldesignerShadowIframe")[0].src = DocumentManager.getCurrentDocument().file._path;
             currentDoc = DocumentManager.getCurrentDocument();
             $('#htmldesignerIframe').off('load', _showHTMLDesign);
             $('#htmldesignerIframe').on('load', _showHTMLDesign);
@@ -90,13 +93,18 @@ define(function (require, exports, module) {
             _showHTMLDesign();
             $("#html-design-editor").trigger("design-dom-changed");
         }
-
-        if (FileUtils.getFileExtension(DocumentManager.getCurrentDocument().file._path) === 'json') {
-            $("#html-design-editor").trigger("handle-json-design-view");
-            $('#htmldesignerIframe').off('load', _showDesign);
-            $('#htmldesignerIframe').on('load', _showDesign);
-            $("#html-design-editor").trigger("design-dom-changed");
-        }
+        $("#html-design-editor").trigger("design-editor-shown");
+        $("#html-design-editor").trigger("groupdeselect.all");
+    }
+    
+    function _showNWDesignView(path){
+        isNWResource = true;
+        EditorManager.getCurrentFullEditor().setVisible(false, false);
+        $designview.show();
+        $("#htmldesignerIframe")[0].src = path;
+        $('#htmldesignerIframe').off('load', _showHTMLDesign);
+        $('#htmldesignerIframe').on('load', _showHTMLDesign);
+        $("#html-design-editor").trigger("design-dom-changed");
         $("#html-design-editor").trigger("design-editor-shown");
         $("#html-design-editor").trigger("groupdeselect.all");
     }
@@ -104,7 +112,7 @@ define(function (require, exports, module) {
     function _quitDesignView(){
         $("#html-design-editor").trigger("deselect.all");
         $("#htmldesignerIframe")[0].src = "";
-        $("#htmldesignerShadowIframe")[0].src = "";
+        
         EditorManager.getCurrentFullEditor().setVisible(true, true);
         
         $designview.hide();
@@ -115,6 +123,7 @@ define(function (require, exports, module) {
         $designview = $("#html-design-template");
     }
     
+    exports.nwlaunch = _showNWDesignView;
     exports.launch = _showDesignView;
     exports.hide = _quitDesignView;
     exports.init = _init;

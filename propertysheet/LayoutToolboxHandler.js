@@ -1,6 +1,5 @@
 /**
  * @author Swagatam Mitra
-  
  */
 
 /*jslint vars: true, plusplus: true, devel: true, nomen: true, indent: 4, maxerr: 50 */
@@ -10,16 +9,18 @@ define(function (require, exports, module) {
     "use strict";
     
     var AppInit       = brackets.getModule("utils/AppInit");
+    var ConversionUtils = require("propertysheet/UnitConversionUtils");
     var currentLayout = null;
     
-    $(document).on("click","#layout-toolbox-anchor",function(event){
-        $("#layout-editor").show();
+    $(document).on("click","#layout-editor-close",function(event){
+        $("#advanced-layout-editor").toggleClass("toolboxCollapsed");
+        $(this).toggleClass("collapsed");
         event.preventDefault();
         event.stopPropagation();
     });
     
-    $(document).on("click","#layout-editor-close",function(event){
-        $("#layout-editor").hide();
+    $(document).on("click","#reveal-advanced-layout-editor",function(event){
+        $("#advanced-layout-editor").toggleClass("advancedMode");
         event.preventDefault();
         event.stopPropagation();
     });
@@ -99,7 +100,6 @@ define(function (require, exports, module) {
             }
         } 
     }
-         
     
     $(document).on("layout.decision","#html-design-editor", function(event,layoutObj){
         currentLayout = layoutObj;
@@ -128,8 +128,42 @@ define(function (require, exports, module) {
         }
         
         _showAnchor(currentLayout);
-        _showStaticPositionControl(currentLayout);
+        _showStaticPositionControl(currentLayout); 
+        _synchPropsInCurrentRuleSet();
      });
+    
+    function _synchPropsInCurrentRuleSet(){
+        var asynchPromise = new $.Deferred();
+        _synchOffsetWithBaseAndComp();
+        
+        _synchPropertyWithBaseAndComp('width');
+        _synchPropertyWithBaseAndComp('height');
+        
+        _synchPropertyAsText('margin');
+        _synchPropertyWithBaseAndComp('margin-left');
+        _synchPropertyWithBaseAndComp('margin-top');
+        _synchPropertyWithBaseAndComp('margin-bottom');
+        _synchPropertyWithBaseAndComp('margin-right');
+        
+        _synchPropertyAsText('padding');
+        _synchPropertyWithBaseAndComp('padding-left');
+        _synchPropertyWithBaseAndComp('padding-top');
+        _synchPropertyWithBaseAndComp('padding-bottom');
+        _synchPropertyWithBaseAndComp('padding-right');
+        
+        asynchPromise.resolve();
+        return asynchPromise.promise();
+    }
+    
+    
+    $(document).on("click",".layout-entry .close", function(event){
+        $("#advanced-layout-editor .layout-entry[name="+$(this).data('name')+"]").toggle();
+        $(this).toggleClass("collapsed");
+     });
+    
+    $(document).on("target-selector-changed","#html-design-editor", function(event,rulesetref){
+        _synchPropsInCurrentRuleSet();
+    });
     
     $(document).on("input","#layout-h-modifier-value", function(event){
         currentLayout.setX($("#layout-h-modifier-value").val());
@@ -194,6 +228,178 @@ define(function (require, exports, module) {
         event.preventDefault();
         event.stopPropagation();
      });
+    
+    function _parsePropVal(value){
+    
+        function _parse(prop){
+            var p = parseFloat(prop), q = prop.replace(/^[\-\d\.]+/,'');
+            return isNaN(p) ? { value: q, unit: ''} : { value: p, unit: q };
+        }
+        
+        var parsedExpr;
+        var base,operator,comp;
+
+        if(value && ConversionUtils.hasCalc(value)){
+            parsedExpr = ConversionUtils.parseCalcExpression(value);
+            if(parsedExpr.length === 3){
+              base = parsedExpr[0];
+              operator = parsedExpr[1];
+              comp = parsedExpr[2];
+              if(operator === '-'){
+                    comp.value = 0 - comp.value;
+              }
+            } 
+        } else {
+            base = _parse(value+'');
+        }
+        
+        return [base,comp];
+    }
+    
+    function isRelativeUnit(unit){
+        switch(unit){
+            case '%':
+            case 'em':
+            case 'ex':
+            case 'rem': return true;
+            default: return false;
+        }
+    }
+    
+    function _synchPropertyWithBaseAndComp(prop){
+        var value;
+        if(currentLayout){
+            value = currentLayout.getLayoutParamValueFor(prop);
+            value = _parsePropVal(value);
+            _showInputUI(prop,value);
+        }
+    }
+    
+    function _showInputUI(prop,value){
+        $("#advanced-layout-editor .layout-entry .layout-box-item[name="+prop+"]").find(".layout-number-input.base").val(value[0].value);
+        $("#advanced-layout-editor .layout-entry .layout-box-item[name="+prop+"]").find(".layout-select-input.base").val(value[0].unit);
+        $("#advanced-layout-editor .layout-entry .layout-box-item[name="+prop+"]").find(".layout-select-input.base").data('currentval',value[0].unit);
+        if(value[1]){
+            $("#advanced-layout-editor .layout-entry .layout-box-item[name="+prop+"]").find(".layout-number-input.comp").val(value[1].value);
+            $("#advanced-layout-editor .layout-entry .layout-box-item[name="+prop+"]").find(".layout-number-input.comp").removeClass("possitive");
+            $("#advanced-layout-editor .layout-entry .layout-box-item[name="+prop+"]").find(".layout-number-input.comp").removeClass("negative");
+            if(value[1].value > 0){
+                $("#advanced-layout-editor .layout-entry .layout-box-item[name="+prop+"]").find(".layout-number-input.comp").addClass("possitive");
+            } else if(value[1].value < 0){
+                $("#advanced-layout-editor .layout-entry .layout-box-item[name="+prop+"]").find(".layout-number-input.comp").addClass("negative");
+            }
+            $("#advanced-layout-editor .layout-entry .layout-box-item[name="+prop+"]").find(".layout-select-input.comp").val(value[1].unit);
+            $("#advanced-layout-editor .layout-entry .layout-box-item[name="+prop+"]").find(".layout-select-input.comp").data('currentval',value[1].unit);
+        } else {
+            $("#advanced-layout-editor .layout-entry .layout-box-item[name="+prop+"]").find(".layout-number-input.comp").val(0);
+            $("#advanced-layout-editor .layout-entry .layout-box-item[name="+prop+"]").find(".layout-number-input.comp").removeClass("possitive");
+            $("#advanced-layout-editor .layout-entry .layout-box-item[name="+prop+"]").find(".layout-number-input.comp").removeClass("negative");
+            $("#advanced-layout-editor .layout-entry .layout-box-item[name="+prop+"]").find(".layout-select-input.comp").val('px');
+            $("#advanced-layout-editor .layout-entry .layout-box-item[name="+prop+"]").find(".layout-select-input.comp").data('currentval','px');
+        }
+
+        if(isRelativeUnit(value[0].unit)){
+            $("#advanced-layout-editor .layout-entry .layout-box-item[name="+prop+"]").addClass("comp-mode");
+        } else {
+            $("#advanced-layout-editor .layout-entry .layout-box-item[name="+prop+"]").removeClass("comp-mode");
+        }
+    }
+    
+    $(document).on('change',".layout-box-item .layout-select-input.base",function(event){
+        var currentVal,currentUnit,convertedVal,addtnlComp = 0;
+        var $context = $(this).parent();
+        if(isRelativeUnit($(this).val())){
+            if(!$context.hasClass('comp-mode')){
+                $context.addClass('comp-mode');
+            }
+        } else {
+            $context.removeClass('comp-mode');
+            addtnlComp = ConversionUtils
+                            .getUnits(currentLayout.boxModel.targetElement
+                                    ,$context.find(".layout-number-input.comp").val()
+                                    ,$context.find(".layout-select-input.comp").data("currentval")
+                                    ,$context.find(".layout-select-input.base").val()
+                                    ,$context.data('type')
+                                );
+        
+        }
+        
+        convertedVal = ConversionUtils
+                            .getUnits(currentLayout.boxModel.targetElement
+                                    ,$context.find(".layout-number-input.base").val()
+                                    ,$context.find(".layout-select-input.base").data("currentval")
+                                    ,$context.find(".layout-select-input.base").val()
+                                    ,$context.data('type')
+                                );
+        
+        $context.find(".layout-number-input.base").val(parseFloat(convertedVal)+parseFloat(addtnlComp));
+        _changeLayoutValue($context);
+    });
+    
+    $(document).on('change',".layout-box-item .layout-select-input.comp",function(event){
+        var currentVal,currentUnit,convertedVal;
+        var $context = $(this).parent();
+        
+        convertedVal = ConversionUtils
+                            .getUnits(currentLayout.boxModel.targetElement
+                                    ,$context.find(".layout-number-input.comp").val()
+                                    ,$context.find(".layout-select-input.comp").data("currentval")
+                                    ,$context.find(".layout-select-input.comp").val()
+                                    ,$context.data('type')
+                                );
+        
+        $context.find(".layout-number-input.comp").val(parseFloat(convertedVal));
+        _changeLayoutValue($context);
+    });
+    
+    function _changeLayoutValue(context){
+        var cssProp = context.attr('name');
+        var computedValue = context.find(".layout-number-input.base").val() + context.find(".layout-select-input.base").val();
+        var compensation = parseFloat(context.find(".layout-number-input.comp").val()).toFixed(2);
+        var operator = compensation < 0 ?'-' : '+';
+        if(operator === '-'){
+            compensation = 0 - compensation;
+        }
+        if(context.hasClass('comp-mode') && (compensation <0 || compensation>0)){
+            computedValue = 'calc('+computedValue+' '+operator+' '+compensation+context.find(".layout-select-input.comp").val()+')';
+        }
+        if(currentLayout){
+            currentLayout.changeLayout(cssProp,computedValue,false);
+        }
+    }
+    
+    $(document).on('change',".layout-box-item .layout-number-input.base,.layout-box-item .layout-number-input.comp",function(event){
+        _changeLayoutValue($(this).parent());
+    });
+    
+    $(document).on('change',".layout-box-item .layout-text-input",function(event){
+        var prop = $(this).parent().attr('name');
+        if(currentLayout){
+            currentLayout.changeLayout(prop,$(this).val(),false);
+        }
+    });
+    
+    function _synchPropertyAsText(prop){
+        var value;
+        if(currentLayout){
+            value = currentLayout.getLayoutParamValueFor(prop);
+            $(".layout-entry .layout-box-item[name="+prop+"]").find("input").val(value);
+        }
+    }
+        
+    function _synchOffsetWithBaseAndComp(){
+        if(currentLayout){
+            if(currentLayout.positioned){
+                $('#advanced-layout-editor .layout-entry[name=Offset]').show();
+                $('#advanced-layout-editor .layout-entry[name=Offset] #H-Offset').attr('name',currentLayout.xAxisModifier);
+                $('#advanced-layout-editor .layout-entry[name=Offset] #V-Offset').attr('name',currentLayout.yAxisModifier);
+                _synchPropertyWithBaseAndComp(currentLayout.xAxisModifier);
+                _synchPropertyWithBaseAndComp(currentLayout.yAxisModifier);
+            } else {
+                $('#advanced-layout-editor .layout-entry[name=Offset]').hide();
+            }
+        }
+    }
         
     $(document).on("boxmodel.created boxmodel.refreshed","#html-design-editor", function(event,model){
         var asynchPromise = new $.Deferred();
@@ -220,6 +426,7 @@ define(function (require, exports, module) {
             $("#layout-h-modifier-value").val(parseInt(currentLayout.getXAxisModifierValue()));
             $("#layout-v-modifier-value").val(parseInt(currentLayout.getYAxisModifierValue())); 
         }
+        asynchPromise.resolve();
         return asynchPromise.promise();
     });
     

@@ -16,7 +16,7 @@ define(function (require, exports, module) {
     var currentApplication = null;
     
     function _findAndUpdateLinkedSelectors(styleSheet, oldelementID, newElementID){
-        var setCount, ruleSets, ruleSet;
+        var setCount, ruleSets, ruleSet,mediacount,mediaRule;
         var ref;
         ruleSets = styleSheet.rules;
         for (setCount = 0; setCount < ruleSets.length; setCount++) {

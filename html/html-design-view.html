@@ -1,12 +1,12 @@
 <div id="html-design-template" class="quiet-scrollbars" style="display:none;">
-        <!--<div id="media-breakpoints">
-            <div id="active-breakpoint"></div>
-            <input type="slider" id="new-breakpoint">
-        </div>-->
         <div id="html-design-editor" >
             <div id="element-search-panel">
                 <input type="text" id="find-what-element" placeholder="jquery:search…">
                 <button class="topcoat-select-button-dark" id="close-search-panel" style="right: 46px;position: absolute;">Close</button>
+            </div>
+            <div id="network-resource-bar">
+                <input type="text" id="nw-resource-url" placeholder="www url here">
+                <button class="topcoat-select-button-dark" id="close-nw-panel" style="right: 46px;position: absolute;">Close</button>
             </div>
             <div id="fragment-link-panel">
                 <input type="text" id="main-doc-path" placeholder="index.html path" style="width: 473px;">
@@ -16,14 +16,15 @@
             <div id="designer-content-placeholder" class="designContent horz-resizable right-resizer vert-resizable bottom-resizer" style="position:absolute">
                 <div class="designerArtBoard" >
                     <iframe id="htmldesignerIframe" src=""></iframe>
-                    <iframe id="htmldesignerShadowIframe" src="" ></iframe>
+                    <!--<iframe id="htmldesignerShadowIframe" src="" ></iframe>
+                    <iframe id="mediaDetectionFrame" src="" ></iframe>-->
                 </div>
                 <div class="eventListnerPane" style="">
-                    <div class="fluidGridPlane" style=""></div>
                     <div id="scrollPlane" style="">
                         <div id="designer-content-scroll-mock" class="designContent" style="width:100% !important;height:100%;">
                         </div>
                     </div>
+                    <div class="fluidGridPlane" style=""></div>
                 </div>
             </div>
             <div class="guidePlane" style="">
@@ -43,4 +44,5 @@
         <div id="design-modal-backdrop"></div>
         <div id="split-view-anchor"></div>
         <div id="design-view-anchor" style="display:none"></div>
+        <div id="docked-toolbox"></div>
     </div>

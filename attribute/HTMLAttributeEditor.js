@@ -51,7 +51,10 @@ define(function (require, exports, module) {
     }
     
     $(document).on("click","#attr-editor-close", function(event){
-        _hideAttrEditor();
+        $("#attribute-editor").toggleClass("toolboxCollapsed");
+        $(this).toggleClass("collapsed");
+        event.preventDefault();
+        event.stopPropagation();
     });
     
     $(document).on("click","#attribute-list-anchor", function(event){
@@ -59,8 +62,12 @@ define(function (require, exports, module) {
     });
         
     AppInit.appReady(function () {
-        $("#info-overlay-plane").append(AttributeToolBoxTemplate);
-        $("#attribute-editor").draggable({handle:'.propertyToolboxHeader'});
+        $("#docked-toolbox").append(AttributeToolBoxTemplate);
     });
+    
+    AppInit.htmlReady(function () {
+    });
+    
+    
 
 });

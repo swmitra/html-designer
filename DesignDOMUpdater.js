@@ -51,6 +51,7 @@ define(function (require, exports, module) {
         .css('pointer-events','')
         .appendTo(eventParams.containerElement).show();
         $("#html-design-editor").trigger('element.added',[element[0]]);
+         $("#html-design-editor").trigger("select.element",[element[0]]);
     }
     
     function _isPositioned(element){

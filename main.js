@@ -50,6 +50,7 @@ define(function (require, exports, module) {
     require("ElementMarkupEditHandler");
     require("BorderRadiusHandler");
     require("DistributionHandler");
+    require("InteractionModeHandler");
     
     require("DesignerSettingsManager");
     
@@ -71,6 +72,7 @@ define(function (require, exports, module) {
     require("propertysheet/KeyframeToolboxHandler");
     require("propertysheet/KeyframeTimelineToolboxHandler");
     require("propertysheet/TextToolboxHandler");
+    require("propertysheet/DockedToolboxHandler");
     
     
     require("attribute/HTMLAttributeEditor");
@@ -83,6 +85,7 @@ define(function (require, exports, module) {
     require("stylemodule/StylesheetManager");
     
     require("responsive/ResponsiveUIControlManager");
+    require("responsive/ActiveBreakpointListner");
     
     require("editmodule/EditContext");
     

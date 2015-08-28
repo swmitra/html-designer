@@ -10,7 +10,6 @@ define(function (require, exports, module) {
     "use strict";
     
     var AppInit       = brackets.getModule("utils/AppInit");
-    //var ADProjectManager = brackets.getModule("appdesigner/ProjectManager");
     var DocumentManager = brackets.getModule("document/DocumentManager");
     var FileUtils   = brackets.getModule("file/FileUtils");
     var ProjectManager = brackets.getModule("project/ProjectManager");
@@ -27,10 +26,7 @@ define(function (require, exports, module) {
     });
     
     $(document).on("element.added","#html-design-editor",function(event,element){
-        var styleSheet = _findDefaultStyleSheet(element.id,null/*ADProjectManager.getConfig('default-stylesheet')*/);
-        if(!styleSheet){
-            styleSheet = _findDefaultStyleSheet(element.id,null);
-        }
+        var styleSheet = _findDefaultStyleSheet();
         var css = element.style.cssText;
         styleSheet.insertRule('#'+element.id+' { '+css+' }', 0);
         element.style.cssText = '';
@@ -52,10 +48,7 @@ define(function (require, exports, module) {
     });
     
     function _createNewRule(styleSheetParam,cssText,index){
-        var styleSheet /*= styleSheetParam || _findDefaultStyleSheet(null,ADProjectManager.getConfig('default-stylesheet'))*/;
-        if(!styleSheet){
-            styleSheet = _findDefaultStyleSheet();
-        }
+        var styleSheet = _findDefaultStyleSheet();
         var styleText = null;
         styleSheet.insertRule(cssText, index);
         if(styleSheet.href){
@@ -73,6 +66,70 @@ define(function (require, exports, module) {
              $("#html-design-editor").trigger('html.element.updated');
         }
         return [styleSheet,index];
+    }
+    
+    function _createNewMediaRule(mediaFilter,index){
+        var styleSheet = _findDefaultStyleSheet(true);
+        var styleText = null;
+        styleSheet.insertRule(mediaFilter,styleSheet.rules.length);
+        if(styleSheet.href){
+            DocumentManager.getDocumentForPath(styleSheet.href.replace(brackets.platform === 'mac' ? 'file://' : 'file:///' ,'').split('?')[0])
+                    .done(function (doc) {
+                        $("#html-design-editor").trigger('before.cssdoc.save');
+                        styleText = CSSNodeFormatter.formatCSSAsText(styleSheet,false);
+                        doc.setText(styleText);
+                        $("#html-design-editor").trigger('after.cssdoc.save');
+                        $("#html-design-editor").trigger("cssdoc.changed",[currentApplication,doc]);
+                    });
+        } else {
+             styleText = CSSNodeFormatter.formatCSSAsText(styleSheet,true);
+             styleSheet.ownerNode.innerText = styleText;
+             $("#html-design-editor").trigger('html.element.updated');
+        }
+        return [styleSheet,index];
+    }
+    
+    function _sendRulesetToMedia(mediaFilter,cssText){
+        var targetRuleSet;
+        var targetStyleSheet;
+        var currentStyleSheets = document.getElementById('htmldesignerIframe').contentWindow.document.styleSheets;
+        var sheetCount, setCount, styleSheet, ruleSets, ruleSet, mediaCount;
+        var ref,entry;
+        for (sheetCount = 0; sheetCount < currentStyleSheets.length && !ref; sheetCount++) {
+            styleSheet = currentStyleSheets[sheetCount];
+            ruleSets = styleSheet.rules;
+            for (setCount = 0; setCount < ruleSets.length && !ref; setCount++) {
+                ruleSet = ruleSets[setCount];
+                if (ruleSet.media) {
+                    for(mediaCount = 0;mediaCount < ruleSet.media.length;mediaCount++){
+                        if(mediaFilter === ruleSet.media[mediaCount]){
+                            targetRuleSet = ruleSet;
+                            targetStyleSheet = styleSheet;
+                        }
+                    }
+                }
+            }
+        }
+        
+        if(targetRuleSet){
+            targetRuleSet.insertRule(cssText,0);
+        }
+        
+        var styleText;
+        if(targetStyleSheet.href){
+            DocumentManager.getDocumentForPath(targetStyleSheet.href.replace(brackets.platform === 'mac' ? 'file://' : 'file:///' ,'').split('?')[0])
+                    .done(function (doc) {
+                        $("#html-design-editor").trigger('before.cssdoc.save');
+                        styleText = CSSNodeFormatter.formatCSSAsText(targetStyleSheet,false);
+                        doc.setText(styleText);
+                        $("#html-design-editor").trigger('after.cssdoc.save');
+                        $("#html-design-editor").trigger("cssdoc.changed",[currentApplication,doc]);
+                    });
+        } else {
+             styleText = CSSNodeFormatter.formatCSSAsText(targetStyleSheet,true);
+             targetStyleSheet.ownerNode.innerText = styleText;
+             $("#html-design-editor").trigger('html.element.updated');
+        }
     }
     
     function _updateRule(styleSheetParam,cssText,index){
@@ -104,8 +161,7 @@ define(function (require, exports, module) {
         $(linkNode).appendTo(document.getElementById('htmldesignerIframe').contentWindow.document.head)[0];
     }
     
-    function _findDefaultStyleSheet(elementid,sheetPath) {
-        //defaultStyleSheet = sheetPath;
+    function _findDefaultStyleSheet(isMedia) {
         var styleSheets = document.getElementById('htmldesignerIframe').contentWindow.document.styleSheets;
         var sheetCount, styleSheet, targetStyleSheet;
         
@@ -117,12 +173,13 @@ define(function (require, exports, module) {
                     break;
                 }
             }
-            if(!targetStyleSheet){
-                sheetPath = null;                
-            }
         } else {
             var styleNode =  document.getElementById('htmldesignerIframe').contentWindow.document.createElement('STYLE');
-            styleNode = $(styleNode).appendTo(document.getElementById('htmldesignerIframe').contentWindow.document.head)[0];
+            if(isMedia){
+                styleNode = $(styleNode).appendTo(document.getElementById('htmldesignerIframe').contentWindow.document.head)[0];
+            } else {
+                styleNode = $(styleNode).prependTo(document.getElementById('htmldesignerIframe').contentWindow.document.head)[0];
+            }
             targetStyleSheet = styleNode.sheet;
         }
         return targetStyleSheet;
@@ -138,5 +195,7 @@ define(function (require, exports, module) {
     
     exports.createNewRule = _createNewRule;
     exports.updateRule = _updateRule;
+    exports.createNewMediaRule = _createNewMediaRule;
+    exports.sendRulesetToMedia = _sendRulesetToMedia;
         
 });

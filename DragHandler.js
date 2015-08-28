@@ -71,11 +71,11 @@ define(function (require, exports, module) {
     
     $(document).on("layout.decision","#html-design-editor", function(event,layoutObj){
         layout = layoutObj;
-     });
+    });
     
     $(document).on("grouplayout.decision","#html-design-editor", function(event,layoutObj){
         layout = layoutObj;
-     });
+    });
     
     $(document).on("element.selected","#html-design-editor",function(event,element){
         dragSourceArea = element.getBoundingClientRect();
@@ -84,11 +84,10 @@ define(function (require, exports, module) {
     $(document).on("multiselectarea.computed","#html-design-editor",function(event,unionArea){
         dragSourceArea = unionArea;
     });
-            
+    
     $(document).on("targetdom.element.mousedown","#html-design-editor", _initDrag);
     
     $(document).on("targetdom.element.mousemove","#html-design-editor", _doDrag);
 
-    $(document).on("targetdom.element.mouseup targetdom.element.mouseout targetdom.element.mouseleave","#html-design-editor",_endDrag);
-        
+    $(document).on("targetdom.element.mouseup targetdom.element.mouseout targetdom.element.mouseleave","#html-design-editor",_endDrag);   
 });

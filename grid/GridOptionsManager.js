@@ -95,7 +95,7 @@ define(function (require, exports, module) {
             case 'lock-grid': _lockGrid(this);break;
             case 'unlock-grid': _unlockGrid(this);break;
             case 'clear-grid': _clearGrid();break;
-            default: $("#designer-ruler-context-menu").trigger(action);break;
+            default: $("#designer-ruler-context-menu").trigger(action,[this]);break;
         }
         _hideContextMenu();
         event.preventDefault();

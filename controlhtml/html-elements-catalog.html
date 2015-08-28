@@ -68,9 +68,41 @@
         .customTemplateShortcut .glyphicon-tag {
             zoom:2;
         }
+        
+        #launch-toolbox {
+            height: 26px;
+            width: 37px;
+            margin-top: 2px;
+            margin-bottom: 2px;
+            margin-left: 2px;
+            padding: 0px;
+            border-radius: 0px;
+            border-color: rgba(255,255,255,0.5);
+        }
+        
+        #launch-toolbox span {
+            transition: all 100ms;
+            margin:0px -4px;
+        }
+        
+        #launch-toolbox.activated span {
+            transform: rotate(180deg);
+        }
+        
+        #interaction-mode span {
+            color:orangered!important;
+        }
+        
+        #interaction-mode.activated span {
+            color:lawngreen !important;
+        }
+        
     </style>
     <div class="property-toolbox" id="widget-toolbox">
         <div id="html-elements-catalog" style="position: absolute; width: calc(100% - 3px); height: calc(100% - 3px); border:1px solid gray; left: 0px; top: 0px;">
+            <div id="interaction-mode" style="display: block;margin: auto;margin-top: 5px;padding: 5px;" title="User Interaction">
+                <span class="glyphicon glyphicon-hand-up" aria-hidden="true" style="zoom:1.5;margin-left:3px;"></span>
+            </div>
             <img class="htmlwidget widgetDragSource widgetDrawSource" id="ad-element-pointer" src="{{module_path}}/controlhtml/widgetImages/Move_Widget.png" alt="Pointer">
             <div class="htmlwidget widgetDragSource widgetDrawSource" data-profile="html" id="ad-element-paragraph" style="height: 15px;width: 14px;">
                 <span class="glyphicon glyphicon-text-size" aria-hidden="true"></span>
@@ -90,7 +122,11 @@
             </div>
 
             <img class="htmlwidget widgetDragSourceSeperator" src="{{module_path}}/controlhtml/Widget_Seperator.png" alt="" />
-            
+            <button id="launch-toolbox" class="btn primary">
+                <span class="glyphicon glyphicon-menu-right"></span>
+                <span class="glyphicon glyphicon-menu-right"></span>
+            </button>
+            <img class="htmlwidget widgetDragSourceSeperator" src="{{module_path}}/controlhtml/Widget_Seperator.png" alt="" style="margin-top:0px;"/>
             <div id="custom-element-container"></div>
             
             <div class="contextmenu-listner_create"></div>

@@ -40,8 +40,6 @@ define(function (require, exports, module) {
         $("#border-bottom-left-control")
                     .css('left',(hRadii - 3))
                     .css('top','calc(100% - '+(vRadii+2)+'px)');
-        
-        //$("#border-radius").val(''+hRadii+'px '+vRadii+'px');
     }
     
     $(document).on("mousedown","#border-bottom-left-control",function(event){

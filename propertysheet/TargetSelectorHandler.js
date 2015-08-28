@@ -11,9 +11,12 @@ define(function (require, exports, module) {
     
     var AppInit       = brackets.getModule("utils/AppInit");
     var FileUtils = brackets.getModule("file/FileUtils");
+    var RuleSetCreator = require("stylemodule/RuleSetCreator");
     
     var lastSelectedRuleset = null;
     var currentApplication = '';
+    var lastPrefferedSelectorVal = "";
+    var currentActiveMedia = null;
     
     $(document).on("click","#css-toolbox-anchor",function(event){
         $("#css-editor").show();
@@ -22,14 +25,15 @@ define(function (require, exports, module) {
     });
     
     $(document).on("click","#css-editor-close",function(event){
-        $("#css-editor").hide();
+        $("#css-editor").toggleClass("toolboxCollapsed");
+        $(this).toggleClass("collapsed");
         event.preventDefault();
         event.stopPropagation();
     });
     
     function _showTargetSelectorOptions(rulesetref){
         var lastSelectedValue = null;
-        if(lastSelectedRuleset && lastSelectedRuleset.element === rulesetref.element){
+        if(lastSelectedRuleset && lastSelectedRuleset.element === rulesetref.element && lastPrefferedSelectorVal === lastSelectedRuleset.getPreferredSelectorValue()[1]){
             lastSelectedValue = $("#css-target-select").val();
             if(lastSelectedValue){
                 rulesetref.changeTargetSelector(lastSelectedValue);
@@ -41,7 +45,7 @@ define(function (require, exports, module) {
         var option;
         for(var i=0;i<options.length;i++){
             option = options[i];
-            $('<option value="'+option[1]+'">'+option[0]+'</option>').appendTo($("#css-target-select"));
+            $('<option value="'+option[1]+'" title="'+(option[1].split('{sep}')[3] || '')+'">'+option[0]+'</option>').appendTo($("#css-target-select"));
         }
         
         if(lastSelectedValue){
@@ -50,6 +54,7 @@ define(function (require, exports, module) {
             option = lastSelectedRuleset.getPreferredSelectorValue();
             if(option){
                 $("#css-target-select").val(option[1]);
+                lastPrefferedSelectorVal = option[1];
                 var fileName = FileUtils.getBaseName(option[1].split('{sep}')[2] || currentApplication);
                 $("#target-stylesheet-file").data("file",option[1].split('{sep}')[2] || currentApplication);
                 if(currentApplication.indexOf(option[1].split('{sep}')[2])<0){
@@ -62,7 +67,7 @@ define(function (require, exports, module) {
                 $("#target-stylesheet-file").html('@'+fileName);
             }
         }
-        
+        _findSelectorInActiveMedia();
         $("#html-design-editor").trigger("refresh-ruleset-properties",[lastSelectedRuleset]);
     }
     
@@ -70,6 +75,58 @@ define(function (require, exports, module) {
         var asynchPromise = new $.Deferred();
         _showTargetSelectorOptions(rulesetref);
         $("#html-design-editor").trigger("refresh-ruleset-properties",[lastSelectedRuleset]);
+        asynchPromise.resolve();
+        return asynchPromise.promise();
+    });
+    
+    $(document).on("activemedia-found","#html-design-editor",function(event,media){
+        currentActiveMedia = media;
+    });
+    
+    $(document).on("click","#add-new-selector-to-media",function(event){
+        var asynchPromise = new $.Deferred();
+        var cuurentVal = ($("#css-target-select").val()).split('{sep}');
+        RuleSetCreator.sendRulesetToMedia(currentActiveMedia,lastSelectedRuleset.ruleSet.cssText);
+        $("#html-design-editor").trigger( "refresh.element.selection" );
+        var values;
+        window.setTimeout(function(){
+            $("#css-target-select option").each(function() {
+                values = ($(this).val()).split('{sep}');
+                if(values[0] === cuurentVal[0] && values[3] === currentActiveMedia){
+                    $("#css-target-select option").val($(this).val());
+                }
+            });
+        },100);
+        asynchPromise.resolve();
+        return asynchPromise.promise();
+    });
+    
+    function _findSelectorInActiveMedia(){
+        $("#add-new-selector-to-media").attr('disabled','true');
+        var currVal = ($("#css-target-select").val() || "").split('{sep}')[3] || "";
+        var currSelector = ($("#css-target-select").val() || "").split('{sep}')[0];
+        var sameSelectorWithMediaFound = false;
+        var values;
+        if(currentActiveMedia && currVal === "" && currSelector !== "element.style"){
+            $("#css-target-select option").each(function() {
+                values = ($(this).val()).split('{sep}');
+                if(values[0] === currSelector && values[3] === currentActiveMedia){
+                    sameSelectorWithMediaFound = true;
+                }
+            });
+            if(!sameSelectorWithMediaFound){
+                $("#add-new-selector-to-media").removeAttr('disabled');
+            }
+        }
+    }
+    
+    $(document).on("panelResizeUpdate", "#designer-content-placeholder", _findSelectorInActiveMedia);
+    
+    $(document).on("deselect.all","#html-design-editor",function(event,rulesetref){
+        var asynchPromise = new $.Deferred();
+        $("#css-target-select").html("");
+        $("#css-target-select").val("");
+        $("#target-stylesheet-file").text("");
         asynchPromise.resolve();
         return asynchPromise.promise();
     });
@@ -101,6 +158,7 @@ define(function (require, exports, module) {
         $("#target-stylesheet-file").data("index",$(this).val().split('{sep}')[1]);
         fileName = fileName.split('?')[0];
         $("#target-stylesheet-file").html('@'+fileName);
+        _findSelectorInActiveMedia();
     });
     
     $(document).on("application.context","#html-design-editor", function(event,applicationKey){

@@ -23,6 +23,8 @@ define(function (require, exports, module) {
         SourceView = require("view/SourceViewHandler"),
         StylesView = require("view/StylesViewHandler");
     
+    var NWViewManager = require("view/NetworkViewManager");
+    
     var ViewPresentationPresets = require("view/ViewPresentationPresets");
     
     var CommonUtils = require("CommonUtils");
@@ -49,6 +51,7 @@ define(function (require, exports, module) {
     var BorderToolBoxTemplate = require("text!toolboxhtml/genericBorderToolboxTemplate.html");
     var TransformToolBoxTemplate = require("text!toolboxhtml/transformToolboxTemplate.html");
     var BackgroundImageToolBoxTemplate = require("text!toolboxhtml/backgroundImageTemplate.html");
+    var DockedLayoutTemplate = require("text!toolboxhtml/dockedLayoutTemplate.html").split("{{module_path}}").join(MODULE_PATH);;
     var LayoutToolBoxTemplate = require("text!toolboxhtml/layouttoolboxTemplate.html").split("{{module_path}}").join(MODULE_PATH);
     var NewToolBoxTemplate = require("text!toolboxhtml/toolboxTemplate.html").split("{{module_path}}").join(MODULE_PATH);
     var ShadowEditorTemplate = require("text!toolboxhtml/boxShadoweditorTemplate.html");
@@ -101,22 +104,25 @@ define(function (require, exports, module) {
         $("#html-design-editor").trigger('application.context', [null]);
     }
     
-    function _showDesignView() {
+    function _showDesignView(nwpath) {
         $("#html-design-template").show();
-        DesignView.launch();
-        var docPath = DocumentManager.getCurrentDocument().file._path;
+        if(nwpath){
+            DesignView.nwlaunch(nwpath);
+        } else {
+            DesignView.launch();
+            nwpath = DocumentManager.getCurrentDocument().file._path;
+        }
         if(inSplitView){
             SourceView.hide();
             StylesView.hide();
             inSplitView = false;
         } else if(!inDesignView){
             _applyStatusBarDarkTheme();
-            //DesignView.launch();
         }
         $('button[title="Design DropDown List"]').find(".data").html("Design View");
         inDesignView = true;
         applicationContext = true;
-        $("#html-design-editor").trigger('application.context', [docPath]);
+        $("#html-design-editor").trigger('application.context', [nwpath]);
     }
     
     function _showSplitView() {
@@ -163,6 +169,27 @@ define(function (require, exports, module) {
                  _showCodeView();
                 $("#view-options-menu").text("CodeView");
             }
+        }
+    }
+    
+    $(document).on("open-nw-resource","#html-design-editor", function(event,path){
+        _handleNetworkResource(path);
+    });
+    
+    function _handleNetworkResource(path){
+        if (applicationContext) {
+            $("#html-design-editor").trigger('deselect.all');
+        }
+        if (path) {
+            $("#design-view-options").show();
+            if (inDesignView) {
+                _showDesignView(path);
+            } else if (inSplitView) {
+                _showSplitView();
+            } else {
+                _showCodeView();
+            }
+            $("#html-design-editor").trigger('application.context', [path]);
         }
     }
     
@@ -232,9 +259,11 @@ define(function (require, exports, module) {
         $("#info-overlay-plane").append(MultiselectionControlTemplate);
         $("#info-overlay-plane").append(BackgroundImageToolBoxTemplate);
         $("#info-overlay-plane").append(TransformToolBoxTemplate);
-        $("#info-overlay-plane").append(LayoutToolBoxTemplate);
+        //$("#info-overlay-plane").append(LayoutToolBoxTemplate);
         $("#info-overlay-plane").append(ShadowEditorTemplate);
-        $("#info-overlay-plane").append(CSSEditorTemplate);
+        //$("#info-overlay-plane").append(CSSEditorTemplate);
+        $("#docked-toolbox").append(DockedLayoutTemplate);
+        $("#docked-toolbox").append(CSSEditorTemplate);
         $(".eventListnerPane").append(ContextMenuTemplate);
         $("#html-design-template").append(WidgetCreateContextMenuTemplate);
         $("#html-design-template").append(WidgetEditContextMenuTemplate);
@@ -259,7 +288,8 @@ define(function (require, exports, module) {
         SourceView.init();
         StylesView.init();
 	    $(DocumentManager).on("currentDocumentChange", _handleDocChange); 
-        Resizer.makeResizable($("#css-editor")[0], Resizer.DIRECTION_VERTICAL, Resizer.POSITION_BOTTOM, 200, false, undefined, false);
+        Resizer.makeResizable($("#css-editor")[0], Resizer.DIRECTION_VERTICAL, Resizer.POSITION_BOTTOM, 300, false, undefined, false);
+        //Resizer.makeResizable($("#css-editor")[0], Resizer.DIRECTION_HORIZONTAL, Resizer.POSITION_RIGHT, 280, false, undefined, false);
     });
 
     $(DocumentManager).on("documentSaved", function () {

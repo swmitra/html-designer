@@ -1,24 +1,28 @@
 <style>
-.disabledProperty{
-	opacity:0.2;
-}
+    .disabledProperty{
+	   opacity:0.2;
+    }
     #css-editor .vert-resizer{
-        top: calc(100% - 1px) !important;
+         top: calc(100% - 1px) !important;
         left: 1px;
         height: 1px;
     }
 </style>
-<div class="property-toolbox quiet-scrollbars vert-resizable bottom-resizer" id="css-editor" style="padding-bottom:5px;display: none; color: rgb(211, 211, 211); background-color: rgb(74, 77, 78); position: absolute; right: 0px; top: 40px; width: 281px; height: 241px;">
-     <div class="propertyToolboxHeader" >CSS Toolbox
-         <a class ="close" id="css-editor-close" style="">×</a>
-         <div class="toolboxHeaderBottom"></div>
-    </div>
+<div class="propertyToolboxHeader" style="position:relative !important;left:0px !important;margin:0px !important;top:0px;width: calc(100% - 2px);">CSS Toolbox
+     <a class ="close" id="css-editor-close" style=""><span class="glyphicon glyphicon-chevron-up"></span></a>
+     <div class="toolboxHeaderBottom"></div>
+</div>
+<div class="quiet-scrollbars vert-resizable bottom-resizer" id="css-editor" style="border-bottom:1px solid gray;padding-bottom:5px;display: block; color: rgb(211, 211, 211); background-color: rgb(74, 77, 78); position: relative;right: 0px;width:calc(100% - 2px); height:400px;opacity:0.8;">
     <span style="text-align: center; border: 0px dotted gray; position: absolute; height: 21px; left: 5px; top: 5px; width: 63px;">css-target</span>
-    <select class="topcoat-select" id="css-target-select" style="padding-top: 0px; position: absolute; height: 22px; left: 74px; top: 5px; width: 201px;">
+    <select class="topcoat-select" id="css-target-select" style="padding-top: 0px; position: absolute; height: 22px; left: 74px; top: 5px; width: calc(100% - 103px);">
     </select>
-    <span style="text-align: center; border: 0px dotted gray; position: absolute; height: 21px; left: 5px; top: 37px; width: 63px;">style-sheet</span>
-    <span  style="padding-left:5px;text-align: left; border: 1px solid gray; position: absolute; height: 20px; left: 74px; top: 35px; width: 194px;overflow:hidden;"><a id="target-stylesheet-file" style="color:inherit;"></a></span>
-    <div id="ruleset-editor-container" style="display: block; color: rgb(211, 211, 211); background-color: rgb(74, 77, 78); position: absolute; height:calc(100% - 66px); overflow:hidden;width:100%; left:0px; top: 66px;">
+    <button id="add-new-selector" class="topcoat-button" style="position: absolute;height: 24px;right: 5px;top: 4px;width: 22px;padding: 0px;"><span class="glyphicon glyphicon-plus"></span></button>
+    <span style="text-align: center; border: 0px dotted gray; position: absolute; height: 21px; left: 5px; top: 34px; width: 63px;">style-sheet</span>
+    <span  style="padding-left:5px;text-align: left; border: 1px solid gray; position: absolute; height: 20px; left: 74px; top: 32px; width: calc(100% - 87px);overflow:hidden;"><a id="target-stylesheet-file" style="color:inherit;"></a></span>
+    <span style="text-align: center; border: 0px dotted gray; position: absolute; height: 21px; left: 5px; top: 62px; width: 63px;">Media</span>
+    <span  style="padding-left:5px;text-align: left; border: 1px solid gray; position: absolute; height: 20px; left: 74px; top: 60px; width: calc(100% - 87px);overflow:hidden;"><a class="active-Media-applied" style="color:white;"></a></span>
+    <button id="add-new-selector-to-media" class="topcoat-button btn primary" style="position: absolute;height: 22px;right: 6px;top: 60px;width: 23px;padding: 0px;border-radius: 0px;" disabled><span class="glyphicon glyphicon-plus"></span></button>
+    <div id="ruleset-editor-container" style="display: block; color: rgb(211, 211, 211); background-color: rgb(74, 77, 78); position: absolute; height:calc(100% - 86px); overflow:hidden;width:100%; left:0px; top: 86px;">
         <div id="ruleset-editor" style="display: block; color: rgb(211, 211, 211); background-color: rgb(74, 77, 78); position: absolute; height: calc(100% - 30px); overflow:auto;width:100%; left:0px; top: 0px;border-bottom:1px gray solid">
     </div>
     <div id="ruleset-editor-toolbar" style="display: block; color: rgb(211, 211, 211); background-color: rgb(74, 77, 78); position: absolute; height: 28px; width:100%; left:0px; bottom: 1px;">

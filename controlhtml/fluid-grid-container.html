@@ -1,16 +1,36 @@
-<div id="grid-settings-container">
-    <span style="margin-left:10px">Columns</span>
-    <input type="number" id="fluid-column-input" class="topcoat-text-input" style="margin-left: 10px; width: 37px; margin-top: 7px; height: 25px;" value="6">
-    <span style="margin-left:10px">Gutter Space</span>
-    <input type="number" id="fluid-gutter-input" class="topcoat-text-input" style="border:1px solid gray;margin-left: 10px; width: 37px; border-radius: 0px; height: 25px; margin-top: 8px;" value="1">
-    <select id="gutter-unit-select" class="topcoat-select" style="width: 40px; border-radius: 0px; height: 25px; top: 4px;outline: 1px solid gray;padding-top: 0px;" value="%">
-        <option value="%">%</option>
-        <option value="px">px</option>
-    </select>
-    <span style="margin-left:10px">Content Padding</span>
-    <input type="number" id="fluid-padding-input" class="topcoat-text-input" style="border:1px solid gray;margin-left: 10px; width: 37px; border-radius: 0px; height: 25px; margin-top: 8px;" value="1">
-    <select id="padding-unit-select" class="topcoat-select" style="width: 40px; border-radius: 0px; height: 25px; top: 4px;outline: 1px solid gray;padding-top: 0px;" value="%">
-        <option value="%">%</option>
-        <option value="px">px</option>
-    </select>
-</div>
+<head>
+    <style>
+        .hideFluidGrid {
+            color: #C74848 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="grid-settings-container">
+        <span id="show-hide-fluid-grid" class="glyphicon glyphicon-eye-open" style="color:#288edf;zoom:1.5" title="Show Fluid Grid"></span>
+        <span style="margin-left:10px">Columns</span>
+        <input type="number" id="fluid-column-input" class="topcoat-text-input" style="margin-left: 10px; width: 25px; border-radius: 0px; height: 20px; margin-top: 8px;" value="6">
+        <span style="margin-left:10px">Gutter Space</span>
+        <input type="number" id="fluid-gutter-input" class="topcoat-text-input" style="border:1px solid gray;margin-left: 10px; width: 25px; border-radius: 0px; height: 20px; margin-top: 8px;" value="1">
+        <select id="gutter-unit-select" class="topcoat-select" style="width: 32px; border-radius: 0px; height: 20px; top: 4px;outline: 1px solid gray;padding-top: 0px;font-size:10px;" value="%">
+            <option value="%">%</option>
+            <option value="px">px</option>
+        </select>
+        <span style="margin-left:10px">Content Padding</span>
+        <input type="number" id="fluid-padding-input" class="topcoat-text-input" style="border:1px solid gray;margin-left: 10px; width: 25px; border-radius: 0px; height: 20px; margin-top: 8px;" value="1">
+        <select id="padding-unit-select" class="topcoat-select" style="width: 32px; border-radius: 0px; height: 20px; top: 4px;outline: 1px solid gray;padding-top: 0px;font-size:10px;" value="%">
+            <option value="%">%</option>
+            <option value="px">px</option>
+        </select>
+
+        <input type="number" id="design-window-width-input" class="topcoat-text-input" style="background:transparent;margin-left: 10px; width: 50px; height: 20px; margin-top: 8px;" value="" disabled="">
+        <span style="margin-left:-25px">px</span>
+        <a class="active-Media-applied" style="color:white;margin-left:25px"></a>
+
+        <button class="btn primary" id="designer-add-media-breakpoint" style="position: absolute;right: 2px;padding: 0px 10px;height: 23px;margin-top: 2px;">
+            <span class="glyphicon glyphicon-plus"></span> Breakpoint
+        </button>
+        <div id="breakpoint-container" style="position: absolute;top: calc(100% + 2px);height: 16px;width: 100%;left: 23px;overflow:visible;"></div>
+    </div>
+</body>

@@ -147,6 +147,10 @@ define(function (require, exports, module) {
         this._trackChange = false;
     }
     
+    Layout.prototype.getLayoutParamValueFor = function(key){
+        return this.boxModel.cssRuleSet.getDefinitePropertyValue(key);
+    }
+    
     Layout.prototype.changeAnchor = function(vAnchorInput, hAnchorInput,retainCurrentPos){
         var prevRect = this.boxModel.targetElement.getBoundingClientRect();
         
@@ -234,11 +238,11 @@ define(function (require, exports, module) {
         this.markChanged();
     };
     
-    Layout.prototype.setX = function(value){
+    Layout.prototype.setX = function(value,passThrough){
         if(this.xAxisAlignment === 'left'){
-            this.boxModel.cssRuleSet.boxModelHCSS(this.xAxisModifier,value);
+            this.boxModel.cssRuleSet.boxModelHCSS(this.xAxisModifier,value,passThrough);
         } else {
-            this.boxModel.cssRuleSet.boxModelHCSS(this.xAxisModifier,value);
+            this.boxModel.cssRuleSet.boxModelHCSS(this.xAxisModifier,value,passThrough);
         }
         this.markChanged();
     };
@@ -323,8 +327,8 @@ define(function (require, exports, module) {
         this.markChanged();
     };
     
-    Layout.prototype.changeWidthTo = function(width){
-        this.boxModel.cssRuleSet.boxModelHCSS('width',width);
+    Layout.prototype.changeWidthTo = function(width,passThrough){
+        this.boxModel.cssRuleSet.boxModelHCSS('width',width,passThrough);
         this.markChanged();
     };
     

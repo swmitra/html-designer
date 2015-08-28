@@ -40,20 +40,61 @@ define(function (require, exports, module) {
     }
     
     function _getConvertedValue(element,current,toBeset,type,key){
-        var value = toBeset;
-        current = parseFloat(current) === NaN ? $(element).css(key) : current;
-        current = _parse(current+'');
-        toBeset = _parse(toBeset+'');
-        if(!toBeset.u){
-            toBeset.u = 'px';
-        }
-        if(current.u && current.u !== toBeset.u){
-            value = ConversionUtils.getUnits(element,toBeset.v,toBeset.u || 'px',current.u,type);
-        } else {
-            value = toBeset.v+toBeset.u;
-        }
-        return value;
-    }
+       var value = toBeset;
+       var parsedExpr;
+       var base,operator,comp;
+       var convertedComp;
+       
+       toBeset = _parse(toBeset+'');
+       if(!toBeset.u){
+           toBeset.u = 'px';
+       }
+       
+       if(current && ConversionUtils.hasCalc(current)){
+           parsedExpr = ConversionUtils.parseCalcExpression(current);
+           if(parsedExpr.length === 3){
+             base = parsedExpr[0];
+             operator = parsedExpr[1];
+             comp = parsedExpr[2];
+           } 
+           
+           value = toBeset.v - parseInt($(element).css(key));            
+           convertedComp = ConversionUtils.getUnits(element,value,'px',comp.unit,type);
+           convertedComp = comp.unit === 'px' ? parseInt(convertedComp) : parseFloat(convertedComp);
+           var newComp;
+           
+           //compute a signed value
+           newComp = comp.value - value;
+           
+           //sign merging
+           /*if(newComp < 0 && operator === '-'){
+               operator = '+';
+               newComp = 0 - newComp;
+           }else if(newComp < 0 && operator === '+'){
+               operator = '-';
+               newComp = 0 - newComp;
+           }*/
+           
+           value = 'calc('+base.value+base.unit+' '+operator+' '+newComp+comp.unit+')';
+       }
+       
+       if(!comp){
+         current = !current || parseFloat(current) === NaN ? $(element).css(key) : current;
+         current = _parse(current+'');       
+         if(current.u && current.u !== toBeset.u){
+             if(current.u === '%' || current.u === 'em' || current.u === 'rem'){
+                 var diff = toBeset.v - parseInt($(element).css(key));
+                 value = ConversionUtils.getUnits(element,diff,toBeset.u || 'px',current.u,type);
+                 value = (current.v + parseFloat(value))+current.u;
+             } else {
+                value = ConversionUtils.getUnits(element,toBeset.v,toBeset.u || 'px',current.u,type);
+             }
+         } else {
+             value = toBeset.v+toBeset.u;
+         }
+       }
+       return value;
+   }
     
     //ADCSSRuleSet prototype
     function ADCSSRuleSet(cssRuleSet,lastSelectedElement,ref,allOptions,pseudoOptions){
@@ -66,6 +107,7 @@ define(function (require, exports, module) {
             this.pseudoAfterRuleSets = pseudoOptions[0];
             this.pseudoBeforeRuleSets = pseudoOptions[1];
         }
+        //this.pendingUpdates = [];
     }
     
     ADCSSRuleSet.prototype.update = function (cssRuleSet,ref,allOptions,pseudoOptions){
@@ -98,8 +140,15 @@ define(function (require, exports, module) {
             this.element.style.cssText = this.savepoint[0];
             for(var i=0;i<this.editableRuleSets.length;i++){
                 option = this.editableRuleSets[i];
-                option[1][0].insertRule(this.savepoint[i+1], option[1][1]);
-                option[1][0].deleteRule(option[1][1] + 1);
+                if(this.ruleSet.parentRule){
+                     this.parentRule.insertRule(this.ruleSet.cssText, this.ruleSetPos);
+                     this.parentRule.deleteRule(this.ruleSetPos+1);
+                     option[1].parentRule.insertRule(this.savepoint[i+1], option[1][1]);
+                     option[1].parentRule.deleteRule(option[1][1] + 1);
+                 } else {
+                     option[1][0].insertRule(this.savepoint[i+1], option[1][1]);
+                     option[1][0].deleteRule(option[1][1] + 1);
+                 }
                 var styleText = CSSNodeFormatter.formatCSSAsText(option[1][0],!option[1][0].href);
                 if(!option[1][0].href){
                      option[1][0].ownerNode.innerText = styleText;
@@ -119,37 +168,39 @@ define(function (require, exports, module) {
         }
     }
     
-    ADCSSRuleSet.prototype.boxModelCSS = function(key,value, type){
+    ADCSSRuleSet.prototype.boxModelCSS = function(key,value, type ,passThrough){
         var asynchPromise = new $.Deferred();
         if(value !== undefined){
-            _disableTransition(this);
-            value = _getConvertedValue(this.element,this.getPropertyValue(key),value,type,key);
+            //_disableTransition(this);
+            value = passThrough? value : _getConvertedValue(this.element,this.getPropertyValue(key),value,type,key);
             if(this.ruleSet){
                  priority = this.ruleSet.style.getPropertyPriority(key) || "";
                  this.ruleSet.style.removeProperty(key);
                  this.ruleSet.style.setProperty(key,value, priority);
                  this.ruleSet.style.cssText = this.ruleSet.style.cssText;
-                 this.styleSheetRef.insertRule(this.ruleSet.cssText, this.ruleSetPos);
-                 this.styleSheetRef.deleteRule(this.ruleSetPos+1);
+                 if(!this.ruleSet.parentRule) {
+                     this.styleSheetRef.insertRule(this.ruleSet.cssText, this.ruleSetPos);
+                     this.styleSheetRef.deleteRule(this.ruleSetPos+1);
+                 }
             }else{
                  priority = this.element.style.getPropertyPriority(key) || "";
                  this.element.style.removeProperty(key);
                  this.element.style.setProperty(key,value, priority);
                  this.element.style.cssText = this.element.style.cssText;
             }
-            _restoreTransition(this);
+            //_restoreTransition(this);
         }
         $("#html-design-editor").trigger("css-prop-modification",[key,$(this.element).css(key)]);
         asynchPromise.resolve();
         return asynchPromise.promise();
     }
     
-    ADCSSRuleSet.prototype.boxModelHCSS = function(key,value){
-        this.boxModelCSS(key,value,'h');
+    ADCSSRuleSet.prototype.boxModelHCSS = function(key,value,passThrough){
+        this.boxModelCSS(key,value,'h',passThrough);
     }
     
-    ADCSSRuleSet.prototype.boxModelVCSS = function(key,value){
-        this.boxModelCSS(key,value,'v');
+    ADCSSRuleSet.prototype.boxModelVCSS = function(key,value,passThrough){
+        this.boxModelCSS(key,value,'v',passThrough);
     }
     
     ADCSSRuleSet.prototype.css = function(key,value){
@@ -160,8 +211,10 @@ define(function (require, exports, module) {
                  this.ruleSet.style.removeProperty(key);
                  this.ruleSet.style.setProperty(key,value, priority);
                  this.ruleSet.style.cssText = this.ruleSet.style.cssText;
-                 this.styleSheetRef.insertRule(this.ruleSet.cssText, this.ruleSetPos);
-                 this.styleSheetRef.deleteRule(this.ruleSetPos+1);
+                 if(!this.ruleSet.parentRule) {
+                     this.styleSheetRef.insertRule(this.ruleSet.cssText, this.ruleSetPos);
+                     this.styleSheetRef.deleteRule(this.ruleSetPos+1);
+                 }
             }else{
                  priority = this.element.style.getPropertyPriority(key) || "";
                  this.element.style.removeProperty(key);
@@ -173,6 +226,55 @@ define(function (require, exports, module) {
         } else {
             return $(this.element).css(key);
         }
+    }
+    
+    ADCSSRuleSet.prototype.getDefinitePropertyValue = function(key){
+        var value = this.getAcceptedPropertyValue(key);
+        if(!value) {
+            value =  $(this.element).css(key);
+        }
+        return value;
+    }
+    
+    ADCSSRuleSet.prototype.getAcceptedPropertyValue = function(key){
+        
+        var lastSelectorUsed;
+        var lastPriorityUsed;
+        
+        var value = null,tmpValue;
+        var isPrioritySet = false;
+        var rule;
+        value = this.element.style.getPropertyValue(key);
+        var isDefaultPrioritySet = this.element.style.getPropertyPriority(key);
+        lastPriorityUsed = isDefaultPrioritySet;
+        
+        for(var i=0;i<this.editableRuleSets.length && !isDefaultPrioritySet;i++){
+            rule = this.editableRuleSets[i][0];
+            tmpValue = rule.style.getPropertyValue(key);
+            isPrioritySet = rule.style.getPropertyPriority(key);
+            if(tmpValue){
+                if(!value){
+                    value = tmpValue;
+                    lastSelectorUsed = rule.selectorText;
+                    lastPriorityUsed = isPrioritySet;
+                } else {
+                    if(lastSelectorUsed === rule.selectorText){
+                        if(isPrioritySet || (!isPrioritySet && !lastPriorityUsed)){
+                            value = tmpValue;
+                            lastSelectorUsed = rule.selectorText;
+                            lastPriorityUsed = isPrioritySet;
+                        }
+                    } else if(isPrioritySet){
+                        if(!lastPriorityUsed){
+                            value = tmpValue;
+                            lastSelectorUsed = rule.selectorText;
+                            lastPriorityUsed = isPrioritySet;
+                        }
+                    }
+                }
+            }
+        }
+        return value;
     }
     
     ADCSSRuleSet.prototype.pseudoaftercss = function(key,value){
@@ -273,8 +375,10 @@ define(function (require, exports, module) {
                  this.ruleSet.style.removeProperty(key);
                  this.ruleSet.style.setProperty(key,value, priorityparam);
                  this.ruleSet.style.cssText = this.ruleSet.style.cssText;
-                 this.styleSheetRef.insertRule(this.ruleSet.cssText, this.ruleSetPos);
-                 this.styleSheetRef.deleteRule(this.ruleSetPos+1);
+                 if(!this.ruleSet.parentRule) {
+                     this.styleSheetRef.insertRule(this.ruleSet.cssText, this.ruleSetPos);
+                     this.styleSheetRef.deleteRule(this.ruleSetPos+1);
+                 }
             } else {
                  this.element.style.removeProperty(key);
                  this.element.style.setProperty(key,value, priorityparam);
@@ -297,8 +401,10 @@ define(function (require, exports, module) {
             if(this.ruleSet){
                  this.ruleSet.style.setProperty(key,value, priorityparam);
                  this.ruleSet.style.cssText = this.ruleSet.style.cssText;
-                 this.styleSheetRef.insertRule(this.ruleSet.cssText, this.ruleSetPos);
-                 this.styleSheetRef.deleteRule(this.ruleSetPos+1);
+                 if(!this.ruleSet.parentRule) {
+                     this.styleSheetRef.insertRule(this.ruleSet.cssText, this.ruleSetPos);
+                     this.styleSheetRef.deleteRule(this.ruleSetPos+1);
+                 }
             } else{
                  this.element.style.setProperty(key,value, priorityparam);
                  this.element.style.cssText = this.element.style.cssText;
@@ -327,8 +433,10 @@ define(function (require, exports, module) {
         if(this.ruleSet){
              this.ruleSet.style.removeProperty(key);
              this.ruleSet.style.cssText = this.ruleSet.style.cssText;
-             this.styleSheetRef.insertRule(this.ruleSet.cssText, this.ruleSetPos);
-             this.styleSheetRef.deleteRule(this.ruleSetPos+1);
+             if(!this.ruleSet.parentRule) {
+                 this.styleSheetRef.insertRule(this.ruleSet.cssText, this.ruleSetPos);
+                 this.styleSheetRef.deleteRule(this.ruleSetPos+1);
+             }
         } else {
              this.element.style.removeProperty(key);
              this.element.style.cssText = this.element.style.cssText;
@@ -353,7 +461,8 @@ define(function (require, exports, module) {
                 option = this.editableRuleSets[i];
                 if(option[0].selectorText === filters[0] 
                    && option[1][0].href === targetFile 
-                   && option[1][1] === parseInt(filters[1])){
+                   && option[1][1] === parseInt(filters[1]) 
+                   && (filters[3] ? ( option[0].parentRule ? option[0].parentRule.media[0] === filters[3] : false ) : true)){
                     this.ruleSet = option[0];
                     this.styleSheetRef = option[1][0];
                     this.ruleSetPos = option[1][1];
@@ -367,17 +476,19 @@ define(function (require, exports, module) {
     ADCSSRuleSet.prototype.getPreferredSelectorValue = function(){
         var prefferedValue = ['element.style','element.style{sep}0{sep}'+FileUtils.getBaseName(currentApplication.split('?')[0])];
         if(this.ruleSet){
-           prefferedValue = [this.ruleSet.selectorText,this.ruleSet.selectorText+'{sep}'+this.ruleSetPos+'{sep}'+((this.styleSheetRef ? this.styleSheetRef.href : '') || '')];
+           var mediaString = this.ruleSet.parentRule ? "(Media)" : "";
+           prefferedValue = [this.ruleSet.selectorText+mediaString,this.ruleSet.selectorText+'{sep}'+this.ruleSetPos+'{sep}'+((this.styleSheetRef ? this.styleSheetRef.href : '') || '')+'{sep}'+ (this.ruleSet.parentRule ? this.ruleSet.parentRule.media[0] : "") ];
         }
         return prefferedValue;
     }
     
     ADCSSRuleSet.prototype.getTargetSelectorOptions = function(){
         var selectorList = [];
+        var mediaString = "";
         for(var i=0;i<this.editableRuleSets.length;i++){
-            //var option = this.editableRuleSets[i];
-            selectorList.push([this.editableRuleSets[i][0].selectorText
-                               ,this.editableRuleSets[i][0].selectorText+'{sep}'+this.editableRuleSets[i][1][1]+'{sep}'+((this.editableRuleSets[i][1][0] ? this.editableRuleSets[i][1][0].href : '') || '')]);
+            mediaString = this.editableRuleSets[i][0].parentRule ? "(Media)" : "";
+            selectorList.push([this.editableRuleSets[i][0].selectorText+mediaString
+                               ,this.editableRuleSets[i][0].selectorText+'{sep}'+this.editableRuleSets[i][1][1]+'{sep}'+((this.editableRuleSets[i][1][0] ? this.editableRuleSets[i][1][0].href : '') || '')+'{sep}'+ (this.editableRuleSets[i][0].parentRule ? this.editableRuleSets[i][0].parentRule.media[0] : "")]);
         }
         selectorList.push(['element.style','element.style{sep}0{sep}'+FileUtils.getBaseName(currentApplication.split('?')[0])]);
         return selectorList;
@@ -389,6 +500,11 @@ define(function (require, exports, module) {
     
     ADCSSRuleSet.prototype.persist = function(){
         if(this.ruleSet){
+            //deferred media write
+            if(this.ruleSet.parentRule){
+                 this.ruleSet.parentRule.insertRule(this.ruleSet.cssText, this.ruleSetPos);
+                 this.ruleSet.parentRule.deleteRule(this.ruleSetPos+1);
+             }
              var styleText = CSSNodeFormatter.formatCSSAsText(this.styleSheetRef,!this.styleSheetRef.href);
             
              if(!this.styleSheetRef.href){
@@ -504,6 +620,10 @@ define(function (require, exports, module) {
     
     $(document).on("groupcssselector.found","#html-design-editor", function(event,groupRuleSet){
          $("#html-design-editor").trigger('ruleset-wrapper.created',[_getGroupRuleSetWrapper(groupRuleSet)]);
+    });
+    
+    $(document).on("deselect.all","#html-design-editor", function(event,groupRuleSet){
+         lastRuleSet = null;
     });
     
     $(document).on("application.context","#html-design-editor", function(event,applicationKey){

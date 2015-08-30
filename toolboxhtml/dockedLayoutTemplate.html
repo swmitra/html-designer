@@ -75,6 +75,17 @@
         margin-left: 10px !important;
         width: calc(45% - 12px) !important;
     }
+    
+    .layout-number-input.min,
+    .layout-number-input.max
+    {
+        z-index: 1;
+        top: 0px;
+        position: relative !important;
+        box-sizing: border-box !important;
+        margin-left: 10px !important;
+        width: calc(45% - 12px) !important;
+    }
 
     .layout-number-input.comp {
         z-index: 1;
@@ -145,7 +156,7 @@
     <a class ="close" id="layout-editor-close" style=""><span class="glyphicon glyphicon-chevron-up"></span></a>
     <div class="toolboxHeaderBottom"></div>
 </div>
-<div id="advanced-layout-editor" style="padding-top:10px;display: block; color: rgb(211, 211, 211); font-size: 14px; position: relative; top:0px; width: calc(100% - 2px); /*height: 360px;*/ background-color: rgb(74, 77, 78);opacity:0.8;">
+<div id="advanced-layout-editor" style="padding-top:10px;display: block; color: rgb(211, 211, 211); font-size: 14px; position: relative; top:0px; width: calc(100% - 2px); background-color: rgb(74, 77, 78);opacity:0.8;">
     
     <div class="layout-entry" name="Offset">
         <span style="left: 0px; top: 0px; position: static; float: left; margin-left: 15px; margin-top: 7px;">H-Offset</span>
@@ -233,9 +244,13 @@
     </div>
     <div class="layout-entry" name="width-range">
         <span style="float: left; margin-left: 40px; margin-top: 6px;">MIN</span>
-        <div class="layout-box-item" data-property="height">
-            <input class="topcoat-text-input layout-number-input base" type="number" step="any" placeholder="auto">
-            <select class="topcoat-select layout-select-input" value="%">
+        <div class="layout-box-item" name="width" data-type="h">
+            <input class="topcoat-text-input layout-number-input min" type="number" step="any" placeholder="auto" data-range="min">
+            <select class="topcoat-select layout-select-input min" value="%" data-range="min">
+                <option value="%">%</option>
+                <option value="em">em</option>
+                <option value="rem">rem</option>
+                <option value="ex">ex</option>
                 <option value="px">px</option>
                 <option value="mm">mm</option>
                 <option value="in">in</option>
@@ -243,8 +258,12 @@
                 <option value="pt">pt</option>
                 <option value="pc">pc</option>
             </select>
-            <input class="topcoat-text-input layout-number-input base" type="number" step="any" placeholder="auto">
-            <select class="topcoat-select layout-select-input" value="px">
+            <input class="topcoat-text-input layout-number-input max" type="number" step="any" placeholder="auto" data-range="max">
+            <select class="topcoat-select layout-select-input max" value="px" data-range="max">
+                <option value="%">%</option>
+                <option value="em">em</option>
+                <option value="rem">rem</option>
+                <option value="ex">ex</option>
                 <option value="px">px</option>
                 <option value="mm">mm</option>
                 <option value="in">in</option>
@@ -286,9 +305,13 @@
     </div>
     <div class="layout-entry" name="height-range">
         <span style="float: left; margin-left: 40px; margin-top: 6px;">MIN</span>
-        <div class="layout-box-item" data-property="height">
-            <input class="topcoat-text-input layout-number-input base" type="number" step="any" placeholder="auto">
-            <select class="topcoat-select layout-select-input" value="%">
+        <div class="layout-box-item" name="height" data-type="v">
+            <input class="topcoat-text-input layout-number-input min" type="number" step="any" placeholder="auto" data-range="min">
+            <select class="topcoat-select layout-select-input min" value="%" data-range="min">
+                <option value="%">%</option>
+                <option value="em">em</option>
+                <option value="rem">rem</option>
+                <option value="ex">ex</option>
                 <option value="px">px</option>
                 <option value="mm">mm</option>
                 <option value="in">in</option>
@@ -296,8 +319,12 @@
                 <option value="pt">pt</option>
                 <option value="pc">pc</option>
             </select>
-            <input class="topcoat-text-input layout-number-input base" type="number" step="any" placeholder="auto">
-            <select class="topcoat-select layout-select-input" value="px">
+            <input class="topcoat-text-input layout-number-input max" type="number" step="any" placeholder="auto" data-range="max">
+            <select class="topcoat-select layout-select-input max" value="px" data-range="max">
+                <option value="%">%</option>
+                <option value="em">em</option>
+                <option value="rem">rem</option>
+                <option value="ex">ex</option>
                 <option value="px">px</option>
                 <option value="mm">mm</option>
                 <option value="in">in</option>

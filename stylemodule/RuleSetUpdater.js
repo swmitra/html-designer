@@ -16,12 +16,16 @@ define(function (require, exports, module) {
     var currentApplication = null;
     
     function _findAndUpdateLinkedSelectors(styleSheet, oldelementID, newElementID){
-        var setCount, ruleSets, ruleSet,mediacount,mediaRule;
+        var setCount,mediaCount, ruleSets, ruleSet,mediacount,mediaRule;
         var ref;
         ruleSets = styleSheet.rules;
         for (setCount = 0; setCount < ruleSets.length; setCount++) {
             ruleSet = ruleSets[setCount];
-            if (ruleSet.selectorText && ruleSet.selectorText.indexOf(oldelementID)>=0) {
+            if(ruleSet.cssRules && ruleSet.cssRules.length > 0 && ruleSet.cssText.indexOf(oldelementID)>=0){
+                styleSheet.insertRule(ruleSet.cssText.split(oldelementID).join(newElementID), setCount);
+                styleSheet.deleteRule(setCount+1);
+                _witeStyleSheetFromDOMToDoc(styleSheet);
+            } else if (ruleSet.selectorText && ruleSet.selectorText.indexOf(oldelementID)>=0) {
                 styleSheet.insertRule(ruleSet.cssText.split(oldelementID).join(newElementID), setCount);
                 styleSheet.deleteRule(setCount+1);
                 _witeStyleSheetFromDOMToDoc(styleSheet);

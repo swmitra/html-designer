@@ -8,6 +8,8 @@ define(function (require, exports, module) {
         $(this).toggleClass('activated');
         $("#html-design-editor").trigger("deselect.all");
         $("#info-overlay-plane,.eventListnerPane").toggleClass('deactivated');
+        $("#designer-content-placeholder .horz-resizer .gripper").toggle();
+        $("#designer-content-placeholder .vert-resizer .gripper").toggle();
     });
 
 });

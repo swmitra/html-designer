@@ -138,6 +138,9 @@ define(function (require, exports, module) {
         
         _synchPropertyWithBaseAndComp('width');
         _synchPropertyWithBaseAndComp('height');
+        _synchRangeProperty('width');
+        _synchRangeProperty('height');
+        
         
         _synchPropertyAsText('margin');
         _synchPropertyWithBaseAndComp('margin-left');
@@ -275,10 +278,26 @@ define(function (require, exports, module) {
         }
     }
     
+    function _synchRangeProperty(prop){
+        var minValue,maxValue;
+        if(currentLayout){
+            minValue = currentLayout.getLayoutParamValueFor('min-'+prop);
+            minValue = _parsePropVal(minValue);
+            $(".layout-entry .layout-box-item[name="+prop+"]").find(".layout-number-input.min").val(minValue[0].value);
+            $(".layout-entry .layout-box-item[name="+prop+"]").find(".layout-select-input.min").val(minValue[0].unit || 'px');
+            $(".layout-entry .layout-box-item[name="+prop+"]").find(".layout-select-input.min").data('currentval',minValue[0].unit || 'px');
+            maxValue = currentLayout.getLayoutParamValueFor('max-'+prop);
+            maxValue = _parsePropVal(maxValue);
+            $(".layout-entry .layout-box-item[name="+prop+"]").find(".layout-number-input.max").val(maxValue[0].value);
+            $(".layout-entry .layout-box-item[name="+prop+"]").find(".layout-select-input.max").val(maxValue[0].unit || 'px');
+            $(".layout-entry .layout-box-item[name="+prop+"]").find(".layout-select-input.max").data('currentval',maxValue[0].unit || 'px');
+        }
+    }
+    
     function _showInputUI(prop,value){
         $("#advanced-layout-editor .layout-entry .layout-box-item[name="+prop+"]").find(".layout-number-input.base").val(value[0].value);
-        $("#advanced-layout-editor .layout-entry .layout-box-item[name="+prop+"]").find(".layout-select-input.base").val(value[0].unit);
-        $("#advanced-layout-editor .layout-entry .layout-box-item[name="+prop+"]").find(".layout-select-input.base").data('currentval',value[0].unit);
+        $("#advanced-layout-editor .layout-entry .layout-box-item[name="+prop+"]").find(".layout-select-input.base").val(value[0].unit || 'px');
+        $("#advanced-layout-editor .layout-entry .layout-box-item[name="+prop+"]").find(".layout-select-input.base").data('currentval',value[0].unit || 'px');
         if(value[1]){
             $("#advanced-layout-editor .layout-entry .layout-box-item[name="+prop+"]").find(".layout-number-input.comp").val(value[1].value);
             $("#advanced-layout-editor .layout-entry .layout-box-item[name="+prop+"]").find(".layout-number-input.comp").removeClass("possitive");
@@ -335,7 +354,7 @@ define(function (require, exports, module) {
         $context.find(".layout-number-input.base").val(parseFloat(convertedVal)+parseFloat(addtnlComp));
         _changeLayoutValue($context);
     });
-    
+        
     $(document).on('change',".layout-box-item .layout-select-input.comp",function(event){
         var currentVal,currentUnit,convertedVal;
         var $context = $(this).parent();
@@ -350,6 +369,36 @@ define(function (require, exports, module) {
         
         $context.find(".layout-number-input.comp").val(parseFloat(convertedVal));
         _changeLayoutValue($context);
+    });
+    
+    $(document).on('change',".layout-box-item .layout-select-input.min,.layout-box-item .layout-select-input.max",function(event){
+        var currentVal,currentUnit,convertedVal;
+        var $context = $(this).parent();
+        var range = $(this).data('range');
+        convertedVal = ConversionUtils
+                            .getUnits(currentLayout.boxModel.targetElement
+                                    ,$context.find(".layout-number-input."+range).val()
+                                    ,$context.find(".layout-select-input."+range).data("currentval")
+                                    ,$context.find(".layout-select-input."+range).val()
+                                    ,$context.data('type')
+                                );
+        
+        $context.find(".layout-number-input."+range).val(parseFloat(convertedVal));
+        var cssProp = range+'-'+$context.attr('name');
+        var computedValue = $context.find(".layout-number-input."+range).val() + $context.find(".layout-select-input."+range).val();
+        if(currentLayout){
+            currentLayout.changeLayout(cssProp,computedValue,false);
+        }
+    });
+    
+    $(document).on('change',".layout-box-item .layout-number-input.min,.layout-box-item .layout-number-input.max",function(event){
+        var $context = $(this).parent();
+        var range = $(this).data('range');
+        var cssProp = range+'-'+$context.attr('name');
+        var computedValue = $context.find(".layout-number-input."+range).val() + $context.find(".layout-select-input."+range).val();
+        if(currentLayout){
+            currentLayout.changeLayout(cssProp,computedValue,false);
+        }
     });
     
     function _changeLayoutValue(context){

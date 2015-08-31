@@ -151,6 +151,45 @@ define(function (require, exports, module) {
             });
     }
     
+    function _showCSSTextFromNetworkStylesheet(path){
+        var xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                var doc = DocumentManager.createUntitledDocument(path,".css");
+                doc.setText(xmlhttp.responseText);
+                if(currentEditor){
+                    currentEditor.setVisible(false,true);
+                }
+                if(existingEditors[doc]){
+                    currentEditor = existingEditors[doc];
+                    currentEditor.focus();
+                }else{
+                    currentEditor = EditorManager
+                        .createInlineEditorForDocument(
+                            doc
+                            , null
+                            , $("#styles-inline-editor")[0]
+                        ).editor;
+                    existingEditors[doc] = currentEditor;
+                    currentEditor.focus();
+                    doc.addRef();
+                }
+                currentEditor.setVisible(true,true);
+                
+                stylesEditor = currentEditor._codeMirror;
+                currentDoc = doc;
+                $("#styles-inline-editor > *").css('height', '100%');
+                stylesEditor.off("change",_dynamicUpdateHandler);
+                _createSelectorList();
+                stylesEditor.refresh();
+                stylesEditor.on("change",_dynamicUpdateHandler);
+            }
+        }
+        xmlhttp.open("GET", path, true);
+        xmlhttp.send();
+    }
+    
     function _getCSSText(stylesheetentry){ 
         var declaration;
         var selector = stylesheetentry.selectors.join(', ');
@@ -234,14 +273,24 @@ define(function (require, exports, module) {
     }
     
     $(document).on("change","#stylesheet-file-select",function(event){
-        _showCSSTextFromStylesheet($("#stylesheet-file-select").val());
+        var path = $("#stylesheet-file-select").val();
+        if(path.trim().indexOf('http') === 0){
+            _showCSSTextFromNetworkStylesheet(path);
+        } else {
+            _showCSSTextFromStylesheet(path);
+        }        
     });
     
     $(document).on("stylesheets-in-dom","#html-design-editor",function(event, styleSheets){
         styleModule = {};
         _createStylesheetOptions(styleSheets);
         if(styleSheets.length > 0){
-            _showCSSTextFromStylesheet(styleSheets[0].href);
+            var path = styleSheets[0].href;
+            if(path.trim().indexOf('http') === 0){
+                _showCSSTextFromNetworkStylesheet(path);
+            } else {
+                _showCSSTextFromStylesheet(path);
+            } 
         }
     });
     

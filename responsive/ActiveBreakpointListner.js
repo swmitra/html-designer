@@ -26,8 +26,11 @@ define(function (require, exports, module) {
     var mediaList = null;
     
     $(document).on("stylesheets-in-dom","#html-design-editor",function(event, styleSheets){
+        var asynchPromise = new $.Deferred();
         currentStyleSheets = document.getElementById('htmldesignerIframe').contentWindow.document.styleSheets;
         _findMediaRules();
+        asynchPromise.resolve();
+        return asynchPromise.promise();
     });
     
     $(document).on("click","#designer-add-media-breakpoint",function(event){
@@ -53,11 +56,15 @@ define(function (require, exports, module) {
                 ruleSet = ruleSets[setCount];
                 if (ruleSet.media) {
                     for(mediaCount = 0;mediaCount < ruleSet.media.length;mediaCount++){
-                        definedMedia.push(parseQuery(ruleSet.media[mediaCount]));
-                        entry = [];
-                        entry.push(ruleSet.media[mediaCount]);
-                        entry.push(ruleSet);
-                        mediaList.push(entry);
+                        try{
+                            var result = parseQuery(ruleSet.media[mediaCount]);
+                            definedMedia.push(result);
+                            entry = [];
+                            entry.push(ruleSet.media[mediaCount]);
+                            entry.push(ruleSet);
+                            mediaList.push(entry);
+                        }catch(err){
+                        }
                     }
                 }
             }

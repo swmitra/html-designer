@@ -2,7 +2,11 @@
 What Next!
 ====================
 
-Coming up in next realease Fluid Grid support with snap to grid feature and Responsive design tools ( Resolution breakpoints as media queries ) along with Docked Layout,css,attributes editor.
+Coming up in next release 
+* Fluid Grid support with snap to grid feature 
+* Responsive design tools ( Resolution breakpoints as media queries ) 
+* Docked Layout,css,attributes editor
+* Seamless Unit conversion by retaining current position 
 
 ![Responsive Controls](https://github.com/swmitra/html-designer-user-guide/blob/master/Getting%20Started/DesignerWithResponsiveControls.png)
 

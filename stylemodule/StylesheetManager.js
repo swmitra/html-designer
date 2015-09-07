@@ -29,18 +29,8 @@ define(function (require, exports, module) {
     $(document).on("design-dom-changed","#html-design-editor",function(){
         setTimeout(function(){
             $("#html-design-editor").trigger("stylesheets-in-dom",[_findStyleSheets()]);
-        },500);
-        
-        setTimeout(function(){
-            $("#html-design-editor").trigger("stylesheets-in-dom",[_findStyleSheets()]);
-        },6000);
+        },1000);
     });
-    
-    /*$(document).on("element.selected","#html-design-editor",function(){
-        setTimeout(function(){
-            $("#html-design-editor").trigger("stylesheets-in-dom",[_findStyleSheets()]);
-        },500);
-    });*/
     
     function _createNewStyleSheet(cssPath){
         var stylePath = cssPath.replace(ProjectManager.getProjectRoot()._path,"");

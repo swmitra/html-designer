@@ -1,9 +1,12 @@
-<div class="property-toolbox" id="transform-editor" style="color: rgb(211, 211, 211); background-color: rgb(74, 77, 78); position: absolute; width: 272px; height: 196px; display: none; left: 11px; top: 45px;">
-        <div class="propertyToolboxHeader" >Transform Toolbox
-             <a class ="close" id="transform-editor-close" style="">×</a>
-             <div class="toolboxHeaderBottom"></div>
+<head></head>
+
+<body>
+    <div class="property-toolbox" id="transform-editor" style="color: rgb(211, 211, 211); position: absolute; width: 272px; display: none; height: 324px; left: 11px; top: 45px; background-color: rgb(74, 77, 78);">
+        <div class="propertyToolboxHeader">Transform Toolbox
+            <a class="close" id="transform-editor-close" style="">×</a>
+            <div class="toolboxHeaderBottom"></div>
         </div>
-        
+
         <span style="position: absolute; left: 11px; top: 15px; display: block;">TranslateX</span>
         <span style="position: absolute; left: 139px; top: 15px; display: block;">TranslateY</span>
         <span style="position: absolute; left: 12px; display: block; top: 60px;">SkewX</span>
@@ -32,4 +35,20 @@
 
         <span style="position: absolute; color: gray; display: block; left: 15px; top: 162px;">25%</span>
         <span style="position: absolute; color: gray; display: block; left: 221px; top: 161px;">300%</span>
-</div>
+
+        <!--transform 3d controls-->
+        <div id="rotationX-rotary-container" style="position: absolute; width: 60px; height: 60px; display: block; top: 250px; left: 11px;border-top:1px solid gray;">
+            <input id="rotationX-input" type="text" style="border-width: 0px; position: absolute; top: 0px; left: 49px; width: 24px; height: 22px; display: block; background-color: transparent;" value="0" data-width="50" data-height="50" data-bgcolor="#3c3f41" data-fgcolor="rgb(211, 211, 211)" data-thickness=".3" data-skin="tron" data-angleoffset="0" data-min="0" data-max="360">
+        </div>
+        <div id="rotationY-rotary-container" style="position: absolute; width: 60px; height: 60px; display: block; top: 250px; left: 106px;border-top:1px solid gray;">
+            <input id="rotationY-input" type="text" style="border-width: 0px; position: absolute; top: 0px; left: 49px; width: 24px; height: 22px; display: block; background-color: transparent;" value="0" data-width="50" data-height="50" data-bgcolor="#3c3f41" data-fgcolor="rgb(211, 211, 211)" data-thickness=".3" data-skin="tron" data-angleoffset="0" data-min="0" data-max="360">
+        </div>
+        <div id="rotationZ-rotary-container" style="position: absolute; width: 60px; height: 60px; display: block; top: 250px; left: 201px;border-top:1px solid gray;">
+            <input id="rotationZ-input" type="text" style="border-width: 0px; position: absolute; top: 0px; left: 49px; width: 24px; height: 22px; display: block; background-color: transparent;" value="0" data-width="50" data-height="50" data-bgcolor="#3c3f41" data-fgcolor="rgb(211, 211, 211)" data-thickness=".3" data-skin="tron" data-angleoffset="0" data-min="0" data-max="360">
+        </div>
+        <span style="position: absolute; color: gray; display: block; left: 125px; top: 186px;">3D</span>
+        <span style="position: absolute; display: block; left: 14px; top: 222px;">RotateX</span>
+        <span style="position: absolute; display: block; left: 111px; top: 222px;">RotateY</span>
+        <span style="position: absolute; display: block; left: 206px; top: 222px;">RotateZ</span>
+    </div>
+</body>

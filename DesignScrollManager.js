@@ -12,8 +12,8 @@ define(function (require, exports, module) {
     function _initScrollMock(){
         var designDOM = document.getElementById('htmldesignerIframe').contentWindow.document;
 
-        var width = designDOM.body.offsetWidth;
-        var height = designDOM.body.offsetHeight;
+        var width = $(designDOM).width();
+        var height = $(designDOM).height();
         $("#designer-content-scroll-mock")
         .css('width',width)
         .css('height',height);
@@ -33,6 +33,7 @@ define(function (require, exports, module) {
     
     function _initScroll(){
         window.setTimeout(_initScrollMock,1000);
+        window.setTimeout(_initScrollMock,5000);
     }
                 
     $(document).on("design-editor-shown","#html-design-editor", _initScroll);

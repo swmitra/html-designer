@@ -1,12 +1,19 @@
-<head>
+
     <style>
         .hideFluidGrid {
             color: #C74848 !important;
+        } 
+        
+        #media-list-menu {
+           background: #3c3f41;
+           border: 1px solid gray;
+        }
+        #media-list-menu > li {
+            margin:2px !important;
+            border:1px solid gray;
         }
     </style>
-</head>
 
-<body>
     <div id="grid-settings-container">
         <span id="show-hide-fluid-grid" class="glyphicon glyphicon-eye-open" style="color:#288edf;zoom:1.5" title="Show Fluid Grid"></span>
         <span style="margin-left:10px">Columns</span>
@@ -31,6 +38,9 @@
         <button class="btn primary" id="designer-add-media-breakpoint" style="position: absolute;right: 2px;padding: 0px 10px;height: 23px;margin-top: 2px;">
             <span class="glyphicon glyphicon-plus"></span> Breakpoint
         </button>
-        <div id="breakpoint-container" style="position: absolute;top: calc(100% + 2px);height: 16px;width: 100%;left: 23px;overflow:visible;"></div>
+        <div id="breakpoint-container" style="background:rgba(255,255,255,0.2);position: absolute;top: calc(100% + 2px);height: 16px;width: 100%;left: 23px;overflow:visible;"></div>
+        <div id="media-list-menu-cont" class="dropdown btn primary" style="padding:0px;border-width:0px;margin:0px !important;position: absolute;top: calc(100% + 2px);height: 16px;width: 22px;left: -1px;text-align:center;border-radius:0px;box-sizing:border-box;overflow:visible;pointer-events: all;"> ...
+            <ul id="media-list-menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="padding:5px 5px;">
+            </ul>
+        </div>
     </div>
-</body>

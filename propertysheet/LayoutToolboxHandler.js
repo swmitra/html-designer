@@ -105,7 +105,7 @@ define(function (require, exports, module) {
         currentLayout = layoutObj;
         $("#layout-layer").html(currentLayout.positioned ? 'Position' : 'Margin');
         $("#layout-position-select").val(currentLayout.layout);
-        $("#layout-display-select").val($(layoutObj.boxModel.targetElement).css('display'));
+        $("#layout-display-select").val(currentLayout.getLayoutParamValueFor('display'));
         $("#layout-boxsize-select").val($(layoutObj.boxModel.targetElement).css('box-sizing'));
         
         

@@ -31,38 +31,98 @@ define(function (require, exports, module) {
         
     });
     
-    function _applyRotation(){
+    function _getRotation(){
+        var rotateStr = "";
         var angle = $("#rotation-input").val();
         if(angle){
-            lastSelectedRuleset.css('-webkit-transform','rotate('+angle+'deg)');
-            lastSelectedRuleset.persist();
-            $("#html-design-editor").trigger('refresh.element.selection');
+            rotateStr = rotateStr + ' rotate('+angle+'deg)';
         }
+        return rotateStr;
     }
     
-    function _applySkewX(){
+    function _getSkewX(){
+        var skewStr = "";
         var angle = $("#skewx-input").val();
         if(angle){
-            lastSelectedRuleset.css('-webkit-transform','skewX('+angle+'deg)');
-            lastSelectedRuleset.persist();
-            $("#html-design-editor").trigger('refresh.element.selection');
+            skewStr = skewStr + ' skewX('+angle+'deg)'
         }
+        return skewStr;
     }
     
-    function _applySkewY(){
+    function _getSkewY(){
+        var skewStr = "";
         var angle = $("#skewy-input").val();
         if(angle){
-            lastSelectedRuleset.css('-webkit-transform','skewY('+angle+'deg)');
-            lastSelectedRuleset.persist();
-            $("#html-design-editor").trigger('refresh.element.selection');
+            skewStr = skewStr + ' skewY('+angle+'deg)'
         }
+        return skewStr;
+    }
+    
+    function _apply3DTransform(){
+        lastSelectedRuleset.css('-webkit-transform',_getRotateX()+_getRotateY()+_getRotateZ());
+        lastSelectedRuleset.persist();
+        $("#html-design-editor").trigger('refresh.element.selection');
+    }
+    
+    function _apply2DTransform(){
+        lastSelectedRuleset.css('-webkit-transform',_getRotation()+_getSkewX()+_getSkewY());
+        lastSelectedRuleset.persist();
+        $("#html-design-editor").trigger('refresh.element.selection');
+    }
+    
+    function _getRotateX(){
+        var rotateStr = "";
+        var angle = parseInt($("#rotationX-input").val());
+        if(angle){
+            rotateStr = rotateStr + ' rotateX('+angle+'deg)'
+        }
+        return rotateStr;
+    }
+    
+    function _getRotateY(){
+        var rotateStr = "";
+        var angle = parseInt($("#rotationY-input").val());
+        if(angle){
+            rotateStr = rotateStr + ' rotateY('+angle+'deg)'
+        }
+        return rotateStr;
+    }
+    
+    function _getRotateZ(){
+        var rotateStr = "";
+        var angle = parseInt($("#rotationZ-input").val());
+        if(angle){
+            rotateStr = rotateStr + ' rotateZ('+angle+'deg)'
+        }
+        return rotateStr;
     }
     
     AppInit.appReady(function () {        
         $("#rotation-input").knob({
             'change' : function (v) { 
                 $("#rotation-input").val(v);
-                _applyRotation();
+                _apply2DTransform();
+            }
+        });
+        
+        $("#rotationX-input").knob({
+            'change' : function (v) { 
+                $("#rotationX-input").val(v);
+                _apply3DTransform();
+            }
+        });
+        
+        $("#rotationY-input").knob({
+            'change' : function (v) { 
+                $("#rotationY-input").val(v);
+                _apply3DTransform();
+            }
+        });
+        
+        $("#rotationZ-input").knob({
+            'change' : function (v) { 
+                $("#rotationZ-input").val(v);
+                _apply3DTransform();
             }
         });
         
@@ -71,14 +131,14 @@ define(function (require, exports, module) {
         $("#skewx-input").knob({
             'change' : function (v) { 
                 $("#skewx-input").val(v);
-                _applySkewX();
+                _apply2DTransform();
             }
         });
         
         $("#skewy-input").knob({
             'change' : function (v) { 
                 $("#skewy-input").val(v);
-                _applySkewY();
+                _apply2DTransform();
             }
         });
         

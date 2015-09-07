@@ -45,7 +45,7 @@ define(function (require, exports, module) {
     
     function _setFramePath(){
         $("#htmldesignerIframe")[0].src = $("#main-doc-path")[0].value;
-        $("#htmldesignerShadowIframe")[0].src = $("#main-doc-path")[0].value;
+        //$("#htmldesignerShadowIframe")[0].src = $("#main-doc-path")[0].value;
         _hideLinkPanel();
         window.setTimeout(_loadFragmentInMainContext,6000);
     }
@@ -53,7 +53,7 @@ define(function (require, exports, module) {
     function _handleFragmentLoading(){ 
         //$("#htmldesignerIframe").hide();
         $("#htmldesignerIframe")[0].src = "about:blank";
-        $("#htmldesignerShadowIframe")[0].src = "about:blank";
+        //$("#htmldesignerShadowIframe")[0].src = "about:blank";
         window.setTimeout(_setFramePath,2000);
     }
     

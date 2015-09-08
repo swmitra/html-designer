@@ -9,13 +9,12 @@ define(function (require, exports, module) {
     var ExtensionUtils = brackets.getModule("utils/ExtensionUtils");
     var MODULE_PATH = ExtensionUtils.getModulePath(module);
     var RuleSetCreator = require("stylemodule/RuleSetCreator");
-    var randomColor = require("lib/randomcolor/randomColor");
     var BrightColorPool = require("responsive/BrightColorPool");
     
-    var maxMediaTemplate = '<div style="box-sizing:border-box;padding:0px 5px;background:url({{@module}}images/ruler_min.png) calc(100% - 50px) 50% no-repeat {{@bgcolor}};height:100%;width:{{@mediaparam}};text-align:right;color:white;position:absolute;border-bottom: 1px solid {{@color}};"></div>';
-    var minMediaTemplate = '<div style="box-sizing:border-box;padding:0px 5px;background:url({{@module}}images/ruler_min.png) 50px 50% no-repeat {{@bgcolor}};height:100%;width:{{@mediaparam}};text-align:left;color:white;position:absolute;border-bottom: 1px solid {{@color}};"></div>';
+    var maxMediaTemplate = '<div style="box-sizing:border-box;padding:0px 5px;background:url({{@module}}images/ruler_min.png) calc(100% - 50px) 50% no-repeat {{@bgcolor}};height:100%;width:{{@mediaparam}};text-align:right;color:white;position:absolute;"></div>';
+    var minMediaTemplate = '<div style="box-sizing:border-box;padding:0px 5px;background:url({{@module}}images/ruler_min.png) 50px 50% no-repeat {{@bgcolor}};height:100%;width:{{@mediaparam}};text-align:left;color:white;position:absolute;"></div>';
     
-    var mediaListItemTemplate = '<li style="position:relative;padding-right:30px;"><a role="menuitem" tabindex="-1" href="#" style="color:white;border-left:20px solid @bgcolor;"></span>&emsp;{{content}}</a><span class="glyphicon glyphicon-trash" style="position:absolute;right:5px;top:6px;color:red;"></li>';
+    var mediaListItemTemplate = '<li style="position:relative;padding-right:30px;"><a role="menuitem" tabindex="-1" href="#" style="color:white;border-left:20px solid @bgcolor;"></span>&emsp;{{content}}</a><span class="glyphicon glyphicon-trash delete-media" data-query="{{content}}"  style="position:absolute;right:5px;top:6px;color:red;"></li>';
     
     var RE_MEDIA_QUERY     = /^(?:(only|not)?\s*([_a-z][_a-z0-9-]*)|(\([^\)]+\)))(?:\s*and\s*(.*))?$/i,
         RE_MQ_EXPRESSION   = /^\(\s*([_a-z-][_a-z0-9-]*)\s*(?:\:\s*([^\)]+))?\s*\)$/,
@@ -51,8 +50,6 @@ define(function (require, exports, module) {
         definedMedia = [];
         mediaList = [];
         tempQueryBuffer = [];
-        /*$("#breakpoint-container").html("");
-        $("#media-list-menu").html("");*/
         var sheetCount, setCount, styleSheet, ruleSets, ruleSet, mediaCount;
         var ref,entry;
         for (sheetCount = 0; sheetCount < currentStyleSheets.length && !ref; sheetCount++) {
@@ -127,28 +124,33 @@ define(function (require, exports, module) {
         $("#media-list-menu").show();
     }); 
     
+    $(document).on("click", ".delete-media", function(event){
+        $("#html-design-editor").trigger("remove-media",[$(this).data('query')]);
+    }); 
+    
     $(document).on("click", "#media-list-menu li", function(event){
         $("#media-list-menu").hide();
         event.stopPropagation();
         event.preventDefault();
     }); 
     
-    $(document).on("panelResizeUpdate", "#designer-content-placeholder", _findAppliedMedia);
-                    
+    $(document).on("panelResizeUpdate", "#designer-content-placeholder", function(event){
+        var asynchPromise = new $.Deferred();
+        _findAppliedMedia();
+        asynchPromise.resolve();
+        return asynchPromise.promise();
+    });
+    
     function _appendMediaIndicator(modifier,value, mediaText,index){
         var templ = "";
-        var color = randomColor({
-                       luminosity: 'bright',
-                       format: 'rgbArray' 
-                    });
-        var baseCcolor = BrightColorPool.getColor(index);//"rgba("+color[0]+","+color[1]+","+color[2]+",0.8)";
+        var baseCcolor = BrightColorPool.getColor(index);
         switch(modifier){
             case 'min': templ = minMediaTemplate.split("{{@module}}").join(MODULE_PATH);
-                        templ = templ.split("{{@color}}").join(color).split("{{@mediaparam}}").join((5000 - parseInt(value))+'px').split("{{@bgcolor}}").join(baseCcolor); 
+                        templ = templ.split("{{@mediaparam}}").join((7000 - parseInt(value))+'px').split("{{@bgcolor}}").join(baseCcolor); 
                         $(templ).appendTo("#breakpoint-container").css('left',value).text(value);
                         break;
             case 'max': templ = maxMediaTemplate.split("{{@module}}").join(MODULE_PATH);
-                        templ = templ.split("{{@color}}").join(color).split("{{@mediaparam}}").join(value).split("{{@bgcolor}}").join(baseCcolor); 
+                        templ = templ.split("{{@mediaparam}}").join(value).split("{{@bgcolor}}").join(baseCcolor); 
                         $(templ).appendTo("#breakpoint-container").css('left',"0px").text(value);
                         break;
         }

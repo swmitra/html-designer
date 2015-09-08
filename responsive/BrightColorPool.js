@@ -27,6 +27,5 @@ define(function (require, exports, module) {
         return colorPool[index % 12];
     }
     
-    exports.getColor = _getColor;
-        
+    exports.getColor = _getColor; 
 });

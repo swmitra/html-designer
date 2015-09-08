@@ -12,6 +12,7 @@ define(function (require, exports, module) {
         EditorManager = brackets.getModule("editor/EditorManager");
     
     var ConversionUtils = require("propertysheet/UnitConversionUtils");
+    var ActiveBreakpointListner = require("responsive/ActiveBreakpointListner");
     
     var CSSNodeFormatter = require('stylemodule/CSSNodeFormatter');
     var currentApplication = null;
@@ -106,6 +107,11 @@ define(function (require, exports, module) {
         if(pseudoOptions){
             this.pseudoAfterRuleSets = pseudoOptions[0];
             this.pseudoBeforeRuleSets = pseudoOptions[1];
+        }
+        if(this.ruleSet && this.ruleSet.parentRule){
+            $("#css-target-select").css('border-left','15px solid '+ActiveBreakpointListner.getAccentColor(this.ruleSet.parentRule.media[0]));
+        } else {
+            $("#css-target-select").css('border-left','');
         }
         //this.pendingUpdates = [];
     }
@@ -456,28 +462,50 @@ define(function (require, exports, module) {
             this.ruleSet = null;
             this.styleSheetRef = null;
             this.ruleSetPos = null;
+            $("#css-target-select").css('border-left','');
         } else {
-            for(var i=0;i<this.editableRuleSets.length;i++){
+            option = this.editableRuleSets[parseInt(filters[4])];
+            this.ruleSet = option[0];
+            this.styleSheetRef = option[1][0];
+            this.ruleSetPos = option[1][1];
+            if(this.ruleSet.parentRule){
+                $("#css-target-select").css('border-left','15px solid '+ActiveBreakpointListner.getAccentColor(this.ruleSet.parentRule.media[0]));
+            } else {
+                $("#css-target-select").css('border-left','');
+            }                               
+            /*for(var i=0;i<this.editableRuleSets.length;i++){
                 option = this.editableRuleSets[i];
-                if(option[0].selectorText === filters[0] 
+                if(option[0].selectorText === filters[0]
+                   && option[1][0]
                    && option[1][0].href === targetFile 
                    && option[1][1] === parseInt(filters[1]) 
                    && (filters[3] ? ( option[0].parentRule ? option[0].parentRule.media[0] === filters[3] : false ) : true)){
                     this.ruleSet = option[0];
                     this.styleSheetRef = option[1][0];
                     this.ruleSetPos = option[1][1];
+                    if(this.ruleSet.parentRule){
+                        $("#css-target-select").css('border-left','15px solid '+ActiveBreakpointListner.getAccentColor(this.ruleSet.parentRule.media[0]));
+                    } else {
+                        $("#css-target-select").css('border-left','');
+                    }
                     break;
                 }
-            }
+            }*/
         }
         $("#html-design-editor").trigger("target-selector-changed",[this]);
     }
     
     ADCSSRuleSet.prototype.getPreferredSelectorValue = function(){
         var prefferedValue = ['element.style','element.style{sep}0{sep}'+FileUtils.getBaseName(currentApplication.split('?')[0])];
+        var counter;
         if(this.ruleSet){
+           for(counter = 0;counter<this.editableRuleSets.length;counter++){
+               if(this.editableRuleSets[counter][0] === this.ruleSet){
+                   break;
+               }
+           }
            var mediaString = this.ruleSet.parentRule ? "(Media)" : "";
-           prefferedValue = [this.ruleSet.selectorText+mediaString,this.ruleSet.selectorText+'{sep}'+this.ruleSetPos+'{sep}'+((this.styleSheetRef ? this.styleSheetRef.href : '') || '')+'{sep}'+ (this.ruleSet.parentRule ? this.ruleSet.parentRule.media[0] : "") ];
+           prefferedValue = [this.ruleSet.selectorText+mediaString,this.ruleSet.selectorText+'{sep}'+this.ruleSetPos+'{sep}'+((this.styleSheetRef ? this.styleSheetRef.href : '') || '')+'{sep}'+ (this.ruleSet.parentRule ? this.ruleSet.parentRule.media[0] : "")+'{sep}'+counter];
         }
         return prefferedValue;
     }
@@ -488,7 +516,7 @@ define(function (require, exports, module) {
         for(var i=0;i<this.editableRuleSets.length;i++){
             mediaString = this.editableRuleSets[i][0].parentRule ? "(Media)" : "";
             selectorList.push([this.editableRuleSets[i][0].selectorText+mediaString
-                               ,this.editableRuleSets[i][0].selectorText+'{sep}'+this.editableRuleSets[i][1][1]+'{sep}'+((this.editableRuleSets[i][1][0] ? this.editableRuleSets[i][1][0].href : '') || '')+'{sep}'+ (this.editableRuleSets[i][0].parentRule ? this.editableRuleSets[i][0].parentRule.media[0] : "")]);
+                               ,(this.editableRuleSets[i][0].selectorText+'{sep}'+this.editableRuleSets[i][1][1]+'{sep}'+((this.editableRuleSets[i][1][0] ? this.editableRuleSets[i][1][0].href : '') || '')+'{sep}'+ (this.editableRuleSets[i][0].parentRule ? this.editableRuleSets[i][0].parentRule.media[0] : "")+'{sep}'+i)+'']);
         }
         selectorList.push(['element.style','element.style{sep}0{sep}'+FileUtils.getBaseName(currentApplication.split('?')[0])]);
         return selectorList;

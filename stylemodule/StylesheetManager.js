@@ -36,7 +36,6 @@ define(function (require, exports, module) {
         var stylePath = cssPath.replace(ProjectManager.getProjectRoot()._path,"");
         var styleNode =  document.getElementById('htmldesignerIframe').contentWindow.document.createElement('LINK');
             styleNode = $(styleNode).appendTo(document.getElementById('htmldesignerIframe').contentWindow.document.head)[0];
-            //styleSheet = styleNode.sheet;
             styleNode.href = stylePath;
             styleNode.rel = "stylesheet";
         $("#html-design-editor").trigger('html.element.updated');

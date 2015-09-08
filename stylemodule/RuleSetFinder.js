@@ -37,64 +37,39 @@ define(function (require, exports, module) {
      });
     
     function _findStyleSheet(curSelector) {
-        if(selectorOccurence[curSelector.selectorText]){
-           selectorOccurence[curSelector.selectorText] = parseInt(selectorOccurence[curSelector.selectorText]) + 1; 
-        } else {
-           selectorOccurence[curSelector.selectorText] = 1; 
-        }
-        var occurenceIndex = 1;
         var styleSheets = document.getElementById('htmldesignerIframe').contentWindow.document.styleSheets;
         var sheetCount, setCount, styleSheet, ruleSets, ruleSet;
         var ref;
         for (sheetCount = 0; sheetCount < styleSheets.length && !ref; sheetCount++) {
-            styleSheet = document.getElementById('htmldesignerIframe').contentWindow.document.styleSheets[sheetCount];
-                ruleSets = styleSheet.rules;
-                for (setCount = 0; setCount < ruleSets.length && !ref; setCount++) {
-                    ruleSet = ruleSets[setCount];
-                    if (ruleSet.selectorText === curSelector.selectorText) {
-                        if(occurenceIndex === selectorOccurence[curSelector.selectorText]){
-                            ref = styleSheet;
-                            break;
-                        } else {
-                            occurenceIndex++;
-                        }
-                    }
+            styleSheet = styleSheets[sheetCount];
+            ruleSets = styleSheet.rules;
+            for (setCount = 0; setCount < ruleSets.length && !ref; setCount++) {
+                ruleSet = ruleSets[setCount];
+                if (ruleSet === curSelector) {
+                    ref = styleSheet;
+                    break;
                 }
+            }
         }
         return [ref,setCount];
     }
     
     function _findMediaAndStyleSheet(curSelector) {
-        if(mediaOccurence[curSelector.selectorText]){
-           if(mediaOccurence[curSelector.selectorText][curSelector.parentRule.cssText]){
-               mediaOccurence[curSelector.selectorText][curSelector.parentRule.cssText] = parseInt(mediaOccurence[curSelector.selectorText][curSelector.parentRule.cssText]) + 1; 
-           } else {
-               mediaOccurence[curSelector.selectorText][curSelector.parentRule.cssText] = 1;
-           }
-        } else {
-            mediaOccurence[curSelector.selectorText] = {};
-            mediaOccurence[curSelector.selectorText][curSelector.parentRule.cssText] = 1;
-        }
-        var occurenceIndex = 1;
         var styleSheets = document.getElementById('htmldesignerIframe').contentWindow.document.styleSheets;
         var sheetCount, setCount, styleSheet, ruleSets, ruleSet,ruleCount,mediaRules,mediaRule;
         var ref;
         for (sheetCount = 0; sheetCount < styleSheets.length && !ref; sheetCount++) {
-            styleSheet = document.getElementById('htmldesignerIframe').contentWindow.document.styleSheets[sheetCount];
+            styleSheet = styleSheets[sheetCount];
             ruleSets = styleSheet.rules;
             for (setCount = 0; setCount < ruleSets.length && !ref; setCount++) {
                 ruleSet = ruleSets[setCount];
-                if(ruleSet === curSelector.parentRule){
+                if(ruleSet.media && ruleSet === curSelector.parentRule){
                     mediaRules = curSelector.parentRule.cssRules;
                     for (ruleCount = 0; ruleCount < mediaRules.length && !ref; ruleCount++) {
                         mediaRule = mediaRules[ruleCount];
-                        if (mediaRule.selectorText === curSelector.selectorText) {
-                            if(occurenceIndex === mediaOccurence[curSelector.selectorText][curSelector.parentRule.cssText]){
-                                ref = styleSheet;
-                                break;
-                            } else {
-                                occurenceIndex++;
-                            }
+                        if (mediaRule === curSelector) {
+                            ref = styleSheet;
+                            break;
                         }
                     }
                 }
@@ -106,6 +81,7 @@ define(function (require, exports, module) {
     function _findSpecificRuleSet(sets,lastSelectedElement){
         var rule = null;
         var toBeReturned = null;
+        var count;
         var elementID = $(lastSelectedElement).attr('id');
         if(elementID && sets && sets.length>0){
             toBeReturned = sets[sets.length -1];
@@ -185,7 +161,6 @@ define(function (require, exports, module) {
         mediaOccurence = {};
         var ruleSet = _findSpecificRuleSet(ruleSets,lastSelectedElement);
         if(ruleSet){
-            
             var ref = ruleSet.parentRule ? _findMediaAndStyleSheet(ruleSet) : _findStyleSheet(ruleSet);
             lastSelectedRuleset = [lastSelectedElement,ruleSet,ref];
             if(refresh){

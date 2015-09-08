@@ -60,6 +60,33 @@ define(function (require, exports, module) {
         }
     });
     
+    $(document).on("remove-media","#html-design-editor",function(event,mediaText){
+        //alert(mediaText);
+        var currentStyleSheets = document.getElementById('htmldesignerIframe').contentWindow.document.styleSheets;
+        var sheetCount, setCount, styleSheet, ruleSets, ruleSet, mediaCount;
+        var ref,entry;
+        for (sheetCount = 0; sheetCount < currentStyleSheets.length && !ref; sheetCount++) {
+            styleSheet = currentStyleSheets[sheetCount];
+            ruleSets = styleSheet.rules;
+            for (setCount = 0; setCount < ruleSets.length && !ref; setCount++) {
+                ruleSet = ruleSets[setCount];
+                if (ruleSet.media) {
+                    for(mediaCount = 0;mediaCount < ruleSet.media.length;mediaCount++){
+                        var query = ruleSet.media[mediaCount];
+                        if(query === mediaText){
+                            styleSheet.deleteRule(setCount);
+                            _witeStyleSheetFromDOMToDoc(styleSheet);
+                        }
+                    }
+                }
+            }
+        }
+        window.setTimeout(function(){
+            $("#html-design-editor").trigger("design-dom-changed");
+            $("#html-design-editor").trigger("refresh.element.selection");
+        },400);
+    });
+    
     $(document).on("application.context","#html-design-editor", function(event,applicationKey){
          currentApplication = applicationKey;
      });

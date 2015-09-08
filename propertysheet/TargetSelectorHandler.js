@@ -37,6 +37,8 @@ define(function (require, exports, module) {
             lastSelectedValue = $("#css-target-select").val();
             if(lastSelectedValue){
                 rulesetref.changeTargetSelector(lastSelectedValue);
+            } else {
+                lastSelectedValue = lastSelectedRuleset.getPreferredSelectorValue()[1];
             }
         } 
         lastSelectedRuleset = rulesetref;
@@ -45,7 +47,7 @@ define(function (require, exports, module) {
         var option;
         for(var i=0;i<options.length;i++){
             option = options[i];
-            $('<option value="'+option[1]+'" title="'+(option[1].split('{sep}')[3] || '')+'">'+option[0]+'</option>').appendTo($("#css-target-select"));
+            $('<option value="'+option[1].split(/"/g).join('&quot;')+'" title="'+(option[1].split('{sep}')[3] || '')+'">'+option[0]+'</option>').appendTo($("#css-target-select"));
         }
         
         if(lastSelectedValue){
@@ -102,6 +104,8 @@ define(function (require, exports, module) {
     });
     
     function _findSelectorInActiveMedia(){
+        var asynchPromise = new $.Deferred();
+        
         $("#add-new-selector-to-media").attr('disabled','true');
         var currVal = ($("#css-target-select").val() || "").split('{sep}')[3] || "";
         var currSelector = ($("#css-target-select").val() || "").split('{sep}')[0];
@@ -118,6 +122,9 @@ define(function (require, exports, module) {
                 $("#add-new-selector-to-media").removeAttr('disabled');
             }
         }
+
+        asynchPromise.resolve();
+        return asynchPromise.promise();
     }
     
     $(document).on("panelResizeUpdate", "#designer-content-placeholder", _findSelectorInActiveMedia);
@@ -147,7 +154,7 @@ define(function (require, exports, module) {
      });
     
     $(document).on("change","#css-target-select",function(){
-        lastSelectedRuleset.changeTargetSelector($(this).val());
+        lastSelectedRuleset.changeTargetSelector($(this).val().split('&quot;').join('"'));
         var fileName = FileUtils.getBaseName($(this).val().split('{sep}')[2] || currentApplication);
         $("#target-stylesheet-file").data("file",$(this).val().split('{sep}')[2] || currentApplication);
         if(currentApplication.indexOf($(this).val().split('{sep}')[2])<0){

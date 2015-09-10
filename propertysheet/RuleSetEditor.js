@@ -145,5 +145,9 @@ define(function (require, exports, module) {
        lastSelectedRuleset = rulesetref;
        _buildPropEditorUI();
     });
+    
+    $(document).on("deselect.all","#html-design-editor",function(event){
+       $("#ruleset-editor").html("");
+    });
         
 });

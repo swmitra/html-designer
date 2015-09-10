@@ -35,16 +35,26 @@ define(function (require, exports, module) {
         asynchPromise.resolve();
         return asynchPromise.promise();
     });
-    
+        
     $(document).on("click","#designer-add-media-breakpoint",function(event){
+        $("#media-insert-menu").show();
+        event.stopPropagation();
+        event.preventDefault();
+    });
+    
+    $(document).on("click", ":not(#designer-add-media-breakpoint)", function(event){
+        $("#media-insert-menu").hide();
+    }); 
+    
+    $(document).on("click","#media-insert-menu > li > a",function(event){
         var mediaFilter = $("#design-window-width-input").val()+'px';
-        mediaFilter = '@media screen and (max-width: '+mediaFilter+'){ //inserted by html designer }';
+        var type = $(this).data('type');
+        mediaFilter = '@media screen and ('+type+'-width: '+mediaFilter+'){ //inserted by html designer }';
         RuleSetCreator.createNewMediaRule(mediaFilter,0);
         currentStyleSheets = document.getElementById('htmldesignerIframe').contentWindow.document.styleSheets;
         _findMediaRules();
-        
+        $("#media-insert-menu").hide();
     });
-    
     
     function _findMediaRules(){        
         definedMedia = [];
@@ -114,7 +124,7 @@ define(function (require, exports, module) {
         
         $(".active-Media-applied").css('padding-left','2px');
         
-        $("#html-design-editor").trigger("activemedia-found",[mediaFound ? appliedMedia[0] : null, BrightColorPool.getColor(tempQueryBuffer.indexOf(appliedMedia[0]))]);
+        $("#html-design-editor").trigger("activemedia-found",[mediaFound ? appliedMedia[0] : null]);
         
         asynchPromise.resolve();
         return asynchPromise.promise();
@@ -122,6 +132,12 @@ define(function (require, exports, module) {
     
     $(document).on("click", "#media-list-menu-cont", function(event){
         $("#media-list-menu").show();
+        event.stopPropagation();
+        event.preventDefault();
+    }); 
+    
+    $(document).on("click", ":not(#media-list-menu-cont)", function(event){
+        $("#media-list-menu").hide();
     }); 
     
     $(document).on("click", ".delete-media", function(event){
@@ -135,10 +151,11 @@ define(function (require, exports, module) {
     }); 
     
     $(document).on("panelResizeUpdate", "#designer-content-placeholder", function(event){
-        var asynchPromise = new $.Deferred();
-        _findAppliedMedia();
-        asynchPromise.resolve();
-        return asynchPromise.promise();
+        window.setTimeout(_findAppliedMedia,2);
+    });
+    
+    $(document).on("panelResizeStart", "#designer-content-placeholder", function(event){
+        $("#html-design-editor").trigger("deselect.all");
     });
     
     function _appendMediaIndicator(modifier,value, mediaText,index){

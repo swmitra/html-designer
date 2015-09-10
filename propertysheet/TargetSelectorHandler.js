@@ -37,9 +37,9 @@ define(function (require, exports, module) {
             lastSelectedValue = $("#css-target-select").val();
             if(lastSelectedValue){
                 rulesetref.changeTargetSelector(lastSelectedValue);
-            } else {
+            } /*else {
                 lastSelectedValue = lastSelectedRuleset.getPreferredSelectorValue()[1];
-            }
+            }*/
         } 
         lastSelectedRuleset = rulesetref;
         $("#css-target-select").html("");
@@ -76,7 +76,7 @@ define(function (require, exports, module) {
     $(document).on("ruleset-wrapper.created ruleset-wrapper.refreshed","#html-design-editor",function(event,rulesetref){
         var asynchPromise = new $.Deferred();
         _showTargetSelectorOptions(rulesetref);
-        $("#html-design-editor").trigger("refresh-ruleset-properties",[lastSelectedRuleset]);
+        $("#html-design-editor").trigger("refresh-ruleset-properties",[rulesetref]);
         asynchPromise.resolve();
         return asynchPromise.promise();
     });
@@ -134,6 +134,7 @@ define(function (require, exports, module) {
         $("#css-target-select").html("");
         $("#css-target-select").val("");
         $("#target-stylesheet-file").text("");
+        $("#css-target-select").css('border-left','');
         asynchPromise.resolve();
         return asynchPromise.promise();
     });

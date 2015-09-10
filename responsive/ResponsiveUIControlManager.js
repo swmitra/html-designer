@@ -27,31 +27,32 @@ define(function (require, exports, module) {
     var contentTemplate = '<div name="{{index}}" class="leftContentPad"></div><div name="{{index}}" class="fluidColumn"></div><div name="{{index}}" class="rightContentPad"></div>';
     
     $(document).on("panelResizeUpdate", "#designer-content-placeholder", function () {
-        var asynchPromise = new $.Deferred();
-        $("#scrollPlane").css('width',$("#designer-content-placeholder").css('width'));
-        $("#scrollPlane").css('height',$("#designer-content-placeholder").css('height'));
-        if($("#selection-outline:visible").length > 0){
-            $("#html-design-editor").trigger( "refresh.element.selection" );
-        }
-        $("#design-window-width-input").val(parseInt($("#htmldesignerIframe").width()));
-        $("#breakpoint-container").width($("#htmldesignerIframe").width());
-        asynchPromise.resolve();
-        return asynchPromise.promise();
+        //var asynchPromise = new $.Deferred();
+         window.setTimeout(function(){
+            $("#scrollPlane").css('width',$("#designer-content-placeholder").css('width'));
+            $("#scrollPlane").css('height',$("#designer-content-placeholder").css('height'));
+            if($("#selection-outline:visible").length > 0){
+                $("#html-design-editor").trigger( "refresh.element.selection" );
+            }
+            $("#design-window-width-input").val(parseInt($("#htmldesignerIframe").width()));
+            $("#breakpoint-container").width($("#htmldesignerIframe").width());
+         },1);
+        /*asynchPromise.resolve();
+        return asynchPromise.promise();*/
     });
 
     $(document).on("panelResizeUpdate","#sidebar", function () {
-        var asynchPromise = new $.Deferred();
-        $("#scrollPlane").css('width',$("#designer-content-placeholder").css('width'));
-        $("#scrollPlane").css('height',$("#designer-content-placeholder").css('height'));
-        if($(".fluidGridPlane:visible").length > 0){
-            _constructFluidGrid();
-        }
-        
-        if($("#selection-outline:visible").length > 0){
-            $("#html-design-editor").trigger( "refresh.element.selection" );
-        }
-        asynchPromise.resolve();
-        return asynchPromise.promise();
+        window.setTimeout(function(){
+            $("#scrollPlane").css('width',$("#designer-content-placeholder").css('width'));
+            $("#scrollPlane").css('height',$("#designer-content-placeholder").css('height'));
+            if($(".fluidGridPlane:visible").length > 0){
+                _constructFluidGrid();
+            }
+
+            if($("#selection-outline:visible").length > 0){
+                $("#html-design-editor").trigger( "refresh.element.selection" );
+            }
+        },10);
     });
 
     $(document).on("design-editor-shown","#html-design-editor",function(){
@@ -108,6 +109,11 @@ define(function (require, exports, module) {
         }
         
         fnColumnOffset = function(index){
+            var absoluteFluidOffset = 0;
+            var absoluteTotalPageWidth = _computeTotalPageWidth();
+            var absoluteElementOffset = _getAbsoluteLeft(layout.boxModel.targetElement);
+            var toBeCompenstated = 0;
+            
             var calcGutterWidth = gutterWidth*index;
             var calcPaddingWidth = contentPadding*index*2;
             var calcColumnWidth = (sectionAvailableWidth/noOfCols)*index;
@@ -127,16 +133,28 @@ define(function (require, exports, module) {
                 computedColumnWidth = computedColumnWidth + calcPaddingWidth;
             }
             
+            absoluteFluidOffset = (absoluteTotalPageWidth*computedColumnWidth)/100 + computedComp;
+            toBeCompenstated = absoluteElementOffset - absoluteFluidOffset;
+            
             if(computedComp === 0){
                 computedColumnWidth = computedColumnWidth+"%";
             } else {
                 computedColumnWidth = 'calc('+computedColumnWidth+'% + '+ computedComp+'px)';
             }
             
-            return computedColumnWidth;
+            if(layout.positionReference.x === 0 ){
+                return computedColumnWidth;
+            } else {
+                return toBeCompenstated;
+            }
         }
         
         fnColumnWidth = function(spanIndex){
+            var absoluteFluidWidth = 0;
+            var absoluteTotalPageWidth = _computeTotalPageWidth();
+            var absoluteElementWidth = _getAbsoluteWidth(layout.boxModel.targetElement);
+            var toBeCompenstated = 0;
+            
             var calcGutterWidth = gutterWidth*spanIndex;
             var calcPaddingWidth = contentPadding*(spanIndex + 1)*2;
             var calcColumnWidth = (sectionAvailableWidth/noOfCols)*(spanIndex+1);
@@ -156,13 +174,20 @@ define(function (require, exports, module) {
                 computedColumnWidth = computedColumnWidth + calcPaddingWidth;
             }
             
+            absoluteFluidWidth = (absoluteTotalPageWidth*computedColumnWidth)/100 + computedComp;
+            toBeCompenstated = absoluteFluidWidth - absoluteElementWidth;
+            
             if(computedComp === 0){
                 computedColumnWidth = computedColumnWidth+"%";
             } else {
                 computedColumnWidth = 'calc('+computedColumnWidth+'% - '+ computedComp+'px)';
             }
             
-            return computedColumnWidth;
+            if(layout.positionReference.x === 0 ){
+                return computedColumnWidth;
+            } else {
+                return toBeCompenstated;
+            }
         }
     }
     
@@ -170,10 +195,32 @@ define(function (require, exports, module) {
         layout = layoutObj;
     });
     
+    function _computeTotalPageWidth(){
+       return  parseInt($(document.getElementById('htmldesignerIframe').contentWindow.document).width());
+    }
+    
+    function _getOffsetWidth(element){
+        return parseInt(element.offsetWidth);
+    }
+    
+    function _getAbsoluteLeft(element){
+        return parseInt(element.getBoundingClientRect().left);
+    }
+    
+    function _getAbsoluteWidth(element){
+        return parseInt(element.getBoundingClientRect().width);
+    }
+    
     function _createFluidDistribution(spanStart,spanEnd){
         layout.open();
-        layout.setX(fnColumnOffset(spanStart),true);
-        layout.changeWidthTo(fnColumnWidth(spanEnd-spanStart),true);
+        if(layout.positionReference.x === 0 ){
+            layout.setX(fnColumnOffset(spanStart),true);
+            layout.changeWidthTo(fnColumnWidth(spanEnd-spanStart),true);
+        } else {
+            layout.changeX(fnColumnOffset(spanStart));
+            layout.changeWidth(fnColumnWidth(spanEnd-spanStart));
+        }
+        
         layout.refresh();
         layout.close();
         $(".activeGrid").removeClass("activeGrid");

@@ -73,7 +73,7 @@ define(function (require, exports, module) {
     require("propertysheet/KeyframeTimelineToolboxHandler");
     require("propertysheet/TextToolboxHandler");
     require("propertysheet/DockedToolboxHandler");
-    require("propertysheet/TransformControlHandler");
+    //require("propertysheet/TransformControlHandler");
     
     
     require("attribute/HTMLAttributeEditor");

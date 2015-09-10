@@ -50,7 +50,7 @@ define(function (require, exports, module) {
     function _createNewRule(styleSheetParam,cssText,index){
         var styleSheet = _findDefaultStyleSheet();
         var styleText = null;
-        styleSheet.insertRule(cssText, index);
+        styleSheet.insertRule(cssText, Math.min(index,styleSheet.cssRules.length));
         if(styleSheet.href){
             DocumentManager.getDocumentForPath(styleSheet.href.replace(brackets.platform === 'mac' ? 'file://' : 'file:///' ,'').split('?')[0])
                     .done(function (doc) {
@@ -188,10 +188,6 @@ define(function (require, exports, module) {
     $(document).on("application.context","#html-design-editor", function(event,applicationKey){
          currentApplication = applicationKey;
      });
-    
-    AppInit.appReady(function () {
-        
-    });
     
     exports.createNewRule = _createNewRule;
     exports.updateRule = _updateRule;

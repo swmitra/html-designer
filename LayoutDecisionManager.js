@@ -239,20 +239,20 @@ define(function (require, exports, module) {
     };
     
     Layout.prototype.setX = function(value,passThrough){
-        if(this.xAxisAlignment === 'left'){
+        //if(this.xAxisAlignment === 'left'){
             this.boxModel.cssRuleSet.boxModelHCSS(this.xAxisModifier,value,passThrough);
-        } else {
-            this.boxModel.cssRuleSet.boxModelHCSS(this.xAxisModifier,value,passThrough);
-        }
+        //} else {
+            //this.boxModel.cssRuleSet.boxModelHCSS(this.xAxisModifier,value,passThrough);
+        //}
         this.markChanged();
     };
     
     Layout.prototype.getXAxisModifierValue = function(){
-        if(this.xAxisAlignment === 'left'){
+        //if(this.xAxisAlignment === 'left'){
             return $(this.boxModel.targetElement).css(this.xAxisModifier);
-        } else {
-            return $(this.boxModel.targetElement).css(this.xAxisModifier);
-        }
+       // } else {
+          //  return $(this.boxModel.targetElement).css(this.xAxisModifier);
+        //}
     };
     
     Layout.prototype.changeLeftTo = function(xValue){

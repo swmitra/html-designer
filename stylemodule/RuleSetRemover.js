@@ -61,25 +61,27 @@ define(function (require, exports, module) {
     });
     
     $(document).on("remove-media","#html-design-editor",function(event,mediaText){
-        //alert(mediaText);
+        var deleteCount = 0;
+        
         var currentStyleSheets = document.getElementById('htmldesignerIframe').contentWindow.document.styleSheets;
-        var sheetCount, setCount, styleSheet, ruleSets, ruleSet, mediaCount;
-        var ref,entry;
-        for (sheetCount = 0; sheetCount < currentStyleSheets.length && !ref; sheetCount++) {
+        var sheetCount, setCount, styleSheet, ruleSets, ruleSet;
+        var toBeDeleted = [];
+        for (sheetCount = 0; sheetCount < currentStyleSheets.length; sheetCount++) {
             styleSheet = currentStyleSheets[sheetCount];
-            ruleSets = styleSheet.rules;
-            for (setCount = 0; setCount < ruleSets.length && !ref; setCount++) {
-                ruleSet = ruleSets[setCount];
-                if (ruleSet.media) {
-                    for(mediaCount = 0;mediaCount < ruleSet.media.length;mediaCount++){
-                        var query = ruleSet.media[mediaCount];
-                        if(query === mediaText){
-                            styleSheet.deleteRule(setCount);
-                            _witeStyleSheetFromDOMToDoc(styleSheet);
-                        }
-                    }
+            deleteCount = 0;
+            toBeDeleted = [];
+            for (setCount = 0; setCount < styleSheet.rules.length; setCount++) {
+                ruleSet = styleSheet.rules[setCount];
+                if (ruleSet.media && ruleSet.media[0] === mediaText) {
+                    toBeDeleted.push(setCount);
+                    /*styleSheet.deleteRule(setCount);
+                    _witeStyleSheetFromDOMToDoc(styleSheet);*/
                 }
             }
+            for(var index = 0;index < toBeDeleted.length; index++){
+                styleSheet.deleteRule(toBeDeleted[index] - index);
+            }
+            _witeStyleSheetFromDOMToDoc(styleSheet);
         }
         window.setTimeout(function(){
             $("#html-design-editor").trigger("design-dom-changed");

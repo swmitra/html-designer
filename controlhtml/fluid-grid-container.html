@@ -1,46 +1,53 @@
+<style>
+    .hideFluidGrid {
+        color: #C74848 !important;
+    } 
 
-    <style>
-        .hideFluidGrid {
-            color: #C74848 !important;
-        } 
-        
-        #media-list-menu {
-           background: #3c3f41;
-           border: 1px solid gray;
-        }
-        #media-list-menu > li {
-            margin:2px !important;
-            border:1px solid gray;
-        }
-    </style>
+    #media-list-menu {
+       background: #3c3f41;
+       border: 1px solid gray;
+    }
+    
+    #media-list-menu > li {
+        margin:2px !important;
+        border:1px solid gray;
+    }
+</style>
 
-    <div id="grid-settings-container">
-        <span id="show-hide-fluid-grid" class="glyphicon glyphicon-eye-open" style="color:#288edf;zoom:1.5" title="Show Fluid Grid"></span>
-        <span style="margin-left:10px">Columns</span>
-        <input type="number" id="fluid-column-input" class="topcoat-text-input" style="margin-left: 10px; width: 25px; border-radius: 0px; height: 20px; margin-top: 8px;" value="6">
-        <span style="margin-left:10px">Gutter Space</span>
-        <input type="number" id="fluid-gutter-input" class="topcoat-text-input" style="border:1px solid gray;margin-left: 10px; width: 25px; border-radius: 0px; height: 20px; margin-top: 8px;" value="1">
-        <select id="gutter-unit-select" class="topcoat-select" style="width: 32px; border-radius: 0px; height: 20px; top: 4px;outline: 1px solid gray;padding-top: 0px;font-size:10px;" value="%">
-            <option value="%">%</option>
-            <option value="px">px</option>
-        </select>
-        <span style="margin-left:10px">Content Padding</span>
-        <input type="number" id="fluid-padding-input" class="topcoat-text-input" style="border:1px solid gray;margin-left: 10px; width: 25px; border-radius: 0px; height: 20px; margin-top: 8px;" value="1">
-        <select id="padding-unit-select" class="topcoat-select" style="width: 32px; border-radius: 0px; height: 20px; top: 4px;outline: 1px solid gray;padding-top: 0px;font-size:10px;" value="%">
-            <option value="%">%</option>
-            <option value="px">px</option>
-        </select>
+<div id="grid-settings-container">
+    <span id="show-hide-fluid-grid" class="glyphicon glyphicon-eye-open" style="color:#288edf;zoom:1.5" title="Show Fluid Grid"></span>
+    <span style="margin-left:10px">Columns</span>
+    <input type="number" id="fluid-column-input" class="topcoat-text-input" style="margin-left: 10px; width: 25px; border-radius: 0px; height: 20px; margin-top: 8px;" value="6">
+    <span style="margin-left:10px">Gutter Space</span>
+    <input type="number" id="fluid-gutter-input" class="topcoat-text-input" style="border:1px solid gray;margin-left: 10px; width: 25px; border-radius: 0px; height: 20px; margin-top: 8px;" value="1">
+    <select id="gutter-unit-select" class="topcoat-select" style="width: 32px; border-radius: 0px; height: 20px; top: 4px;outline: 1px solid gray;padding-top: 0px;font-size:10px;" value="%">
+        <option value="%">%</option>
+        <option value="px">px</option>
+    </select>
+    <span style="margin-left:10px">Content Padding</span>
+    <input type="number" id="fluid-padding-input" class="topcoat-text-input" style="border:1px solid gray;margin-left: 10px; width: 25px; border-radius: 0px; height: 20px; margin-top: 8px;" value="1">
+    <select id="padding-unit-select" class="topcoat-select" style="width: 32px; border-radius: 0px; height: 20px; top: 4px;outline: 1px solid gray;padding-top: 0px;font-size:10px;" value="%">
+        <option value="%">%</option>
+        <option value="px">px</option>
+    </select>
 
-        <input type="number" id="design-window-width-input" class="topcoat-text-input" style="background:transparent;margin-left: 10px; width: 50px; height: 20px; margin-top: 8px;" value="" disabled="">
-        <span style="margin-left:-25px">px</span>
-        <a class="active-Media-applied" style="color:white;margin-left:25px"></a>
+    <input type="number" id="design-window-width-input" class="topcoat-text-input" style="background:transparent;margin-left: 10px; width: 50px; height: 20px; margin-top: 8px;" value="" disabled="">
+    <span style="margin-left:-25px">px</span>
+    <a class="active-Media-applied" style="color:white;margin-left:25px"></a>
 
-        <button class="btn primary" id="designer-add-media-breakpoint" style="position: absolute;right: 2px;padding: 0px 10px;height: 23px;margin-top: 2px;">
-            <span class="glyphicon glyphicon-plus"></span> Breakpoint
-        </button>
-        <div id="breakpoint-container" style="background:rgba(255,255,255,0.2);position: absolute;top: calc(100% + 2px);height: 16px;width: 100%;left: 23px;overflow:visible;"></div>
-        <div id="media-list-menu-cont" class="dropdown btn primary" style="padding:0px;border-width:0px;margin:0px !important;position: absolute;top: calc(100% + 2px);height: 16px;width: 22px;left: -1px;text-align:center;border-radius:0px;box-sizing:border-box;overflow:visible;pointer-events: all;"> ...
-            <ul id="media-list-menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="padding:5px 5px;">
-            </ul>
-        </div>
+    <!--<button class="btn primary" id="designer-add-media-breakpoint" style="position: absolute;right: 1px;padding: 0px 10px;height: 24px;margin-top: 1px;border-width:0px;border-radius:0px;">
+        <span class="glyphicon glyphicon-plus"></span> Breakpoint
+    </button>-->
+    <div class="btn primary" id="designer-add-media-breakpoint" style="position: absolute;right: 1px;padding: 2px 10px;height: 24px;margin-top: 1px;border-width:0px;border-radius:0px;box-sizing:border-box;">
+        <span class="glyphicon glyphicon-plus"></span> Breakpoint
+        <ul id="media-insert-menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="padding:1px 1px;min-width:100%;box-sizing:border-box;">
+            <li><a role="menuitem" tabindex="-1" href="#" data-type="max">max-width</a></li>
+            <li><a role="menuitem" tabindex="-1" href="#" data-type="min">min-width</a></li>
+        </ul>
     </div>
+    <div id="breakpoint-container" style="background:rgba(255,255,255,0.2);position: absolute;top: calc(100% + 2px);height: 16px;width: 100%;left: 23px;overflow:visible;"></div>
+    <div id="media-list-menu-cont" class="dropdown btn primary" style="padding:0px;border-width:0px;margin:0px !important;position: absolute;top: calc(100% + 2px);height: 16px;width: 22px;left: -1px;text-align:center;border-radius:0px;box-sizing:border-box;overflow:visible;pointer-events: all;"> ...
+        <ul id="media-list-menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="padding:5px 5px;">
+        </ul>
+    </div>
+</div>

@@ -63,7 +63,9 @@ define(function (require, exports, module) {
     
     function _showHTMLDesign(){
         _showRuler();
-        _synchDesignWithCode();
+        if(DocumentManager.getCurrentDocument().isDirty){
+            _synchDesignWithCode();
+        }
         $('#htmldesignerIframe').off('ready', _showHTMLDesign);
     }
     

@@ -17,15 +17,21 @@ define(function (require, exports, module) {
         var asynchPromise = new $.Deferred();
         if(rulesetref && rulesetref !== lastSelectedRuleset){
             $("#bg-color-toolbox-anchor").val(rulesetref.css('background-color'));
+            $("#bg-color-toolbox-anchor").colorpicker('setValue', rulesetref.css('background-color'));
         }
         lastSelectedRuleset = rulesetref;
         return asynchPromise.promise();
     });
+    
+    function _changeBGColor(){
+        window.setTimeout(function(){
+            lastSelectedRuleset.css('background-color',$("#bg-color-toolbox-anchor").val());
+            lastSelectedRuleset.persist();
+        },1);
+    }
         
     AppInit.appReady(function () {
-        $("#bg-color-toolbox-anchor").colorpicker().on('changeColor.colorpicker', function(event){
-          lastSelectedRuleset.css('background-color',$("#bg-color-toolbox-anchor").val());
-          lastSelectedRuleset.persist();
-        });
+        $("#bg-color-toolbox-anchor").colorpicker()
+            .on('changeColor.colorpicker', _changeBGColor);
     });    
 });

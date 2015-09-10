@@ -21,18 +21,18 @@ define(function (require, exports, module) {
     var lastTransitionState = undefined;
     
     function _forceCSSReflow(element){
-        element.offsetHeight = element.offsetHeight;
+       /* element.offsetHeight = element.offsetHeight;*/
     }
     
     function _disableTransition(ruleSet){
-        lastTransitionState = ruleSet.element.style['transition'];
+        /*lastTransitionState = ruleSet.element.style['transition'];
         $(ruleSet.element).css('transition', "none !important");
-        _forceCSSReflow(ruleSet.element); // Trigger a css reflow, force flushing the CSS changes
+        _forceCSSReflow(ruleSet.element);*/ // Trigger a css reflow, force flushing the CSS changes
     }
     
     function _restoreTransition(ruleSet){
         //_forceCSSReflow(ruleSet.element); // Trigger a css reflow, force flushing the CSS changes made after disabling animation
-        $(ruleSet.element).css('transition', lastTransitionState || '');
+        /*$(ruleSet.element).css('transition', lastTransitionState || '');*/
     }
     
     function _parse(prop){
@@ -184,10 +184,10 @@ define(function (require, exports, module) {
                  this.ruleSet.style.removeProperty(key);
                  this.ruleSet.style.setProperty(key,value, priority);
                  this.ruleSet.style.cssText = this.ruleSet.style.cssText;
-                 if(!this.ruleSet.parentRule) {
+                 /*if(!this.ruleSet.parentRule) {
                      this.styleSheetRef.insertRule(this.ruleSet.cssText, this.ruleSetPos);
                      this.styleSheetRef.deleteRule(this.ruleSetPos+1);
-                 }
+                 }*/
             }else{
                  priority = this.element.style.getPropertyPriority(key) || "";
                  this.element.style.removeProperty(key);
@@ -217,10 +217,10 @@ define(function (require, exports, module) {
                  this.ruleSet.style.removeProperty(key);
                  this.ruleSet.style.setProperty(key,value, priority);
                  this.ruleSet.style.cssText = this.ruleSet.style.cssText;
-                 if(!this.ruleSet.parentRule) {
+                 /*if(!this.ruleSet.parentRule) {
                      this.styleSheetRef.insertRule(this.ruleSet.cssText, this.ruleSetPos);
                      this.styleSheetRef.deleteRule(this.ruleSetPos+1);
-                 }
+                 }*/
             }else{
                  priority = this.element.style.getPropertyPriority(key) || "";
                  this.element.style.removeProperty(key);
@@ -381,10 +381,10 @@ define(function (require, exports, module) {
                  this.ruleSet.style.removeProperty(key);
                  this.ruleSet.style.setProperty(key,value, priorityparam);
                  this.ruleSet.style.cssText = this.ruleSet.style.cssText;
-                 if(!this.ruleSet.parentRule) {
+                 /*if(!this.ruleSet.parentRule) {
                      this.styleSheetRef.insertRule(this.ruleSet.cssText, this.ruleSetPos);
                      this.styleSheetRef.deleteRule(this.ruleSetPos+1);
-                 }
+                 }*/
             } else {
                  this.element.style.removeProperty(key);
                  this.element.style.setProperty(key,value, priorityparam);
@@ -473,24 +473,6 @@ define(function (require, exports, module) {
             } else {
                 $("#css-target-select").css('border-left','');
             }                               
-            /*for(var i=0;i<this.editableRuleSets.length;i++){
-                option = this.editableRuleSets[i];
-                if(option[0].selectorText === filters[0]
-                   && option[1][0]
-                   && option[1][0].href === targetFile 
-                   && option[1][1] === parseInt(filters[1]) 
-                   && (filters[3] ? ( option[0].parentRule ? option[0].parentRule.media[0] === filters[3] : false ) : true)){
-                    this.ruleSet = option[0];
-                    this.styleSheetRef = option[1][0];
-                    this.ruleSetPos = option[1][1];
-                    if(this.ruleSet.parentRule){
-                        $("#css-target-select").css('border-left','15px solid '+ActiveBreakpointListner.getAccentColor(this.ruleSet.parentRule.media[0]));
-                    } else {
-                        $("#css-target-select").css('border-left','');
-                    }
-                    break;
-                }
-            }*/
         }
         $("#html-design-editor").trigger("target-selector-changed",[this]);
     }
@@ -532,9 +514,12 @@ define(function (require, exports, module) {
             if(this.ruleSet.parentRule){
                  this.ruleSet.parentRule.insertRule(this.ruleSet.cssText, this.ruleSetPos);
                  this.ruleSet.parentRule.deleteRule(this.ruleSetPos+1);
+             } else {
+                 this.styleSheetRef.insertRule(this.ruleSet.cssText, this.ruleSetPos);
+                 this.styleSheetRef.deleteRule(this.ruleSetPos+1);
              }
              var styleText = CSSNodeFormatter.formatCSSAsText(this.styleSheetRef,!this.styleSheetRef.href);
-            
+
              if(!this.styleSheetRef.href){
                  this.styleSheetRef.ownerNode.innerText = styleText;
                  $("#html-design-editor").trigger('html.element.updated');
@@ -552,7 +537,6 @@ define(function (require, exports, module) {
              $("#html-design-editor").trigger('html.element.updated');
         }
         $("#html-design-editor").trigger("refresh.element.selection");
-        //DocumentManager.getCurrentDocument().markDirty();
     } 
     
    

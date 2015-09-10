@@ -18,8 +18,6 @@ define(function (require, exports, module) {
     
     $(document).on("click","#transform-toolbox-anchor",function(event){
         $("#transform-editor").show();
-        //var currentmatrix = new WebKitCSSMatrix(lastSelectedRuleset.css('-webkit-transform'));
-        
         event.preventDefault();
         event.stopPropagation();
     });
@@ -126,8 +124,6 @@ define(function (require, exports, module) {
             }
         });
         
-        //$("#rotation-rotary-container").hide();
-        
         $("#skewx-input").knob({
             'change' : function (v) { 
                 $("#skewx-input").val(v);
@@ -145,7 +141,7 @@ define(function (require, exports, module) {
     });
     
     $(document).on("change","#rotation-input",function(){
-        _applyRotation();
+        _apply2DTransform();
     });
     
     $(document).on("keyup","#rotation-input",function(){
@@ -157,11 +153,11 @@ define(function (require, exports, module) {
     });
     
      $(document).on("change","#skewx-input",function(){
-        _applySkewX();
+        _apply2DTransform();
     }); 
     
      $(document).on("change","#skewy-input",function(){
-        _applySkewY();
+        _apply2DTransform();
     }); 
             
 });

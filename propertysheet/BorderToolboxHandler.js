@@ -48,6 +48,7 @@ define(function (require, exports, module) {
         style = lastSelectedRuleset.css($(".activeBorder").data('key')+'-style');
         
         $("#element-border-color").val(color);
+        $("#element-border-color").colorpicker('setValue', color);
         $("#element-border-style").val(style);
         $("#element-border-size").val(parseInt(width));
     }
@@ -76,31 +77,8 @@ define(function (require, exports, module) {
     
     AppInit.appReady(function () {
         $("#element-border-color").colorpicker().on('changeColor.colorpicker', function(event){
-          _applyBorderColor();
-        });/*.ColorPicker({
-            onShow: function (colpkr) {
-                $(colpkr).fadeIn(500);
-                return false;
-            },
-            onHide: function (colpkr) {
-                $(colpkr).fadeOut(500);
-                return false;
-            },
-            onSubmit: function(hsb, hex, rgb, el) {
-                $(el).val(hex);
-                $(el).ColorPickerHide();
-            },
-            onBeforeShow: function () {
-                $(this).ColorPickerSetColor(this.value);
-            },
-            onChange: function (hsb, hex, rgb) {
-                $("#element-border-color").val('#' + hex);
-                _applyBorderColor();
-            }
-        })
-        .bind('keyup', function(){
-            $(this).ColorPickerSetColor(this.value);
-        });*/
+            window.setTimeout(_applyBorderColor,5);
+        });
     });
     
     function _stopPropagation(event){

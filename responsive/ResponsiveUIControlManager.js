@@ -219,6 +219,18 @@ define(function (require, exports, module) {
         } else {
             layout.changeX(fnColumnOffset(spanStart));
             layout.changeWidth(fnColumnWidth(spanEnd-spanStart));
+            window.setTimeout(function(){
+                if(layout.isPositioned){
+                    $('.layout-box-item#H-Offset .layout-select-input.base').val('%');
+                    $('.layout-box-item#H-Offset .layout-select-input.base').trigger('change');
+                }
+                window.setTimeout(function(){
+                    $('.layout-box-item[name='+layout.xAxisModifier+'] .layout-select-input.base').val('%');
+                    $('.layout-box-item[name='+layout.xAxisModifier+'] .layout-select-input.base').trigger('change');
+                    $('.layout-box-item[name="width"] .layout-select-input.base').val('%');
+                    $('.layout-box-item[name="width"] .layout-select-input.base').trigger('change');
+                },50);
+            },50);
         }
         
         layout.refresh();

@@ -28,6 +28,20 @@ define(function (require, exports, module) {
     var mediaList = null;
     var tempQueryBuffer = [];
     
+    var isResizeModeActive = false;
+    
+    var lastSelectedElement = null;
+    
+    $(document).on("element.selected","#html-design-editor",function(event,element){
+        lastSelectedElement = element;
+    });
+    
+    $(document).on("deselect.all","#html-design-editor",function(event){
+        if(!isResizeModeActive){
+            lastSelectedElement = null;
+        }
+    });
+    
     $(document).on("stylesheets-in-dom","#html-design-editor",function(event, styleSheets){
         var asynchPromise = new $.Deferred();
         currentStyleSheets = document.getElementById('htmldesignerIframe').contentWindow.document.styleSheets;
@@ -54,6 +68,8 @@ define(function (require, exports, module) {
         currentStyleSheets = document.getElementById('htmldesignerIframe').contentWindow.document.styleSheets;
         _findMediaRules();
         $("#media-insert-menu").hide();
+        event.stopPropagation();
+        event.preventDefault();
     });
     
     function _findMediaRules(){        
@@ -155,7 +171,15 @@ define(function (require, exports, module) {
     });
     
     $(document).on("panelResizeStart", "#designer-content-placeholder", function(event){
+        isResizeModeActive = true;
         $("#html-design-editor").trigger("deselect.all");
+    });
+    
+    $(document).on("panelResizeEnd", "#designer-content-placeholder", function(event){
+        if(lastSelectedElement){
+            $("#html-design-editor").trigger("select.element",[lastSelectedElement]);
+        }
+        isResizeModeActive = false;
     });
     
     function _appendMediaIndicator(modifier,value, mediaText,index){

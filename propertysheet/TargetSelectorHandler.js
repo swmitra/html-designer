@@ -76,7 +76,7 @@ define(function (require, exports, module) {
     $(document).on("ruleset-wrapper.created ruleset-wrapper.refreshed","#html-design-editor",function(event,rulesetref){
         var asynchPromise = new $.Deferred();
         _showTargetSelectorOptions(rulesetref);
-        $("#html-design-editor").trigger("refresh-ruleset-properties",[rulesetref]);
+        //$("#html-design-editor").trigger("refresh-ruleset-properties",[rulesetref]);
         asynchPromise.resolve();
         return asynchPromise.promise();
     });
@@ -96,6 +96,7 @@ define(function (require, exports, module) {
                 values = ($(this).val()).split('{sep}');
                 if(values[0] === cuurentVal[0] && values[3] === currentActiveMedia){
                     $("#css-target-select option").val($(this).val());
+                    $("#html-design-editor").trigger( "refresh.element.selection" );
                 }
             });
         },100);

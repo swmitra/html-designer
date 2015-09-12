@@ -232,3 +232,10 @@ Versions
 
 **1.2.5**
 * Hiding preselection while pointer leaves design area or design window getting resized
+
+**2.0.0**
+* Responsive design tools(media queries)
+* Fluid grid support with click to distribute feature
+* Nested distribution across grids
+* Docked Layout , CSS and Atrribute editor
+

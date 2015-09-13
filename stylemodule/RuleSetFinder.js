@@ -16,6 +16,12 @@ define(function (require, exports, module) {
     var selectorOccurence = {};
     var mediaOccurence = {};
     
+    var currentActiveMedia = null;
+    
+    $(document).on("activemedia-found","#html-design-editor",function(event,media){
+        currentActiveMedia = media;
+    });
+    
     $(document).on("element.selected","#html-design-editor",function(event,element){
         var asynchPromise = new $.Deferred();
         lastSelection = element;
@@ -108,6 +114,19 @@ define(function (require, exports, module) {
         return options;
     }
     
+    function _contains(ruleSets,ruleset){
+        var rule;
+        var contains = false;
+        for(var i=0;ruleSets && i<ruleSets.length;i++){
+            rule = ruleSets[i];
+            if(rule === ruleset){
+                contains = true;
+                break;
+            }
+        }
+        return contains;
+    }
+    
     function _findRuleByName(name,isKeyframe){
         var styleSheets = document.getElementById('htmldesignerIframe').contentWindow.document.styleSheets;
         var sheetCount, setCount, styleSheet, ruleSets, ruleSet;
@@ -155,8 +174,47 @@ define(function (require, exports, module) {
         
     }
     
+    function _findEmptyMatchedRuleSets(rulesets,element){
+        var emptyMatchedSet = [];
+        var elementID = element.id;
+        var styleSheets = document.getElementById('htmldesignerIframe').contentWindow.document.styleSheets;
+        var sheetCount, setCount, styleSheet, ruleSets, ruleSet,ruleCount,mediaRules,mediaRule;
+        var ref;
+        for (sheetCount = 0; sheetCount < styleSheets.length; sheetCount++) {
+            styleSheet = styleSheets[sheetCount];
+            ruleSets = styleSheet.rules;
+            for (setCount = 0; setCount < ruleSets.length; setCount++) {
+                ruleSet = ruleSets[setCount];
+                if(ruleSet.media && (ruleSet.media[0] === currentActiveMedia)){
+                    mediaRules = ruleSet.cssRules;
+                    for (ruleCount = 0; ruleCount < mediaRules.length; ruleCount++) {
+                        mediaRule = mediaRules[ruleCount];
+                        if($(element).is(mediaRule.selectorText) && !_contains(rulesets,mediaRule)){
+                            emptyMatchedSet.push(mediaRule);
+                            //rulesets = rulesets.item(mediaRule);
+                        }
+                    }
+                } else if($(element).is(ruleSet.selectorText) && !_contains(rulesets,ruleSet)){
+                    emptyMatchedSet.push(ruleSet);
+                    //rulesets = rulesets.item(ruleSet);
+                } 
+            }
+        }
+        return emptyMatchedSet;
+    }
+    
+    function _ruleSetAsArray(ruleSets){
+        var arr = [];
+        for(var i=0;ruleSets && i<ruleSets.length;i++){
+            arr.push(ruleSets[i]);
+        }
+        return arr;
+    }
+    
     function _findCSSRuleSets(lastSelectedElement,refresh){
         var ruleSets = document.getElementById('htmldesignerIframe').contentWindow.getMatchedCSSRules(lastSelectedElement);
+        var emptyRuleSets = _findEmptyMatchedRuleSets(ruleSets,lastSelectedElement);
+        ruleSets = emptyRuleSets.concat(_ruleSetAsArray(ruleSets));
         selectorOccurence = {};
         mediaOccurence = {};
         var ruleSet = _findSpecificRuleSet(ruleSets,lastSelectedElement);

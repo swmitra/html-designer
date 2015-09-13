@@ -88,7 +88,8 @@ define(function (require, exports, module) {
     $(document).on("click","#add-new-selector-to-media",function(event){
         var asynchPromise = new $.Deferred();
         var cuurentVal = ($("#css-target-select").val()).split('{sep}');
-        RuleSetCreator.sendRulesetToMedia(currentActiveMedia,lastSelectedRuleset.ruleSet.cssText);
+        //RuleSetCreator.sendRulesetToMedia(currentActiveMedia,lastSelectedRuleset.ruleSet.cssText);
+        RuleSetCreator.sendRulesetToMedia(currentActiveMedia,lastSelectedRuleset.ruleSet.selectorText+'{}');
         $("#html-design-editor").trigger( "refresh.element.selection" );
         var values;
         window.setTimeout(function(){

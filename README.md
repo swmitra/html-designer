@@ -1,5 +1,5 @@
 ====================
-What Next!
+Whats New!
 ====================
 
 Coming up in next release 
@@ -7,8 +7,35 @@ Coming up in next release
 * Responsive design tools ( Resolution breakpoints as media queries ) 
 * Docked Layout,css,attributes editor
 * Seamless Unit conversion by retaining current position 
+* Styles tools to link , unlink and edit style sheets 
+
+A screen shot with responsive controls enabled. 
 
 ![Responsive Controls](https://github.com/swmitra/html-designer-user-guide/blob/master/Getting%20Started/DesignerWithResponsiveControls.png)
+
+Context Menu ( @ Ruler Corner ) to activate responsive controls and fluid grid configuration.
+
+![Responsive Controls](https://github.com/swmitra/html-designer-user-guide/blob/master/Getting%20Started/ResponsiveControlToggle.png)
+
+Media Explorer to remove media queries 
+
+![Responsive Controls](https://github.com/swmitra/html-designer-user-guide/blob/master/Getting%20Started/MediaExplorer.png)
+
+Add Breakpoint function with min/max filter
+
+![Responsive Controls](https://github.com/swmitra/html-designer-user-guide/blob/master/Getting%20Started/AddMediaMenu.png)
+
+Fluid grid configuration for column width, gutter and content padding
+
+![Responsive Controls](https://github.com/swmitra/html-designer-user-guide/blob/master/Getting%20Started/FluidGridConfiguration.png)
+
+Color coded selector list to specify whether a particular selector is present in the current active breakpoint. The add ('+') control gets activated when the currently selected css selector definition is not present in the current breakpoint.
+
+![Responsive Controls](https://github.com/swmitra/html-designer-user-guide/blob/master/Getting%20Started/ColorCodedSelectorList.png)
+
+New Styles task shortcut to link, unlink and edit stylesheets. 
+
+![Responsive Controls](https://github.com/swmitra/html-designer-user-guide/blob/master/Getting%20Started/StylesTools.png)
 
 ====================
 html-designer
@@ -238,4 +265,6 @@ Versions
 * Fluid grid support with click to distribute feature
 * Nested distribution across grids
 * Docked Layout , CSS and Atrribute editor
+* Styles tools to link , unlink and edit style sheets 
+* Length unit conversion by retaining current position
 

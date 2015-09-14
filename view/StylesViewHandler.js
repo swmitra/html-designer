@@ -40,7 +40,7 @@ define(function (require, exports, module) {
          currentApplication = applicationKey;
     });
     
-    $(document).on('click',"#styles-editor-minimize",function(){
+    /*$(document).on('click',"#styles-editor-minimize",function(){
         $("#source-editor-maximize").click();
         ViewPresentationPresets.applyDesignAndSourceSplit();
         $("#styles-editor-container").addClass("minimizedCSSView");
@@ -48,6 +48,10 @@ define(function (require, exports, module) {
     
     $(document).on('click',"#styles-editor-maximize",function(){
         $("#styles-editor-container").removeClass("minimizedCSSView");
+    });*/
+    
+    $(document).on('click',"#styles-editor-close",function(){
+        $("#styles-editor-container").hide();
     });
 
     function _quitStylesView() {
@@ -63,8 +67,10 @@ define(function (require, exports, module) {
     }
     
     function _createStylesheetOptions(styleSheets){
-        $("#stylesheet-file-select").html("");
-        var styleSelect = $("#stylesheet-file-select")[0];
+        /*$("#stylesheet-file-select").html("");
+        var styleSelect = $("#stylesheet-file-select")[0];*/
+        $('.stylesheet-list').html('');
+        var styleSelect = $('.stylesheet-list');
         var newOption;
         
         var sheetCount, setCount, styleSheet;
@@ -75,7 +81,7 @@ define(function (require, exports, module) {
             newOption.value = styleSheet.href;
             newOption.title = styleSheet.href;
             styleModule[styleSheet.href] = styleSheet;
-            styleSelect.appendChild(newOption);
+            styleSelect.append(newOption);
         }        
     }
     
@@ -331,12 +337,14 @@ define(function (require, exports, module) {
             _showStylesView();
             $("#stylesheet-file-select").val(value);
             $("#stylesheet-file-select").trigger("change");
-            window.setTimeout(function(){
-                if(currentEditor){
-                    currentEditor.focus();
-                }
-                $( ".selectors-list li:nth-child("+index+")" ).click();
-            },100);
+            if(index){
+                window.setTimeout(function(){
+                    if(currentEditor){
+                        currentEditor.focus();
+                    }
+                    $( ".selectors-list li:nth-child("+index+")" ).click();
+                },100);
+            }
         }
     });
     

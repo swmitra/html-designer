@@ -26,7 +26,7 @@ define(function (require, exports, module) {
     var isFragmentModeOn = false;
     var HTMLDOMParser = null;
     
-    $(document).on('click',"#source-editor-minimize",function(){
+    /*$(document).on('click',"#source-editor-minimize",function(){
         $("#styles-editor-maximize").click();
         ViewPresentationPresets.applyDesignAndStylesSplit();
         $("#source-editor-container").addClass("minimizedSourceView");
@@ -34,6 +34,10 @@ define(function (require, exports, module) {
     
     $(document).on('click',"#source-editor-maximize",function(){
         $("#source-editor-container").removeClass("minimizedSourceView");
+    });*/
+    
+    $(document).on('click',"#source-editor-close",function(){
+        $("#source-editor-container").hide();
     });
     
     $(document).on('fragmentDesignModeon',"#html-design-editor",function(){

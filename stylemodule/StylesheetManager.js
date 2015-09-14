@@ -32,6 +32,30 @@ define(function (require, exports, module) {
         },1000);
     });
     
+    $(document).on("click",".edit-stylesheet",function(event){
+        var asynchPromise = new $.Deferred();
+        $("#html-design-editor").trigger("css-file-select-requested",[$('.stylesheet-list').val(),null]);
+        asynchPromise.resolve();
+        return asynchPromise.promise();
+    });
+    
+    $(document).on("click",".delete-stylesheet",function(event){
+        var asynchPromise = new $.Deferred();
+        var styleSheets = document.getElementById('htmldesignerIframe').contentWindow.document.styleSheets;
+        var sheetCount, setCount, styleSheet;
+        var toBeReturned = [];
+        for (sheetCount = 0; sheetCount < styleSheets.length ; sheetCount++) {
+            styleSheet = document.getElementById('htmldesignerIframe').contentWindow.document.styleSheets[sheetCount];
+            if(styleSheet.href === $('.stylesheet-list').val()){
+                $(styleSheet.ownerNode).remove();
+                $("#html-design-editor").trigger('html.element.updated');
+                $("#html-design-editor").trigger("design-dom-changed");
+            }
+        }
+        asynchPromise.resolve();
+        return asynchPromise.promise();
+    });
+    
     function _createNewStyleSheet(cssPath){
         var stylePath = cssPath.replace(ProjectManager.getProjectRoot()._path,"");
         var styleNode =  document.getElementById('htmldesignerIframe').contentWindow.document.createElement('LINK');
@@ -42,7 +66,7 @@ define(function (require, exports, module) {
         $("#html-design-editor").trigger("design-dom-changed");
     }
     
-    $(document).on("click","#create-new-stylesheet",function(){
+    $(document).on("click",".create-new-stylesheet",function(){
         FileSystem.showOpenDialog(false, false, "Please Select CSS file", '', null,
             function (err, files) {
                 if (!err) {

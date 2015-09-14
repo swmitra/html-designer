@@ -60,6 +60,7 @@ define(function (require, exports, module) {
     var KeyframeToolBoxTemplate = require("text!toolboxhtml/keyframeToolboxTemplate.html");
     var KeyframeTimelineToolBoxTemplate = require("text!toolboxhtml/keyframeTimelineToolboxTemplate.html").split("{{module_path}}").join(MODULE_PATH);
     var TextToolBoxTemplate = require("text!toolboxhtml/textToolboxTemplate.html");
+    var ToolShorcutsTemplate = require("text!toolboxhtml/toolShortcutTemplate.html");
 
     var $designview;
     var inDesignView = false;
@@ -262,6 +263,7 @@ define(function (require, exports, module) {
         //$("#info-overlay-plane").append(LayoutToolBoxTemplate);
         $("#info-overlay-plane").append(ShadowEditorTemplate);
         //$("#info-overlay-plane").append(CSSEditorTemplate);
+        $("#docked-toolbox").append(ToolShorcutsTemplate);
         $("#docked-toolbox").append(DockedLayoutTemplate);
         $("#docked-toolbox").append(CSSEditorTemplate);
         $(".eventListnerPane").append(ContextMenuTemplate);

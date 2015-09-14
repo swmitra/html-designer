@@ -251,7 +251,7 @@
 
 #grid-settings-container.toolboxDocked
 {
-    width: calc(100% - 395px) !important;
+    width: calc(100% - 393px) !important;
     left:348px;
 }
 

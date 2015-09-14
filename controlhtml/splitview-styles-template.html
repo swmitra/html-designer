@@ -84,20 +84,20 @@
 
     <div class="splitViewEditor property-toolbox horz-resizable right-resizer vert-resizable bottom-resizer" id="styles-editor-container" draggable="true">
         <div class="propertyToolboxHeader" style="display: block;">Styles
-            <a class ="close" id="styles-editor-close" style="display:none;">×</a>
-            <a class ="close" id="styles-editor-minimize" style="margin-top:-1px;display:block;">&minus;</a>
+            <a class ="close" id="styles-editor-close" style="">×</a>
+            <!--<a class ="close" id="styles-editor-minimize" style="margin-top:-1px;display:block;">&minus;</a>
             <a class ="close" id="styles-editor-maximize" style="margin-top:-1px;display:none;">&square;</a>
-            <span class="close" id="minimized-title" style="display:none;">Styles</span>
+            <span class="close" id="minimized-title" style="display:none;">Styles</span>-->
             <div class="toolboxHeaderBottom" style="display: block;"></div>
         </div>
         <div class="selectors-list-container" style="position:absolute;display: block;width:150px !important; height:calc(100% - 40px) !important;top:30px;;right:10px;z-index:10;background-color: rgb(74, 77, 78);overflow-y:auto;overflow-x:hidden;">
                 <ul class="selectors-list topcoat-list"></ul>
         </div>
-        <button class="topcoat-button" type="button" id="create-new-stylesheet" data-toggle="dropdown" style="text-shadow:none;height: 26px; padding-top: 0px !important; margin-top: -23px; position: absolute; left: 10px; top: 25px;">
+        <button class="topcoat-button create-new-stylesheet" type="button" id="create-new-stylesheet" data-toggle="dropdown" style="text-shadow:none;height: 26px; padding-top: 0px !important; margin-top: -23px; position: absolute; left: 10px; top: 25px;">
             New Stylesheet ...
         </button>
 
-        <select class="topcoat-select" id="stylesheet-file-select" style="padding-top: 0px; position: absolute; height: 24px; width: 150px; top: 2px !important; right: 10px !important;">
+        <select class="topcoat-select stylesheet-list" id="stylesheet-file-select" style="padding-top: 0px; position: absolute; height: 24px; width: 150px; top: 2px !important; right: 10px !important;">
         </select>
         <div id="styles-inline-editor" style=""></div>
 

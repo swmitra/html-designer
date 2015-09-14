@@ -86,16 +86,16 @@ define(function (require, exports, module) {
         EditorManager.getCurrentFullEditor().setVisible(false, false);
         $designview.show();
         _showRuler();
-        if (currentDoc != DocumentManager.getCurrentDocument() && CommonUtils.isValidMarkupFile(FileUtils.getFileExtension(DocumentManager.getCurrentDocument().file._path))) {
+        if (/*currentDoc != DocumentManager.getCurrentDocument() &&*/ CommonUtils.isValidMarkupFile(FileUtils.getFileExtension(DocumentManager.getCurrentDocument().file._path))) {
             $("#htmldesignerIframe")[0].src = DocumentManager.getCurrentDocument().file._path;
             currentDoc = DocumentManager.getCurrentDocument();
             $('#htmldesignerIframe').off('ready', _showHTMLDesign);
             $('#htmldesignerIframe').on('ready', _showHTMLDesign);
             $("#html-design-editor").trigger("design-dom-changed");
-        } else if(currentDoc === DocumentManager.getCurrentDocument() && CommonUtils.isValidMarkupFile(FileUtils.getFileExtension(DocumentManager.getCurrentDocument().file._path))){
+        } /*else if(currentDoc === DocumentManager.getCurrentDocument() && CommonUtils.isValidMarkupFile(FileUtils.getFileExtension(DocumentManager.getCurrentDocument().file._path))){
             _showHTMLDesign();
             $("#html-design-editor").trigger("design-dom-changed");
-        }
+        }*/
         $("#html-design-editor").trigger("design-editor-shown");
         $("#html-design-editor").trigger("groupdeselect.all");
     }

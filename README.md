@@ -2,8 +2,9 @@
 Whats New!
 ====================
 
-Coming up in next release 
-* Fluid Grid support with snap to grid feature 
+In 2.0.0 release 
+
+* Fluid Grid support with click to distribute feature 
 * Responsive design tools ( Resolution breakpoints as media queries ) 
 * Docked Layout,css,attributes editor
 * Seamless Unit conversion by retaining current position 

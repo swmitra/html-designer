@@ -269,3 +269,5 @@ Versions
 * Styles tools to link , unlink and edit style sheets 
 * Length unit conversion by retaining current position
 
+**2.0.1**
+* Stylesheet list refresh button in tools shorcut

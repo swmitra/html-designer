@@ -48,10 +48,13 @@ define(function (require, exports, module) {
         style = lastSelectedRuleset.css($(".activeBorder").data('key')+'-style');
         
         $("#element-border-color").val(color);
-        $("#element-border-color").colorpicker('setValue', color);
         $("#element-border-style").val(style);
         $("#element-border-size").val(parseInt(width));
     }
+    
+    $(document).on('focus',"#element-border-color",function(event){
+        $("#element-border-color").colorpicker('setValue', $("#element-border-color").val());
+    });
     
     function _applyBorderColor(){
         var borderKey = $(".activeBorder").data('key');

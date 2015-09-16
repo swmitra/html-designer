@@ -3,7 +3,7 @@
     "title": "HTML Designer for Brackets",
     "description": "NOW WITH RESPONSIVE DESIGN TOOLS (BETA)! Design and customize web ui with HTML and CSS. Now with taggable Design snippet/bookmark support.",
     "homepage": "https://github.com/swmitra/html-designer",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "author": "Swagatam Mitra <swagatammitra@gmail.com>",
     "license": "MIT",
     "keywords":["HTML","CSS","Designer","Illustration","Design Editor"],

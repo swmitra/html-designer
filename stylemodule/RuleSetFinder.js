@@ -174,6 +174,15 @@ define(function (require, exports, module) {
         
     }
     
+    function _isApplied(element,selector){
+        var applied = false;
+        try {
+            applied = $(element).is(selector);
+        } catch(err) {
+        }
+        return applied;
+    }
+    
     function _findEmptyMatchedRuleSets(rulesets,element){
         var emptyMatchedSet = [];
         var elementID = element.id;
@@ -189,12 +198,12 @@ define(function (require, exports, module) {
                     mediaRules = ruleSet.cssRules;
                     for (ruleCount = 0; ruleCount < mediaRules.length; ruleCount++) {
                         mediaRule = mediaRules[ruleCount];
-                        if($(element).is(mediaRule.selectorText) && !_contains(rulesets,mediaRule)){
+                        if(_isApplied(element,mediaRule.selectorText) && !_contains(rulesets,mediaRule)){
                             emptyMatchedSet.push(mediaRule);
                             //rulesets = rulesets.item(mediaRule);
                         }
                     }
-                } else if($(element).is(ruleSet.selectorText) && !_contains(rulesets,ruleSet)){
+                } else if(_isApplied(element,ruleSet.selectorText) && !_contains(rulesets,ruleSet)){
                     emptyMatchedSet.push(ruleSet);
                     //rulesets = rulesets.item(ruleSet);
                 } 

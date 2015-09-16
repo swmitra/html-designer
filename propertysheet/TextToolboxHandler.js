@@ -167,6 +167,14 @@ define(function (require, exports, module) {
          lastSelectedRuleset.persist();
      });
     
+    $(document).on('focus','#text-color-input',function(event){
+        $('#text-color-input').colorpicker('setValue', $('#text-color-input').val());
+    });
+    
+    $(document).on('focus','#text-bg-color-input',function(event){
+        $('#text-bg-color-input').colorpicker('setValue', $('#text-bg-color-input').val());
+    });
+    
      AppInit.appReady(function () {
         $('#text-color-input').colorpicker().on('changeColor.colorpicker', function(event){
           _updateTextColor(event.color.toHex());

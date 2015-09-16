@@ -271,3 +271,8 @@ Versions
 
 **2.0.1**
 * Stylesheet list refresh button in tools shorcut
+
+**2.0.2**
+* Fix for addition of border-color property on selection
+* Colorpicker update on text color sync
+* Selection rectangle fix for some edge cases

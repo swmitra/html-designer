@@ -35,6 +35,7 @@ define(function (require, exports, module) {
     function getOffset( target ) {
         var _x = 0;
         var _y = 0;
+        var targetParam = target;
         var _brdrTop,_brdrLeft;
         while( target && !isNaN( target.offsetLeft ) && !isNaN( target.offsetTop ) ) {
             _x += target.offsetLeft - target.scrollLeft;
@@ -47,25 +48,34 @@ define(function (require, exports, module) {
                 _y += _brdrTop; 
             }
         }
-        return { top: _y, left: _x };
+        return { top: _y, left: _x, width: $(targetParam).outerWidth(false), height: $(targetParam).outerHeight(false) };
     }
     
     function _showControls(element,refresh){
-        var offset = getOffset(element);
-        var width = $(element).outerWidth(false),
-            height = $(element).outerHeight(false);
+        var transform = $(element).css('transform');
+        var offset = null;
+        if(transform && transform!== 'none'){
+            offset = getOffset(element);
+        } else {
+            offset = element.getBoundingClientRect();
+        }
+        //var offset = element.getBoundingClientRect();//getOffset(element);
+        /*var width = $(element).outerWidth(false),
+            height = $(element).outerHeight(false);*/
                 
         $("#selection-outline").css("top",offset.top+23);
         $("#selection-outline").css("left",offset.left+23);
-        $("#selection-outline").css("width",width - 2);
-        $("#selection-outline").css("height",height - 2);
+        /*$("#selection-outline").css("width",width - 2);
+        $("#selection-outline").css("height",height - 2);*/
+        $("#selection-outline").css("width",offset.width - 2);
+        $("#selection-outline").css("height",offset.height - 2);
         
         $("#selection-outline").css('transform',$(element).css('transform'));
         $("#selection-outline").css('transform-origin',$(element).css('transform-origin'));
         
         lastSelectedElement = element;
         //$(".controlDiv").show();
-        $("#html-design-editor").trigger("selection-area-computed",[offset,width,height]);
+        //$("#html-design-editor").trigger("selection-area-computed",[offset,width,height]);
         if(refresh){
             $("#html-design-editor").trigger("element.selection.refreshed",[element]);
         } else {

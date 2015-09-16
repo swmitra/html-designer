@@ -32,9 +32,13 @@ define(function (require, exports, module) {
         },1000);
     });
     
+    $(document).on("click",".refresh-stylesheet",function(){
+        $("#html-design-editor").trigger("stylesheets-in-dom",[_findStyleSheets()]);
+    });
+    
     $(document).on("click",".edit-stylesheet",function(event){
         var asynchPromise = new $.Deferred();
-        $("#html-design-editor").trigger("css-file-select-requested",[$('.stylesheet-list').val(),null]);
+        $("#html-design-editor").trigger("css-file-select-requested",[$('.stylesheet-list.shortcut').val(),null]);
         asynchPromise.resolve();
         return asynchPromise.promise();
     });

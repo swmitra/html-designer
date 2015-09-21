@@ -73,7 +73,7 @@
     width: 100% !important;
     height:100% !important;
     background: rgba(97, 99, 103, 0.24);
-    z-index:11;
+    z-index:18;
     pointer-events: all;
     display:none;
 }

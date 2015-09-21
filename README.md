@@ -276,3 +276,6 @@ Versions
 * Fix for addition of border-color property on selection
 * Colorpicker update on text color sync
 * Selection rectangle fix for some edge cases
+
+**2.0.3**
+* Minor z-order css fix to arrange designers modal plane on top of all controls

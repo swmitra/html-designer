@@ -68,6 +68,7 @@ define(function (require, exports, module) {
         currentStyleSheets = document.getElementById('htmldesignerIframe').contentWindow.document.styleSheets;
         _findMediaRules();
         $("#media-insert-menu").hide();
+        $("#html-design-editor").trigger("refresh.element.selection");
         event.stopPropagation();
         event.preventDefault();
     });

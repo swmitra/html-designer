@@ -279,3 +279,6 @@ Versions
 
 **2.0.3**
 * Minor z-order css fix to arrange designers modal plane on top of all controls
+
+**2.0.4**
+* Bug fix to refresh "add to media" button for current selector beside media label when a new media is being inserted

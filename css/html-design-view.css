@@ -278,10 +278,6 @@
     display:none !important;
 }
 
-#docked-toolbox div {
-    opacity:0.8;
-}
-
 #docked-toolbox *.topcoat-button{
     margin:0px;
 }

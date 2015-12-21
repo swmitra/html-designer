@@ -285,3 +285,6 @@ Versions
 
 **2.0.5**
 * Minor UI change - Docked toolbar opacity change
+
+**2.0.6**
+* Removing Online user tracking client

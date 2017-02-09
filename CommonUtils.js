@@ -14,6 +14,7 @@ define(function (require, exports, module) {
         switch(extn){
             case 'html':
             case 'shtml':
+            case 'xhtml':
             case 'htm': valid = true;
         }
         
